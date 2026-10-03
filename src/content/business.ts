@@ -33,7 +33,7 @@ export const business = {
 
   driver: {
     name: unknown('Prénom (et nom) du chauffeur') as Field<string>,
-    /** Path under src/assets/photos/, authentic photo only. */
+    /** Path under public/photos/ (e.g. '/photos/chauffeur.webp'), authentic photo only. */
     photo: unknown('Photo authentique du chauffeur') as Field<{ src: string; alt: L10n }>,
     bio: unknown('Présentation rédigée ou validée par le chauffeur') as Field<L10n>,
   },
@@ -62,7 +62,7 @@ export const vehicle = {
   /** Drives the passengers field limit in the quote form and the server schema. */
   maxPassengers: unknown('Nombre maximum de passagers transportés') as Field<number>,
   luggage: unknown('Capacité bagages (nombre de valises)') as Field<L10n>,
-  /** Real photos under src/assets/photos/ replace the illustration. */
+  /** Real photos under public/photos/ replace the illustration (see docs/ASSETS.md). */
   photos: unknown('Photos réelles du véhicule (extérieur, intérieur)') as Field<string[]>,
 };
 

@@ -124,7 +124,7 @@ function enhance(form: HTMLFormElement) {
       if (Object.keys(errors).length) return focusFirst(errors, STEP1);
       const title = data.service ? cfg.serviceTitles?.[data.service] : '';
       const dt = new Intl.DateTimeFormat(cfg.lang === 'fr' ? 'fr-FR' : 'en-GB', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(`${data.date}T00:00:00Z`));
-      recapBody.textContent = [`${data.departure} → ${data.arrival}`, `${dt}, ${data.time} (Europe/Paris)`, `${data.passengers} ${cfg.labels?.recapPassengers}`, title].filter(Boolean).join(' · ');
+      recapBody.textContent = [`${data.departure} → ${data.arrival}`, `${dt}, ${data.time} (Europe/Paris)`, `${data.passengers} ${data.passengers === '1' ? cfg.labels?.recapPassenger : cfg.labels?.recapPassengers}`, title].filter(Boolean).join(' · ');
       go(2);
     });
     $<HTMLButtonElement>('[data-back]')!.addEventListener('click', () => go(1));

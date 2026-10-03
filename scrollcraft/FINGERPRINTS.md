@@ -28,6 +28,7 @@ changes only grammar and world will fail it.
 
 | Build | Grammar | Nav treatment | Hero device | Act-sequence shape | Close pattern | Signature move | World | Port |
 |---|---|---|---|---|---|---|---|---|
+| vtc-cannes (2026-10-03) | « Arrivée puis dossier » : une scène épinglée courte, puis chapitres en flux sur fonds tranchés clair/sombre | Deux pastilles vitrées flottantes (marque à gauche, navigation + action à droite), menu `<details>` sur mobile, barre d'action mobile | `pin` 1,6 + 4 plans `parallax` + véhicule roulant (roues liées au déplacement par `--sc-p`) | pin > flow (sélecteur) > flow+reveal > flow > flow > flow > flow ; 7,2 vh à 1440 | Invitation finale sur fond surface, phrase + bouton, rappel « rien n'est confirmé avant l'échange » | Sélecteur de trajets qui redessine un itinéraire abstrait et transmet le seul choix au devis | Illustration vectorielle crépuscule ardoise (provisoire, photos à venir) | 4321 |
 
 *(empty: your first build has nothing to clear, so build whatever the interview
 points at. From the second onwards, this table is the constraint.)*
@@ -41,7 +42,9 @@ reusing: a grammar, a nav treatment, a close pattern, a signature move, an
 act-count-and-length band. The shared columns are what the next build inherits
 as a constraint, so writing them down is the whole point.
 
-Nothing is taken yet.
+- Grammaire « Arrivée puis dossier » (vtc-cannes).
+- Signature : itinéraire abstrait redessiné par un choix de service, transmis au formulaire (vtc-cannes).
+- Hero « véhicule qui roule » : translation + rotation des roues proportionnelle (vtc-cannes).
 
 ---
 

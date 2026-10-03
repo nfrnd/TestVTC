@@ -1,0 +1,290 @@
+[
+  {
+    "viewport": "1440x900",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.37
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0,
+    "element": ".hero h1",
+    "worstContrast": 11.28
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 9.01
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 11.48
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.21
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0.5,
+    "element": ".hero h1",
+    "worstContrast": 10.32
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 8.24
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 11.48
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.15
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 1,
+    "element": ".hero h1",
+    "worstContrast": 9.24
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 7.77
+  },
+  {
+    "viewport": "1440x900",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 11.48
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.64
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0,
+    "element": ".hero h1",
+    "worstContrast": 15.9
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 13.32
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 11.54
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.54
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0.5,
+    "element": ".hero h1",
+    "worstContrast": 15.78
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 13.2
+  },
+  {
+    "viewport": "390x844",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 11.54
+  },
+  {
+    "viewport": "390x844",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 12.67
+  },
+  {
+    "viewport": "390x844",
+    "progress": 1,
+    "element": ".hero h1",
+    "worstContrast": 15.74
+  },
+  {
+    "viewport": "390x844",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 13.01
+  },
+  {
+    "viewport": "390x844",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 11.48
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.64
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0,
+    "element": ".hero h1",
+    "worstContrast": 15.75
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 13.04
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 10.44
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.63
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0.5,
+    "element": ".hero h1",
+    "worstContrast": 15.6
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 12.31
+  },
+  {
+    "viewport": "360x640",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 10.44
+  },
+  {
+    "viewport": "360x640",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.62
+  },
+  {
+    "viewport": "360x640",
+    "progress": 1,
+    "element": ".hero h1",
+    "worstContrast": 15.45
+  },
+  {
+    "viewport": "360x640",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 11.99
+  },
+  {
+    "viewport": "360x640",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 10.44
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.33
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0,
+    "element": ".hero h1",
+    "worstContrast": 12.1
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 8.15
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 11.54
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.15
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0.5,
+    "element": ".hero h1",
+    "worstContrast": 10.78
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 7.49
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 11.54
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.01
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 1,
+    "element": ".hero h1",
+    "worstContrast": 9.44
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 6.73
+  },
+  {
+    "viewport": "1024x768",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 11.48
+  }
+]

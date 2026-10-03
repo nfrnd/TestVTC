@@ -77,7 +77,7 @@ function wheel(cx, id, env) {
   const spokes = [];
   for (let i = 0; i < 5; i++) {
     const a = (i * 72 * Math.PI) / 180;
-    const a1 = a - 0.2, a2 = a + 0.2, a3 = a + 0.42;
+    const a1 = a - 0.2, a3 = a + 0.42;
     const pt = (ang, rad) => `${(Math.cos(ang) * rad).toFixed(1)} ${(Math.sin(ang) * rad).toFixed(1)}`;
     // a turbine-like blade: wide at the rim, narrow at the hub, swept
     spokes.push(

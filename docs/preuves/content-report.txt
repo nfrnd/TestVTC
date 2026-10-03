@@ -1,0 +1,52 @@
+[BLOQUANT] business.name : Nom commercial
+[BLOQUANT] business.phone : Numéro de téléphone professionnel
+[BLOQUANT] business.email : Adresse email publique
+[à compléter] business.whatsapp : Utilisation de WhatsApp (oui/non) et numéro
+[à compléter] business.hours : Horaires / disponibilités
+[à compléter] business.languages : Langues parlées
+[à compléter] business.serviceArea : Zone desservie et destinations au-delà de Cannes
+[à compléter] business.googleBusinessUrl : Lien fiche Google / carte (facultatif)
+[à compléter] business.driver.name : Prénom (et nom) du chauffeur
+[à compléter] business.driver.photo : Photo authentique du chauffeur
+[à compléter] business.driver.bio : Présentation rédigée ou validée par le chauffeur
+[BLOQUANT] business.legal.legalName : Nom / raison sociale de l’exploitant
+[BLOQUANT] business.legal.legalForm : Statut juridique (EI, SASU…)
+[BLOQUANT] business.legal.siret : SIRET
+[BLOQUANT] business.legal.vtcRegistry : Numéro d’inscription au registre des exploitants VTC
+[BLOQUANT] business.legal.address : Adresse professionnelle (ou domiciliation)
+[à compléter] business.legal.vat : N° TVA intracommunautaire ou mention de franchise
+[BLOQUANT] business.legal.publicationDirector : Directeur / directrice de la publication
+[BLOQUANT] business.legal.mediator : Médiateur de la consommation (nom et site)
+[à compléter] business.legal.insurance : Assurance RC professionnelle (assureur, couverture)
+[BLOQUANT] business.legal.host : Hébergeur (nom, adresse, téléphone)
+[BLOQUANT] business.legal.emailProvider : Prestataire d’envoi des emails (ex. Resend) et localisation des données
+[BLOQUANT] business.legal.retention : Durée de conservation des demandes, validée par le responsable
+[à compléter] vehicle.generation : Génération / année de la Model 3
+[à compléter] vehicle.maxPassengers : Nombre maximum de passagers transportés
+[à compléter] vehicle.luggage : Capacité bagages (nombre de valises)
+[à compléter] vehicle.photos : Photos réelles du véhicule (extérieur, intérieur)
+[BLOQUANT] services.transfert : Prestation « Aéroport ou gare » à confirmer (ou à retirer)
+[à compléter] services.transfert.price : Prix du transfert
+[à compléter] services.transfert.conditions : Conditions (attente incluse, suivi du vol…)
+[BLOQUANT] services.local : Prestation « Trajets à Cannes » à confirmer (ou à retirer)
+[à compléter] services.local.price : Prix des trajets locaux
+[à compléter] services.local.conditions : Conditions des trajets locaux
+[BLOQUANT] services.affaires : Prestation « Déplacements professionnels » à confirmer (ou à retirer)
+[à compléter] services.affaires.price : Prix des déplacements professionnels
+[à compléter] services.affaires.conditions : Conditions (facturation entreprise…)
+[BLOQUANT] services.evenement : Prestation « Événements » à confirmer (ou à retirer)
+[à compléter] services.evenement.price : Prix des prestations événementielles
+[à compléter] services.evenement.conditions : Conditions événements
+[BLOQUANT] services.disposition : Prestation « Mise à disposition » à confirmer (ou à retirer)
+[à compléter] services.disposition.price : Tarif horaire / durée minimale
+[à compléter] services.disposition.conditions : Conditions de mise à disposition
+[à compléter] pricingConditions.attente : Politique d’attente
+[à compléter] pricingConditions.peages : Péages inclus ou non
+[à compléter] pricingConditions.stationnement : Frais de stationnement
+[à compléter] pricingConditions.horaires : Majorations éventuelles
+[à compléter] pricingConditions.paiement : Moyens de paiement acceptés
+[à compléter] pricingConditions.annulation : Conditions d’annulation
+[à compléter] faq.siege-enfant : Réponse FAQ « Un siège enfant est-il disponible ? » à documenter
+[à compléter] faq.langues : Réponse FAQ « Quelles langues parle le chauffeur ? » à documenter
+
+50 éléments, dont 18 bloquants pour la production.

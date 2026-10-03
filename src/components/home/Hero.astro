@@ -140,11 +140,11 @@ const wa = whatsapp();
 
   /* Phones: recomposed, not shrunk. Copy on top, the whole car across the road. */
   @media (max-width: 760px) {
-    .hero { --car-w: 94vw; --travel: -9%; --wheel-turn: -74deg; }
+    .hero { --car-w: 88vw; --travel: -9%; --wheel-turn: -74deg; }
     .hero__stage { min-height: 36rem; }
     .hero__plane img { object-position: 50% 100%; }
     .hero__ground { height: 24%; }
-    .hero__car { right: auto; left: 6vw; bottom: 40%; }
+    .hero__car { right: auto; left: 10vw; bottom: 40%; } /* whole car on screen from start (10-98vw) to end (2-90vw) */
     .hero__scrim { background: linear-gradient(180deg, rgb(17 25 29 / 0.82) 0%, rgb(17 25 29 / 0.5) 42%, transparent 62%); }
     .hero__front { width: 58vw; top: -9%; right: -6%; opacity: 0.9; }
     .hero__copy { inset: calc(var(--header-h) + 0.5rem) 0 auto 0; display: block; }

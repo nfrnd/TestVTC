@@ -1,0 +1,26 @@
+  ok   hero: activity, city, car and primary action usable on first paint
+  ok   hero: wheels roll in proportion to travel (no sliding)
+  ok   services: choosing a journey updates summary and quote link (mouse + keyboard)
+  ok   quote: ?prestation preselects only the journey type
+  ok   quote: step errors near fields, recap kept when going back
+  ok   quote: valid submission says "simulated" in test mode; double click sends once
+  ok   quote: confirmed sending shows the exact required message (provider mocked)
+  ok   quote: server-side errors are mapped to fields and step 1 reopens
+  ok   quote: transport failure keeps fields and re-enables the button
+  ok   quote: network failure has its own message
+  ok   contact: short form submits (test transport)
+  ok   no JavaScript: content, selector, FAQ and form posting all work
+  ok   reduced motion: hero not pinned, nothing moves, content complete
+  ok   hero media unavailable: text and action still there, no script error
+  ok   mobile: menu opens and closes with Escape; language switch goes to equivalent page
+  ok   mobile action bar: hidden over the hero, shown after it, never covering content
+  ok   layout 360px: no horizontal overflow, targets >= 44px
+  ok   layout 390px: no horizontal overflow, targets >= 44px
+  ok   layout 768px: no horizontal overflow, targets >= 44px
+  ok   layout 1440px: no horizontal overflow, targets >= 44px
+  ok   keyboard: skip link then visible focus ring on first controls
+  ok   SEO: titles, canonical, hreflang, robots (preview noindex), sitemap pairs translations
+  ok   no third-party requests and no cookies/storage on any page
+  ok   404 page served with status 404
+
+24/24 passed

@@ -1,5 +1,5 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "scrollcraft", "node_modules"]
+  "exclude": ["dist", "scrollcraft", "node_modules", "lab", "src/vendor"]
 }

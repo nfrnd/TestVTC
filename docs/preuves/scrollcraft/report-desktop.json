@@ -1,0 +1,343 @@
+{
+  "doc": {
+    "height": 6451,
+    "vh": 900,
+    "acts": [
+      "pin",
+      "flow"
+    ],
+    "world": null
+  },
+  "report": [
+    {
+      "i": 0,
+      "y": 11,
+      "pct": 0,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        0
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 1,
+      "y": 114,
+      "pct": 2,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        0
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 2,
+      "y": 218,
+      "pct": 4,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        0
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 3,
+      "y": 322,
+      "pct": 6,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "Vous décrivez le trajet. Le chauffeur vo",
+          "dir": "light-on-dark",
+          "worst": 14.21,
+          "mean": 14.89
+        }
+      ],
+      "cues": [
+        {
+          "t": "Vous décrivez le trajet. Le chauffeur vous rép",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        0
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 4,
+      "y": 426,
+      "pct": 8,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "Vous décrivez le trajet. Le chauffeur vo",
+          "dir": "light-on-dark",
+          "worst": 13.86,
+          "mean": 14.65
+        }
+      ],
+      "cues": [
+        {
+          "t": "Vous décrivez le trajet. Le chauffeur vous rép",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        0
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 5,
+      "y": 529,
+      "pct": 10,
+      "settled": true,
+      "contrast": [],
+      "cues": [
+        {
+          "t": "Vous décrivez le trajet. Le chauffeur vous rép",
+          "o": 0.63
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        0
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 6,
+      "y": 1726,
+      "pct": 31,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 100% 0px 0px)"
+      ],
+      "act": "-",
+      "stages": [
+        -1186
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 7,
+      "y": 2064,
+      "pct": 37,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 83.73% 0px 0px)"
+      ],
+      "act": "-",
+      "stages": [
+        -1524
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 8,
+      "y": 2402,
+      "pct": 43,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 11.52% 0px 0px)"
+      ],
+      "act": "flow",
+      "stages": [
+        -1862
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 9,
+      "y": 2740,
+      "pct": 49,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0% 0px 0px)"
+      ],
+      "act": "flow",
+      "stages": [
+        -2200
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 10,
+      "y": 3079,
+      "pct": 55,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0% 0px 0px)"
+      ],
+      "act": "-",
+      "stages": [
+        -2539
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 11,
+      "y": 3417,
+      "pct": 62,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0% 0px 0px)"
+      ],
+      "act": "-",
+      "stages": [
+        -2877
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 12,
+      "y": 5551,
+      "pct": 100,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0% 0px 0px)"
+      ],
+      "act": "-",
+      "stages": [
+        -5011
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    }
+  ],
+  "consoleErrors": [],
+  "failed": []
+}

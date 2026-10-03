@@ -1,9 +1,10 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 // One labelled field with its hint and error slot (aria-describedby wired).
 interface Props {
   name: string;
   label: string;
-  type?: string;
+  type?: HTMLAttributes<'input'>['type'];
   hint?: string;
   required?: boolean;
   optional?: string;

@@ -1,0 +1,31 @@
+20:24:52 [@astrojs/node] Enabling sessions with filesystem storage
+20:24:52 [vite] Re-optimizing dependencies because lockfile has changed
+20:24:53 [types] Generated 631ms
+20:24:53 [vtc-readiness] Mode production. Données à confirmer : 50 (dont 18 bloquantes pour la production).
+20:24:53 [ERROR] [vtc-readiness] An unhandled error occurred while running the "astro:build:start" hook
+Build de production refusé. À compléter dans src/content/business.ts ou l'environnement :
+ - business.name : Nom commercial
+ - business.phone : Numéro de téléphone professionnel
+ - business.email : Adresse email publique
+ - business.legal.legalName : Nom / raison sociale de l’exploitant
+ - business.legal.legalForm : Statut juridique (EI, SASU…)
+ - business.legal.siret : SIRET
+ - business.legal.vtcRegistry : Numéro d’inscription au registre des exploitants VTC
+ - business.legal.address : Adresse professionnelle (ou domiciliation)
+ - business.legal.publicationDirector : Directeur / directrice de la publication
+ - business.legal.mediator : Médiateur de la consommation (nom et site)
+ - business.legal.host : Hébergeur (nom, adresse, téléphone)
+ - business.legal.emailProvider : Prestataire d’envoi des emails (ex. Resend) et localisation des données
+ - business.legal.retention : Durée de conservation des demandes, validée par le responsable
+ - services.transfert : Prestation « Aéroport ou gare » à confirmer (ou à retirer)
+ - services.local : Prestation « Trajets à Cannes » à confirmer (ou à retirer)
+ - services.affaires : Prestation « Déplacements professionnels » à confirmer (ou à retirer)
+ - services.evenement : Prestation « Événements » à confirmer (ou à retirer)
+ - services.disposition : Prestation « Mise à disposition » à confirmer (ou à retirer)
+  Stack trace:
+    at astro:build:start (/home/user/TestVTC/src/content/readiness-integration.ts:20:11)
+    at withTakingALongTimeMsg (file:///home/user/TestVTC/node_modules/astro/dist/integrations/hooks.js:34:18)
+    at runHookBuildStart (file:///home/user/TestVTC/node_modules/astro/dist/integrations/hooks.js:388:11)
+    at async AstroBuilder.run (file:///home/user/TestVTC/node_modules/astro/dist/core/build/index.js:202:7)
+    at async build (file:///home/user/TestVTC/node_modules/astro/dist/cli/build/index.js:29:3)
+exit=1

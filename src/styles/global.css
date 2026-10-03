@@ -149,7 +149,7 @@ h1, h2, h3 { margin: 0; font-family: var(--sc-font-display); font-weight: 600; l
   .btn--ghost:hover:not([disabled]) { --b-bd: var(--sc-ink); background: color-mix(in oklab, var(--sc-ink) 8%, transparent); }
 }
 .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-.text-link { color: var(--focus); font-weight: 600; }
+.text-link { color: var(--focus); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; }
 
 /* ---------------------------------------------------------------- header */
 .site-header {
@@ -165,7 +165,8 @@ h1, h2, h3 { margin: 0; font-family: var(--sc-font-display); font-weight: 600; l
 }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--sc-ink); font-family: var(--sc-font-display); font-weight: 600; letter-spacing: -0.01em; min-height: 44px; padding-inline: 0.25rem; }
 .brand svg { width: 2rem; height: 1.25rem; flex: none; }
-.brand__name { font-size: 1.02rem; line-height: 1.1; }
+.brand__name { font-size: 1.02rem; line-height: 1.1; white-space: nowrap; }
+@media (max-width: 420px) { .brand__name { font-size: 0.9rem; } .brand.glass { padding-inline: 0.5rem 0.7rem; } .brand svg { width: 1.6rem; } }
 .glass {
   background: rgb(17 25 29 / 0.82);
   -webkit-backdrop-filter: blur(14px) saturate(1.25);

@@ -1,0 +1,10 @@
+# Read by Netlify (and similar hosts). With the Node server, set the same
+# headers in the reverse proxy (see docs/DEPLOIEMENT.md).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

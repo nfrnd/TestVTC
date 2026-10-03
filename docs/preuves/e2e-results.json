@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-03T20:30:32.485Z",
+  "base": "http://127.0.0.1:4399",
+  "browser": "Chromium (headless, playwright-core)",
+  "total": 24,
+  "failed": 0,
+  "results": [
+    {
+      "name": "hero: activity, city, car and primary action usable on first paint",
+      "ok": true,
+      "ms": 244,
+      "detail": null
+    },
+    {
+      "name": "hero: wheels roll in proportion to travel (no sliding)",
+      "ok": true,
+      "ms": 1072,
+      "detail": {
+        "start": {
+          "car": "matrix(1, 0, 0, 1, 0, 0)",
+          "wheel": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        "mid": {
+          "car": "matrix(1.0175, 0, 0, 1.0175, -52.4158, 0)",
+          "wheel": "matrix(0.5373, -0.843391, 0.843391, 0.5373, 0, 0)"
+        }
+      }
+    },
+    {
+      "name": "services: choosing a journey updates summary and quote link (mouse + keyboard)",
+      "ok": true,
+      "ms": 302,
+      "detail": null
+    },
+    {
+      "name": "quote: ?prestation preselects only the journey type",
+      "ok": true,
+      "ms": 225,
+      "detail": null
+    },
+    {
+      "name": "quote: step errors near fields, recap kept when going back",
+      "ok": true,
+      "ms": 1712,
+      "detail": null
+    },
+    {
+      "name": "quote: valid submission says \"simulated\" in test mode; double click sends once",
+      "ok": true,
+      "ms": 1700,
+      "detail": null
+    },
+    {
+      "name": "quote: confirmed sending shows the exact required message (provider mocked)",
+      "ok": true,
+      "ms": 1631,
+      "detail": null
+    },
+    {
+      "name": "quote: server-side errors are mapped to fields and step 1 reopens",
+      "ok": true,
+      "ms": 1591,
+      "detail": null
+    },
+    {
+      "name": "quote: transport failure keeps fields and re-enables the button",
+      "ok": true,
+      "ms": 1663,
+      "detail": null
+    },
+    {
+      "name": "quote: network failure has its own message",
+      "ok": true,
+      "ms": 1669,
+      "detail": null
+    },
+    {
+      "name": "contact: short form submits (test transport)",
+      "ok": true,
+      "ms": 682,
+      "detail": null
+    },
+    {
+      "name": "no JavaScript: content, selector, FAQ and form posting all work",
+      "ok": true,
+      "ms": 30220,
+      "detail": null
+    },
+    {
+      "name": "reduced motion: hero not pinned, nothing moves, content complete",
+      "ok": true,
+      "ms": 635,
+      "detail": null
+    },
+    {
+      "name": "hero media unavailable: text and action still there, no script error",
+      "ok": true,
+      "ms": 135,
+      "detail": null
+    },
+    {
+      "name": "mobile: menu opens and closes with Escape; language switch goes to equivalent page",
+      "ok": true,
+      "ms": 308,
+      "detail": null
+    },
+    {
+      "name": "mobile action bar: hidden over the hero, shown after it, never covering content",
+      "ok": true,
+      "ms": 1199,
+      "detail": null
+    },
+    {
+      "name": "layout 360px: no horizontal overflow, targets >= 44px",
+      "ok": true,
+      "ms": 5694,
+      "detail": null
+    },
+    {
+      "name": "layout 390px: no horizontal overflow, targets >= 44px",
+      "ok": true,
+      "ms": 5692,
+      "detail": null
+    },
+    {
+      "name": "layout 768px: no horizontal overflow, targets >= 44px",
+      "ok": true,
+      "ms": 5699,
+      "detail": null
+    },
+    {
+      "name": "layout 1440px: no horizontal overflow, targets >= 44px",
+      "ok": true,
+      "ms": 5701,
+      "detail": null
+    },
+    {
+      "name": "keyboard: skip link then visible focus ring on first controls",
+      "ok": true,
+      "ms": 149,
+      "detail": [
+        "A:solid/true",
+        "A:solid/false",
+        "A:solid/false",
+        "A:solid/false",
+        "A:solid/false",
+        "INPUT:none/true",
+        "INPUT:none/true",
+        "INPUT:none/true"
+      ]
+    },
+    {
+      "name": "SEO: titles, canonical, hreflang, robots (preview noindex), sitemap pairs translations",
+      "ok": true,
+      "ms": 670,
+      "detail": null
+    },
+    {
+      "name": "no third-party requests and no cookies/storage on any page",
+      "ok": true,
+      "ms": 5761,
+      "detail": null
+    },
+    {
+      "name": "404 page served with status 404",
+      "ok": true,
+      "ms": 83,
+      "detail": null
+    }
+  ]
+}
