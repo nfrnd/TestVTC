@@ -1,0 +1,387 @@
+AZURÉA PRIVÉ — DOSSIER DE L’ENTREPRISE FICTIVE
+Version 2.0 — Scénario repris et adapté au prototype Claude Code.
+
+STATUT DU PROJET
+Entreprise, identité du chauffeur, prestations, tarifs et conditions entièrement fictifs, créés pour tester la réalisation d’un site vitrine. Ils ne constituent pas une étude de marché, une offre réelle ni des conditions juridiques validées. Aucun service réel, envoi de message, paiement ou réservation.
+
+Mention permanente discrète dans le prototype :
+« Démonstration — entreprise et tarifs fictifs »
+
+Mention plus détaillée dans le pied de page :
+« AZURÉA PRIVÉ est une entreprise fictive créée pour une démonstration. Les visuels sont générés par IA. Le formulaire ne transmet aucune demande ; aucune réservation n’est possible. »
+
+============================================================
+1. FICHE D’IDENTITÉ ET DONNÉES COMMUNES
+============================================================
+
+Nom commercial fictif : AZURÉA PRIVÉ
+Slogan : Cannes, à votre rythme.
+Chauffeur fictif : Adrien Morel, 35 ans dans le scénario
+Activité fictive : chauffeur VTC indépendant, sous la forme d’une microentreprise fictive.
+Ville de base : Cannes, 06400, Côte d’Azur, France.
+Adresse destinée aux clients : Cannes, 06400, France — prises en charge sur rendez-vous ; aucun bureau d’accueil.
+Zone du scénario : Cannes, Le Cannet, Mougins, Antibes, Juan-les-Pins, Nice, aéroport Nice Côte d’Azur et Monaco.
+Langues du scénario : français et anglais.
+Horaires de contact : tous les jours, de 7 h à 22 h, heure de Paris.
+Horaires de trajet : trajets tôt le matin et tard le soir sur réservation, sous réserve de disponibilité.
+E-mail fictif à afficher : bonjour@azurea-prive.example
+Site fictif de référence : azurea-prive.example
+Téléphone de fiction fourni pour le dossier : 06 39 98 12 34. Affichage international possible : +33 6 39 98 12 34. Bouton simulé « Appeler Adrien » sans lien tel:, sans appel.
+WhatsApp : bouton simulé « Écrire sur WhatsApp » ; aucun numéro ni lien wa.me réel.
+Réseaux sociaux : aucun profil fictif à créer.
+Fiche Google : aucune fiche ni note fictive à créer.
+Identifiants professionnels : absents du prototype ; ne pas générer de SIRET, numéro d’immatriculation VTC, numéro d’assurance ou adresse privée.
+Paiements prévus dans le scénario : carte bancaire à bord et espèces. Aucun module de paiement dans le prototype.
+
+Véhicule fictif de référence :
+- Une seule Tesla Model 3 noire, génération restylée 2024 dite Highland.
+- Habitacle noir ; volant à gauche ; jantes 18 pouces Photon gris foncé.
+- Photos cohérentes avec ces caractéristiques sur l’ensemble du site.
+- Capacité proposée dans ce scénario : 3 passagers recommandés ; 4 au maximum sur demande, sans gros bagages.
+- Base bagages fictive : 2 valises moyennes et 2 sacs cabine, sous réserve de validation des dimensions et du nombre de passagers.
+- Équipements prévus pour le scénario : climatisation, eau et possibilité de recharge du téléphone.
+- Rehausseur : uniquement sur demande préalable et confirmation. Autre besoin de siège enfant à préciser avant le trajet.
+- Petit animal en caisse de transport : uniquement sur demande préalable et confirmation.
+- Ne pas ajouter de chauffeur automatique, de Wi-Fi, de véhicule de remplacement, de flotte ou d’accès particulier non prévu.
+
+Voix rédactionnelle : accueillante, précise, au singulier. Adrien parle à la première personne dans sa présentation. Le site s’adresse au visiteur avec « vous ». L’univers est premium, mais sans emphase ni fausse exclusivité.
+
+============================================================
+2. NAVIGATION ET BOUTONS
+============================================================
+
+Pages : Accueil / Tarifs / Demander un devis / Contact, ainsi que les pages d’information de démonstration.
+Navigation principale : Services · La Tesla · Tarifs · Votre chauffeur · Contact.
+Action principale : Demander un devis.
+Actions secondaires : Appeler Adrien · Écrire sur WhatsApp.
+Lien de découverte du véhicule : Découvrir la Tesla.
+Lien vers les tarifs : Voir les trajets et tarifs.
+Bouton associé à un trajet : Demander ce trajet.
+Bouton associé à la mise à disposition : Préparer mon programme.
+Menu mobile : Ouvrir le menu / Fermer le menu.
+Barre mobile sur l’accueil : Appeler · Devis.
+La barre mobile est retirée dans le formulaire pour conserver l’espace de saisie.
+
+============================================================
+3. ACCUEIL — TEXTES PRÊTS À INTÉGRER
+============================================================
+
+HERO
+Surtitre : AZURÉA PRIVÉ · CHAUFFEUR INDÉPENDANT
+Titre principal : Votre chauffeur privé à Cannes.
+Signature : Cannes, à votre rythme.
+Texte : Pour vos transferts, vos rendez-vous et vos journées sur la Riviera, retrouvez Adrien à bord d’une Tesla Model 3 noire. Un contact direct, un trajet préparé avec vous et le plaisir de prendre la route sereinement.
+Bouton principal : Demander un devis
+Bouton secondaire : Appeler le chauffeur
+Lien discret : Découvrir la Tesla
+Mentions factuelles du scénario : Basé à Cannes · Français / English · Sur réservation
+
+INTRODUCTION DES SERVICES
+Surtitre : VOS DÉPLACEMENTS
+Titre : Un chauffeur pour les moments qui comptent.
+Texte : Un avion à prendre, une arrivée à organiser, un rendez-vous ou une journée à composer : décrivez votre programme, je prépare le trajet avec vous.
+
+SERVICE 1 — AÉROPORTS & GARES
+Titre : Une arrivée bien préparée.
+Texte : Organisez votre transfert entre Cannes, l’aéroport Nice Côte d’Azur ou les gares de la région. Indiquez votre numéro de vol ou de train pour préciser la prise en charge.
+Lien : Préparer mon transfert
+
+SERVICE 2 — CANNES & LA RIVIERA
+Titre : Votre prochaine adresse, simplement.
+Texte : De Cannes à Mougins, Antibes, Nice ou Monaco, rejoignez votre hôtel, un restaurant ou un lieu de rendez-vous avec un itinéraire convenu à l’avance.
+Lien : Décrire mon trajet
+
+SERVICE 3 — PROFESSIONNELS & ÉVÉNEMENTS
+Titre : Gardez votre attention sur votre journée.
+Texte : Rendez-vous d’affaires, congrès ou soirée : partagez vos horaires et les adresses utiles pour préparer vos déplacements. Les conditions particulières des jours d’événement sont précisées avant confirmation.
+Lien : Organiser mes déplacements
+
+SERVICE 4 — MISE À DISPOSITION
+Titre : Plusieurs étapes, un même chauffeur.
+Texte : Pour trois heures ou davantage, construisons un programme adapté à vos rendez-vous ou à votre découverte de la Riviera. Les arrêts et le périmètre de la prestation sont convenus ensemble.
+Lien : Préparer mon programme
+
+PRÉSENTATION DU VÉHICULE
+Surtitre : VOTRE VÉHICULE
+Titre : Le calme fait aussi partie du voyage.
+Texte : Une silhouette noire sobre, un habitacle épuré et un espace préparé pour votre trajet. À bord de la Tesla Model 3, installez-vous et profitez de votre déplacement.
+Trois points pour la séquence de scrolling :
+1. « Prenez place. » — Un intérieur noir, soigné et climatisé pour commencer le trajet dans de bonnes conditions.
+2. « Voyagez à votre rythme. » — Un moment de conversation ou de tranquillité, selon votre envie.
+3. « Préparons les détails. » — Passagers, bagages et besoins particuliers sont précisés avant le départ.
+Libellé capacité : Jusqu’à 3 passagers recommandés · 4 sur demande, sans gros bagages.
+Libellé bagages : 2 valises moyennes + 2 sacs cabine, à confirmer selon leurs dimensions.
+Libellé confort : Eau · Recharge du téléphone · Climatisation.
+Bouton : Préparer mon trajet
+
+PRÉSENTATION PERSONNELLE
+Surtitre : VOTRE CHAUFFEUR
+Titre : Adrien, votre interlocuteur du premier message à l’arrivée.
+Texte à la première personne :
+« Je m’appelle Adrien et je suis chauffeur indépendant à Cannes. J’ai imaginé AZURÉA PRIVÉ autour d’une idée simple : rendre vos déplacements aussi agréables à organiser qu’à vivre. Je prends le temps de comprendre votre trajet, vos horaires et les détails qui comptent pour vous. Pour un transfert, un rendez-vous ou une journée sur la Riviera, vous échangez directement avec moi. Mon approche tient en quelques mots : une présentation soignée, de l’attention et un accueil naturel. »
+Signature : Adrien Morel · Chauffeur indépendant à Cannes
+Bouton : Contacter Adrien
+Ne pas transformer cette biographie fictive en témoignage client.
+
+COMMENT ÇA SE PASSE
+Titre : Votre trajet, en trois étapes.
+Étape 1 : Décrivez votre trajet.
+Description : Adresses, horaires, passagers et bagages : quelques informations suffisent pour commencer.
+Étape 2 : Recevez une proposition.
+Description : Je précise la disponibilité, le tarif et les conditions correspondant à votre demande.
+Étape 3 : Confirmez votre réservation.
+Description : Après votre accord, je vous adresse la confirmation écrite et les détails de prise en charge.
+Note : Une demande de devis ne vaut pas réservation.
+
+SECTION DE CONFIANCE SANS AVIS FICTIFS
+Titre : Les détails sont convenus avant le départ.
+Points : Un interlocuteur identifié · Un tarif proposé avant confirmation · Des coordonnées et horaires accessibles.
+Ne pas afficher de notes étoilées, de compteur de clients ou de citations attribuées.
+
+DERNIER APPEL À L’ACTION
+Titre : Où souhaitez-vous aller ?
+Texte : Donnez-moi votre point de départ, votre destination et vos horaires. Préparons la suite ensemble.
+Bouton : Demander un devis
+Lien secondaire : Voir les coordonnées
+
+============================================================
+4. TARIFS — DONNÉES FICTIVES COHÉRENTES
+============================================================
+
+Titre : Des repères clairs pour préparer votre trajet.
+Introduction : Retrouvez les forfaits des trajets fréquents. Pour un autre parcours ou un programme particulier, demandez une proposition personnalisée.
+Mention de démonstration au-dessus du tableau : Tarifs fictifs pour tester le site.
+
+Trajet | Prix fictif | Base
+Cannes-centre ↔ Aéroport Nice Côte d’Azur | 95 € | Aller simple, par véhicule
+Cannes-centre ↔ Gare d’Antibes | 55 € | Aller simple, par véhicule
+Cannes-centre ↔ Nice-centre | 100 € | Aller simple, par véhicule
+Cannes-centre ↔ Mougins-centre | 45 € | Aller simple, par véhicule
+Cannes-centre ↔ Monaco | 170 € | Aller simple, par véhicule
+Mise à disposition | 80 € / heure | Minimum 3 heures, soit 240 €
+Autre trajet | Sur devis | Proposition personnalisée
+
+Conditions fictives communes, à garder identiques partout :
+- Forfaits par véhicule et par aller simple, applicables dans les deux sens pour les lieux indiqués.
+- Tarif de base pour une prise en charge entre 6 h et 22 h.
+- Majoration de nuit de 20 % pour une prise en charge à partir de 22 h et avant 6 h ; appliquée au forfait de transport ou à la base de mise à disposition, hors attente supplémentaire.
+- Péages et stationnement ordinaires inclus dans les forfaits des trajets affichés. Pour la mise à disposition de démonstration, le périmètre de base couvre Cannes, Le Cannet et Mougins, avec 30 km par heure inclus ; programme différent ou dépassement à préciser dans le devis, sans calcul automatique.
+- À l’aéroport, 45 minutes d’attente incluses à compter de l’atterrissage réel ; aux autres points de départ, 15 minutes à compter de l’heure convenue.
+- Au-delà : 15 € par tranche de 15 minutes commencée, selon disponibilité et après accord. Ne pas calculer automatiquement une attente réelle dans le prototype.
+- Aller-retour : addition des deux trajets ; la majoration de nuit s’applique séparément selon l’heure de chaque prise en charge.
+- En cas de grand événement ou de programme particulier, une tarification différente ne s’applique qu’après communication et accord avant réservation.
+- Déplacement supplémentaire, étape ajoutée et attente liée au programme : à préciser dans le devis.
+- Devis gratuit et sans engagement ; réservation après confirmation écrite.
+- Annulation sans frais jusqu’à 24 heures avant le départ ; moins de 24 heures : 50 % ; absence au rendez-vous : 100 %.
+- Les règles d’annulation servent au scénario ; aucun montant n’est prélevé dans le prototype.
+- Montants présentés comme prix finaux du scénario. Ne pas ajouter de régime de TVA, d’article fiscal ou d’affirmation juridique fictifs.
+
+EXEMPLES DE COHÉRENCE POUR LE CONCEPTEUR
+Les calculs suivants illustrent le scénario commercial. Ne pas construire un moteur de tarification automatique pour ce test ; le formulaire présente un récapitulatif, pas un devis final.
+- Cannes → aéroport de Nice, 10 h : 95 €.
+- Cannes → aéroport de Nice, 23 h : 114 €.
+- Cannes ↔ aéroport de Nice, deux prises en charge de jour : 190 €.
+- Même aller-retour, aller de jour et retour à 23 h : 209 €.
+- Mise à disposition de 3 heures de jour : 240 €.
+- Mise à disposition de 4 heures de jour : 320 €.
+- Mise à disposition de 3 heures, prise en charge à 22 h 30 : 288 €.
+- Pour une date d’événement ou un itinéraire inconnu : « À préciser dans le devis », sans prix arbitraire.
+
+Présentation du prix dans le formulaire :
+« Repère tarifaire de démonstration » si un trajet correspond exactement au tableau.
+« Un devis personnalisé préciserait le tarif » dans les autres cas.
+Ne pas présenter le résultat comme une offre ou une réservation réelle.
+
+============================================================
+5. PAGE DEVIS ET MICROTEXTES DU FORMULAIRE
+============================================================
+
+Titre : Parlons de votre prochain trajet.
+Introduction : Quelques détails pour préparer une proposition adaptée à votre programme.
+Note de mode : Démonstration : utilisez des informations fictives. Aucune demande ne sera envoyée.
+
+GROUPE 1 — VOTRE TRAJET
+- Type de prestation : Transfert aéroport / Transfert gare / Trajet sur la Riviera / Déplacement professionnel ou événement / Mise à disposition.
+- Lieu de départ. Exemple de champ : « Hôtel à Cannes, gare, aéroport… »
+- Destination. Exemple de champ : « Adresse ou nom du lieu ».
+- Date souhaitée.
+- Heure de prise en charge.
+- Option : « Horaire à préciser ».
+- Passagers : 1 / 2 / 3 / 4.
+- Aide pour 4 passagers : « Capacité et bagages à confirmer avec le chauffeur. »
+- Bagages : Sans bagage / Petits sacs / 1 valise / 2 valises / À préciser.
+- Détail facultatif : « Dimensions, poussette ou bagage particulier ».
+- Type de trajet : Aller simple / Aller-retour.
+- Si aller-retour : date et heure de retour ; retour depuis la destination initiale, modifiable par le client.
+- Si aéroport ou gare : numéro de vol ou de train, facultatif.
+- Si mise à disposition : durée souhaitée, minimum 3 heures ; champ « Programme ou itinéraire envisagé » ; destination finale facultative ; aucun choix aller-retour obligatoire.
+
+GROUPE 2 — VOS COORDONNÉES
+- Votre prénom.
+- Comment souhaitez-vous être recontacté ? Téléphone / E-mail / WhatsApp.
+- Afficher et exiger seulement la coordonnée du canal choisi.
+- E-mail : exemple de démonstration « camille@example.com ».
+- Téléphone : saisie internationale ; dans le test, un bouton « Charger un exemple » peut remplir un libellé démo sans le transmettre.
+- Votre message, facultatif. Exemple : « Heure d’arrivée, étape souhaitée, besoin particulier… »
+- Pas d’inscription marketing ni de case de consentement inutile dans le prototype.
+
+AVANT L’ACTION
+Note : « Vous testez le parcours de demande de devis. Rien n’est transmis et aucune réservation n’est créée. »
+Bouton : « Simuler ma demande de devis ».
+Option utile : « Remplir un exemple fictif ».
+
+ERREURS
+- Champ requis : « Indiquez votre lieu de départ. » / « Indiquez votre destination. »
+- Date passée : « Choisissez une date à venir. »
+- Retour incohérent : « Le retour doit être prévu après le départ. »
+- Date sans heure : « Indiquez l’heure ou choisissez “Horaire à préciser”. »
+- Coordonnée manquante : « Ajoutez l’adresse e-mail à utiliser pour la réponse. » ou l’équivalent téléphone/WhatsApp.
+- E-mail invalide : « Vérifiez le format de cette adresse e-mail. »
+- Durée insuffisante : « La mise à disposition commence à 3 heures dans cette démonstration. »
+- Erreur générale : « Vérifiez les champs indiqués avant de continuer. »
+
+RÉSULTAT DE LA SIMULATION
+Titre : Simulation terminée — aucune demande envoyée.
+Texte : Voici le récapitulatif de votre trajet. Sur la version finale, il serait transmis au chauffeur pour préparer une réponse. Dans cette démonstration, aucune donnée n’a été envoyée et aucune course n’est réservée.
+Boutons : Modifier ma demande / Recommencer.
+Lien : Revenir à l’accueil.
+Option : Copier le récapitulatif.
+Retour de copie, seulement si la copie réussit : Récapitulatif copié.
+Cas d’échec de copie : La copie automatique n’a pas fonctionné. Vous pouvez sélectionner le texte du récapitulatif.
+
+RÉCAPITULATIF
+Prestation · Départ · Destination/programme · Date et heure · Retour/durée le cas échéant · Passagers · Bagages · Canal de contact · Coordonnée fictive · Message · Repère tarifaire de démonstration éventuel.
+
+COMPORTEMENT TECHNIQUE DU MODE DÉMO
+Aucune requête réseau pour envoyer le formulaire. Données conservées seulement dans l’état temporaire de la page ; aucun localStorage, aucun suivi des champs et aucune conservation côté serveur. Le bouton ne doit jamais afficher « envoyé » ou « réservation confirmée ». Les autres commandes de contact ouvrent une explication ou un exemple local. Ne pas utiliser une fausse animation d’envoi réussie.
+
+============================================================
+6. PAGE CONTACT
+============================================================
+
+Surtitre : CONTACT DIRECT
+Titre : Préparons votre prochain déplacement.
+Texte : Une question sur un trajet, les bagages ou une journée avec plusieurs étapes ? Retrouvez les moyens de contacter Adrien et choisissez celui qui vous convient.
+
+Bloc Téléphone :
+Titre : Un échange de vive voix.
+Texte : Tous les jours, de 7 h à 22 h. Les trajets peuvent être organisés à d’autres horaires sur réservation et selon disponibilité.
+Action : Appeler Adrien.
+
+Bloc WhatsApp :
+Titre : Les détails, à votre rythme.
+Texte : Adresse, date, horaires ou question pratique : préparez votre message avec les informations utiles.
+Action : Écrire sur WhatsApp.
+
+Bloc E-mail :
+Titre : Un programme à partager.
+Texte : bonjour@azurea-prive.example
+Action : Préparer un e-mail.
+
+Bloc zone :
+Titre : Cannes comme point de départ.
+Texte : Cannes, Mougins, Antibes, Nice et Monaco. Pour une autre destination, précisez votre itinéraire dans la demande de devis.
+Mention : Prises en charge sur rendez-vous. Aucun bureau d’accueil dans cette démonstration.
+
+Lien principal : Décrire mon trajet.
+
+DIALOGUE APPEL EN DÉMO
+Titre : Appel de démonstration.
+Texte : Sur le site final, ce bouton ouvrira l’application Téléphone avec le numéro du chauffeur. Aucun appel n’est lancé ici.
+Bouton : Compris.
+
+DIALOGUE WHATSAPP EN DÉMO
+Titre : Exemple de message WhatsApp.
+Texte proposé : Bonjour Adrien, je souhaite organiser un trajet de Cannes-centre vers l’aéroport de Nice, pour 2 personnes avec 2 valises. Pouvez-vous me préciser vos disponibilités et le tarif ? Je vous communiquerai la date et l’heure souhaitées.
+Mention : Exemple local : aucun message n’est envoyé et aucune conversation externe n’est ouverte.
+Boutons : Copier l’exemple / Fermer.
+
+DIALOGUE E-MAIL EN DÉMO
+Titre : Exemple d’e-mail.
+Objet : Demande de devis — trajet Cannes / aéroport de Nice.
+Destinataire affiché : bonjour@azurea-prive.example.
+Corps : Bonjour Adrien, je souhaiterais un devis pour un trajet de Cannes-centre vers l’aéroport de Nice, pour 2 personnes avec 2 valises. Je préciserai la date et l’heure de prise en charge. Merci de m’indiquer les disponibilités et les conditions correspondantes. Bonne journée, Camille Démo.
+Mention : Exemple de démonstration ; aucune demande n’est envoyée à cette adresse.
+Boutons : Copier l’exemple / Fermer.
+
+============================================================
+7. FAQ — HUIT QUESTIONS
+============================================================
+
+1. Comment réserver un trajet ?
+Commencez par une demande de devis ou un échange direct. Après examen du trajet et de la disponibilité, Adrien communique sa proposition. La réservation est confirmée par écrit après votre accord. Dans ce prototype, vous pouvez uniquement simuler cette démarche.
+
+2. Les prix sont-ils indiqués par personne ?
+Les forfaits affichés dans cette démonstration correspondent à un aller simple par véhicule. Ils concernent les trajets précisés, dans les deux sens. Un aller-retour additionne les deux trajets ; les conditions de nuit s’appliquent séparément à chaque prise en charge.
+
+3. Puis-je demander un trajet tôt le matin ou la nuit ?
+Le scénario prévoit des trajets tôt le matin et tard le soir sur réservation, sous réserve de disponibilité. Les prises en charge entre 22 h et 6 h entraînent une majoration fictive de 20 %. Les horaires de contact restent de 7 h à 22 h.
+
+4. Que se passe-t-il si mon vol arrive en retard ?
+Communiquez votre numéro de vol et tout changement connu. Le scénario prévoit 45 minutes d’attente à compter de l’atterrissage réel. Une attente supplémentaire dépend de la disponibilité et doit faire l’objet d’un accord ; le tarif fictif est de 15 € par tranche de 15 minutes commencée. La prise en charge d’un vol fortement retardé doit être reconfirmée.
+
+5. Combien de passagers et de bagages sont prévus ?
+Le scénario privilégie jusqu’à 3 passagers. Un quatrième passager peut être envisagé sans gros bagages. La base retenue est de 2 valises moyennes et 2 sacs cabine ; les dimensions et besoins particuliers doivent être précisés pour confirmer que tout peut être transporté.
+
+6. Puis-je prévoir plusieurs arrêts ou garder le chauffeur plusieurs heures ?
+Oui, le scénario propose une mise à disposition à 80 € par heure, avec un minimum de 3 heures, soit 240 €. Indiquez votre programme et les adresses prévues : le périmètre et les éventuels frais sont précisés dans la proposition. Les 20 % de nuit s’appliquent à une prise en charge entre 22 h et 6 h.
+
+7. Quels moyens de paiement sont proposés ?
+Dans cette entreprise fictive, les règlements seraient possibles par carte bancaire à bord ou en espèces. Ce prototype ne collecte aucun paiement et ne demande aucune coordonnée bancaire.
+
+8. Puis-je modifier ou annuler mon trajet ?
+Une modification doit être reconfirmée selon la disponibilité et peut changer le prix proposé. Les conditions fictives prévoient une annulation sans frais jusqu’à 24 heures avant le départ, puis 50 % du prix à moins de 24 heures et 100 % en cas d’absence au rendez-vous. Aucun frais n’est facturé dans ce prototype.
+
+============================================================
+8. PIED DE PAGE ET PAGES D’INFORMATION DÉMO
+============================================================
+
+Signature : AZURÉA PRIVÉ — Cannes, à votre rythme.
+Description : Chauffeur indépendant fictif à Cannes · Tesla Model 3 noire.
+Liens : Services · Tarifs · Demander un devis · Contact · À propos de cette démonstration · Confidentialité de la démonstration.
+Mention : Prototype de démonstration · Entreprise, conducteur, tarifs et visuels fictifs.
+
+À PROPOS DE CETTE DÉMONSTRATION
+Ce site sert à expérimenter la conception d’une vitrine de chauffeur VTC. AZURÉA PRIVÉ et Adrien Morel sont des identités fictives. Les services et conditions sont des exemples de travail. Les images sont générées par intelligence artificielle. Aucun trajet ne peut être commandé sur ce prototype. Les renseignements professionnels du futur exploitant devront remplacer cette page avant toute utilisation commerciale.
+
+CONFIDENTIALITÉ DE LA DÉMONSTRATION
+Le formulaire fonctionne localement pour montrer un parcours de demande de devis. Les champs ne sont pas transmis à un chauffeur, à un service d’e-mail ou à un outil marketing, et ne sont pas conservés par ce formulaire. Utilisez des données fictives pour le tester. Les éventuels traitements techniques de la plateforme qui héberge l’aperçu relèvent de cette plateforme et doivent être vérifiés séparément ; cette page ne prétend pas décrire leurs pratiques.
+
+============================================================
+9. MÉTADONNÉES POUR LE PROTOTYPE
+============================================================
+
+Accueil — titre : AZURÉA PRIVÉ · Chauffeur privé à Cannes — Démonstration
+Accueil — description : Prototype d’un site de chauffeur VTC indépendant à Cannes, avec Tesla Model 3 noire, services, tarifs fictifs et parcours de demande de devis simulé.
+Devis — titre : Demande de devis · AZURÉA PRIVÉ — Démonstration
+Contact — titre : Contact · AZURÉA PRIVÉ — Démonstration
+Indexation du prototype : noindex, nofollow ; aucune donnée structurée laissant croire à un commerce réellement ouvert.
+Partage social : AZURÉA PRIVÉ — Cannes, à votre rythme. / Prototype de site VTC.
+
+============================================================
+10. CRITÈRES DE COHÉRENCE POUR LE DOSSIER FINAL
+============================================================
+
+- Une seule voiture et un seul chauffeur partout ; même apparence sur toutes les images.
+- Pas de faux avis ou de titres professionnels imaginaires.
+- Aucun téléphone joignable ni contact extérieur actif.
+- Le formulaire démontre un parcours sans faire croire à un envoi.
+- Les tarifs sont identiques dans le tableau, la FAQ, le formulaire et les exemples.
+- Les prix par trajet sont par véhicule, aller simple, avant application de la règle de nuit.
+- Le minimum de mise à disposition est partout 3 heures / 240 € de jour.
+- L’interface ne promet ni réservation immédiate ni disponibilité permanente.
+- Le bandeau démo et les pages explicatives suffisent à identifier le cadre ; éviter de répéter des avertissements dans chaque phrase commerciale.
+
+Fichiers d’images fournis dans assets/web/ :
+- hero-desktop.webp : photographie complète d’ouverture sur ordinateur.
+- hero-mobile.webp : photographie d’ouverture recomposée pour téléphone.
+- hero-background.webp : décor sans voiture pour le hero en calques.
+- hero-car-alpha.webp : voiture transparente, même cadre que le décor.
+- driver.webp : portrait du chauffeur fictif.
+- vehicle-profile.webp : vue latérale du véhicule.
+- interior.webp : habitacle noir.
+Les variantes responsives et sources sont listées dans data/assets-manifest.json.
+Consulter docs/03-ASSETS-ET-DIRECTION.txt pour le contrat de composition.
+
+PRÉSENTATION DES NOTES AU CONCEPTEUR
+Les sections Fiche d’identité, Comportement technique, Métadonnées, Critères de cohérence et les instructions éditoriales servent à construire le site. Elles ne doivent pas être copiées telles quelles dans les pages commerciales. Conserver une mention démo globale lisible, la mention prix fictifs au tableau et la confirmation de simulation. Les FAQ peuvent conserver une formulation professionnelle naturelle, sans répéter « dans ce scénario » dans chaque réponse.

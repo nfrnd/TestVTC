@@ -1,0 +1,100 @@
+---
+// Fixed fares + hourly + "other journeys", from the content file only (the
+// same numbers feed the selector, the FAQ, the quote summary). Live mode with
+// no published fares falls back to the services list "Sur devis".
+import { fares, services } from '../content';
+import { known, type Lang } from '../content/types';
+import { fill, t } from '../i18n';
+import { quoteHref } from '../i18n/routes';
+import PriceLabel from './PriceLabel.astro';
+
+interface Props {
+  lang: Lang;
+  /** Adds a contextual quote button on each row (rates page). */
+  actions?: boolean;
+}
+const { lang, actions = false } = Astro.props;
+const d = t(lang);
+const hourly = known(fares.hourly);
+const night = known(fares.night);
+const hourlyService = services.find((s) => s.hourly);
+const eur = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+const hhmm = (s: string) => (lang === 'fr' ? s.replace(/^0?(\d+):00$/, '$1 h').replace(/^0?(\d+):(\d\d)$/, '$1 h $2') : new Date(`2000-01-01T${s}:00`).toLocaleTimeString('en-GB', { hour: 'numeric', hour12: true }).replace(' ', ' '));
+const quoteFor = (serviceId: string, routeId?: string) => `${quoteHref(lang, serviceId)}${routeId ? `&trajet=${encodeURIComponent(routeId)}` : ''}`;
+---
+
+{fares.routes.length > 0 ? (
+  <div class="fares">
+    {d.fares.demoLabel && <p class="fares__demo">{d.fares.demoLabel}</p>}
+    <table class="fares__table">
+      <thead>
+        <tr><th scope="col">{d.fares.route}</th><th scope="col" class="num">{d.fares.price}</th><th scope="col">{d.fares.basis}</th>{actions && <th scope="col"><span class="visually-hidden">{d.cta.quote}</span></th>}</tr>
+      </thead>
+      <tbody>
+        {fares.routes.map((r) => (
+          <tr>
+            <th scope="row">{r.from} ↔ {r.to}</th>
+            <td class="num nums"><strong>{eur(r.price.amount)}</strong></td>
+            <td>{d.fares.oneWay}</td>
+            {actions && <td class="act"><a class="btn btn--primary btn--sm" href={quoteFor(r.serviceId, r.id)} aria-label={`${d.cta.quoteThis} : ${r.from} ↔ ${r.to}`}>{d.cta.quoteThis}</a></td>}
+          </tr>
+        ))}
+        {hourly && (
+          <tr>
+            <th scope="row">{d.fares.hourly}</th>
+            <td class="num nums"><strong>{eur(hourly.pricePerHour)}</strong> <span class="per">{d.fares.perHour}</span></td>
+            <td>{fill(d.fares.minimum, { hours: hourly.minHours, total: eur(hourly.minTotal) })}</td>
+            {actions && hourlyService && <td class="act"><a class="btn btn--primary btn--sm" href={quoteFor(hourlyService.id)}>{hourlyService.cta ? hourlyService.cta[lang] : d.cta.quote}</a></td>}
+          </tr>
+        )}
+        <tr>
+          <th scope="row">{d.fares.other}</th>
+          <td class="num">{d.fares.custom}</td>
+          <td>{d.fares.customBasis}</td>
+          {actions && <td class="act"><a class="btn btn--ghost btn--sm" href={quoteHref(lang)}>{d.cta.quote}</a></td>}
+        </tr>
+      </tbody>
+    </table>
+    {night && <p class="fares__note">{fill(d.fares.night, { start: hhmm(night.start), end: hhmm(night.end), rate: Math.round(night.rate * 100) })}</p>}
+  </div>
+) : (
+  <ul class="ledger">
+    {services.map((s) => (
+      <li>
+        <a href={quoteHref(lang, s.id)} aria-label={`${d.pricing.quoteFor} : ${s.title[lang]}`}>
+          <span class="ledger__name">{s.title[lang]}</span>
+          <PriceLabel lang={lang} price={s.price} />
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .fares { display: grid; gap: 0.9rem; }
+  .fares__demo { justify-self: start; font-size: 0.85rem; font-weight: 600; padding: 0.3rem 0.7rem; border-radius: 6px; background: rgb(29 81 72 / 0.1); color: var(--accent-deep); }
+  .fares__table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  .fares__table th, .fares__table td { text-align: left; padding: 0.95rem 0.75rem 0.95rem 0; border-bottom: 1px solid rgb(17 25 29 / 0.14); vertical-align: middle; }
+  .fares__table thead th { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-dark-soft); padding-block: 0.6rem; }
+  .fares__table tbody th { font-weight: 500; }
+  .fares__table .num { text-align: right; white-space: nowrap; padding-right: 1.5rem; }
+  .fares__table strong { font-family: var(--sc-font-display); font-size: 1.2rem; font-weight: 600; }
+  .fares__table td:nth-child(3) { color: var(--ink-dark-soft); font-size: 0.93rem; }
+  .fares__table .per { font-size: 0.85rem; color: var(--ink-dark-soft); }
+  .fares__table .act { text-align: right; padding-right: 0; }
+  .fares__note { font-size: 0.92rem; color: var(--ink-dark-soft); }
+  :global(.btn--sm) { min-height: 2.75rem; padding: 0.5rem 0.95rem; font-size: 0.92rem; }
+  @media (max-width: 640px) {
+    .fares__table thead { display: none; }
+    .fares__table tr { display: grid; grid-template-columns: 1fr auto; column-gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid rgb(17 25 29 / 0.14); }
+    .fares__table th, .fares__table td { border: 0; padding: 0.1rem 0; }
+    .fares__table td:nth-child(3) { grid-column: 1 / -1; }
+    .fares__table .num { padding-right: 0; grid-row: 1; grid-column: 2; }
+    .fares__table .act { grid-column: 1 / -1; text-align: left; padding-top: 0.6rem; }
+  }
+  .ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgb(17 25 29 / 0.14); }
+  .ledger li { border-bottom: 1px solid rgb(17 25 29 / 0.14); }
+  .ledger a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; min-height: 3.75rem; padding: 1rem 0.25rem; text-decoration: none; }
+  .ledger a:hover { background: rgb(17 25 29 / 0.035); }
+  .ledger__name { font-weight: 500; font-size: 1.05rem; }
+</style>

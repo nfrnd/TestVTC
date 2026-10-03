@@ -1,0 +1,43 @@
+---
+// The ONLY place that turns a contact channel into a link.
+//  - live: tel: / mailto: / wa.me, and only for confirmed details.
+//  - demo: never an outbound link. Opens the matching simulation dialog
+//    (SimDialogs.astro); without JavaScript the #anchor shows it via :target.
+import { business, isDemo } from '../content';
+import { known, type Lang } from '../content/types';
+import { t } from '../i18n';
+
+interface Props {
+  kind: 'call' | 'whatsapp' | 'email';
+  lang: Lang;
+  class?: string;
+  label?: string;
+}
+const { kind, lang, class: cls, label } = Astro.props;
+const d = t(lang);
+const tel = known(business.phone);
+const email = known(business.email);
+const wa = known(business.whatsapp);
+const text = label ?? (kind === 'call' ? d.cta.callDriver : kind === 'whatsapp' ? d.cta.whatsappWrite : d.cta.emailWrite);
+
+let href: string | null = null;
+let aria: string | undefined;
+if (isDemo) {
+  href = `#sim-${kind}`;
+} else if (kind === 'call' && tel) {
+  href = `tel:${tel.e164}`;
+  aria = `${d.cta.callAria} ${tel.display}`;
+} else if (kind === 'whatsapp' && wa) {
+  href = `https://wa.me/${wa.e164.replace(/\D/g, '')}`;
+} else if (kind === 'email' && email) {
+  href = `mailto:${email}`;
+}
+---
+
+{href && (
+  isDemo ? (
+    <a class={cls} href={href} data-sim={kind} aria-haspopup="dialog">{text}</a>
+  ) : (
+    <a class={cls} href={href} aria-label={aria} rel={kind === 'whatsapp' ? 'noopener' : undefined}>{text}</a>
+  )
+)}

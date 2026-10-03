@@ -1,0 +1,61 @@
+AZURÉA PRIVÉ — KIT CLAUDE CODE / DÉMONSTRATION V2
+Préparé pour Noa — 4 octobre 2026.
+
+BUT
+Donner à Claude Code tout le nécessaire pour terminer le prototype VTC existant :
+entreprise et chauffeur fictifs, tarifs, textes FR/EN, photos IA, calques du hero
+et consignes de passage du mode « informations à confirmer » à un scénario démo complet.
+
+COMMENCER
+1. Extraire ce ZIP dans un dossier accessible à Claude Code.
+2. Lui transmettre docs/01-PROMPT-CLAUDE-DEMO.txt et lui indiquer le dossier extrait.
+3. Le laisser lire les fichiers avant intégration.
+4. Récupérer son aperçu, son code et REVIEW.md pour la revue indépendante.
+
+CONTENU
+- data/business-demo.json : référence métier unique, données explicitement fictives.
+- data/textes-fr-en.json : textes FR/EN avec mêmes clés et mêmes informations.
+- docs/01-PROMPT-CLAUDE-DEMO.txt : nouvelle commande de travail complète.
+- docs/02-ENTREPRISE-ET-TEXTES-FR.txt : scénario détaillé, conditions, FAQ et parcours.
+- docs/03-ASSETS-ET-DIRECTION.txt : cadre de composition et intégration des photos.
+- docs/04-REVUE-ET-VALIDATION.txt : corrections à demander et éléments à vérifier.
+- docs/05-PROMPTS-IMAGES.txt : prompts employés pour les nouveaux visuels.
+- assets/web/ : photos prêtes pour le web et variantes responsives.
+- assets/originaux/ : sources IA conservées à leur résolution d'origine.
+- data/assets-manifest.json : dimensions, poids, provenance et usage des fichiers.
+
+IDENTITÉ
+AZURÉA PRIVÉ ; Adrien Morel, 35 ans dans le scénario.
+Signature : « Cannes, à votre rythme. »
+Tesla Model 3 noire, intérieur noir, une seule voiture.
+Base à Cannes ; français et anglais.
+Le scénario fournit des services sur la Riviera et des forfaits inventés.
+
+RÈGLE DE CONTENU
+Ce scénario n'est ni une offre réelle ni une étude de marché.
+Les prix, conditions, identité et équipements sont inventés pour l'exercice.
+La présence du JSON ne confirme aucune capacité ou qualité du véhicule de l'ami de Noa.
+Pas de faux SIRET, certificat VTC, assurance, profil Google, note étoilée ou avis client.
+Les contacts affichés ne doivent déclencher aucun contact sortant.
+Le site conserve une mention discrète de démonstration et des formulaires simulés.
+
+IMPORTANT SUR LE CODE
+Ce kit ne contient pas le code du projet Claude. Il apporte uniquement les données,
+les images et les consignes à intégrer dans son dépôt actuel.
+Il ne faut pas importer le code du prototype MagicPath à la place de son projet Astro.
+Le scénario Azuréa existant a été relu et repris ; les nouveaux assets du hero sont
+générés spécifiquement pour cette itération de Claude Code.
+
+MODE DÉMO ET BUILD
+« Build optimisé de production » décrit une compilation technique.
+« Activité réelle » décrit le mode métier. Ces deux notions doivent être séparées.
+Un build optimisé en BUSINESS_MODE=demo est permis sans données professionnelles réelles.
+BUSINESS_MODE=live conserve les contrôles prévus pour une vraie mise en service.
+Le fichier fictif ne peut pas satisfaire ces contrôles en mode live.
+
+QUE DEMANDER À CLAUDE APRÈS INTÉGRATION
+Un code/archive accessible, un REVIEW.md actualisé, un aperçu réellement consultable
+ou des commandes de lancement local exactes, les captures et les rapports pertinents.
+Les scores et tests du compte-rendu initial sont des déclarations de Claude :
+ils ne constituent pas encore une revue indépendante du code par ChatGPT.
+

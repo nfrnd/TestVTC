@@ -12,6 +12,7 @@ import {
   TRUST_PROXY,
 } from 'astro:env/server';
 import { PUBLIC_SITE_ENV, PUBLIC_SITE_URL } from 'astro:env/client';
+import { BUSINESS_MODE, content } from '../../content';
 import { handleDemande } from '../../lib/server/handle';
 import { DuplicateGuard, SlidingWindowLimiter } from '../../lib/server/guards';
 
@@ -37,6 +38,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     request,
     ip,
     {
+      // Fixed at build time. In demo the handler never creates a transport.
+      mode: BUSINESS_MODE,
+      content,
       production: PUBLIC_SITE_ENV === 'production',
       siteUrl: PUBLIC_SITE_URL,
       extraOrigins: ALLOWED_ORIGINS,

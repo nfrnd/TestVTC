@@ -1,15 +1,18 @@
 ---
 // Live regions for the enhanced form: errors (assertive) and outcome (polite).
-// The direct-contact links are rendered server-side from confirmed data only.
-import { business } from '../../content/business';
+// Demo: the outcome is a simulated result with the server-built summary.
+// Direct-contact actions go through ContactAction (simulated in demo).
+import { business, isDemo } from '../../content';
 import { known, type Lang } from '../../content/types';
 import { t } from '../../i18n';
 import { routes } from '../../i18n/routes';
+import ContactAction from '../ContactAction.astro';
 
 interface Props {
   lang: Lang;
+  kind?: 'devis' | 'contact';
 }
-const { lang } = Astro.props;
+const { lang, kind = 'contact' } = Astro.props;
 const d = t(lang);
 const tel = known(business.phone);
 const email = known(business.email);
@@ -23,18 +26,32 @@ const hasDirect = Boolean(tel || email);
       <div>
         <p>{d.status.direct}</p>
         <ul class="direct">
-          {tel && <li><a href={`tel:${tel.e164}`}>{d.contact.phone} : {tel.display}</a></li>}
-          {email && <li><a href={`mailto:${email}`}>{d.contact.email} : {email}</a></li>}
+          {tel && <li><ContactAction kind="call" lang={lang} label={`${d.contact.phone} : ${tel.display}`} /></li>}
+          {email && <li><ContactAction kind="email" lang={lang} label={`${d.contact.email} : ${email}`} /></li>}
         </ul>
       </div>
     )}
   </div>
   <div class="done" data-done-box hidden tabindex="-1">
+    {kind === 'devis' && isDemo && <h2 class="h-md done__heading" data-done-heading>{d.quote.resultTitle}</h2>}
     <div class="notice" data-done-notice>
       <p class="done__title h-sm" data-done-text></p>
       <p data-done-extra></p>
     </div>
+    {kind === 'devis' && (
+      <div class="summary" data-summary hidden>
+        {d.quote.resultIntro && <p class="summary__intro">{d.quote.resultIntro}</p>}
+        <p class="summary__ref" data-summary-ref></p>
+        <h3 class="h-sm">{d.quote.summary}</h3>
+        <dl class="summary__list" data-summary-list></dl>
+        <div class="summary__fare" data-summary-fare></div>
+        <p class="summary__copy" role="status" data-copy-feedback></p>
+      </div>
+    )}
     <p class="btn-row" style="margin-top:1.5rem">
+      {kind === 'devis' && <button class="btn btn--primary" type="button" data-edit>{d.quote.edit}</button>}
+      {kind === 'devis' && <button class="btn btn--ghost" type="button" data-restart>{d.quote.restart}</button>}
+      {kind === 'devis' && <button class="btn btn--ghost" type="button" data-copy-summary hidden>{d.quote.copySummary}</button>}
       <a class="btn btn--ghost" href={routes.home[lang]}>{d.status.backHome}</a>
     </p>
   </div>
@@ -42,6 +59,17 @@ const hasDirect = Boolean(tel || email);
 
 <style>
   .direct { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+  .done { display: grid; gap: 1rem; }
   .done:focus { outline: none; }
   .done__title { font-family: var(--sc-font-display); }
+  .summary { display: grid; gap: 0.9rem; padding: 1.25rem; border-radius: var(--radius); background: #fff; border: 1px solid rgb(17 25 29 / 0.1); }
+  .summary__intro, .summary__ref { color: var(--ink-dark-soft); }
+  .summary__list { margin: 0; display: grid; grid-template-columns: minmax(8rem, max-content) 1fr; gap: 0.5rem 1.25rem; }
+  .summary__list :global(dt) { color: var(--ink-dark-soft); font-size: 0.92rem; }
+  .summary__list :global(dd) { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+  @media (max-width: 520px) { .summary__list { grid-template-columns: 1fr; gap: 0.1rem; } .summary__list :global(dd) { margin-bottom: 0.6rem; } }
+  .summary__fare { padding-top: 0.9rem; border-top: 1px solid rgb(17 25 29 / 0.1); }
+  .summary__fare :global(strong) { display: block; margin-bottom: 0.25rem; }
+  .summary__copy { font-weight: 600; color: var(--accent-deep); }
+  .summary__copy:empty { display: none; }
 </style>

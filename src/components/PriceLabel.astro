@@ -11,11 +11,12 @@ interface Props {
 const { lang, price } = Astro.props;
 const d = t(lang).pricing;
 const fmt = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
-const kindLabel = price.known ? { forfait: d.flat, indicatif: d.indicative, 'a-partir-de': d.from }[price.value.kind] : null;
+const kindLabel = price.known ? { forfait: d.flat, indicatif: d.indicative, 'a-partir-de': d.from, horaire: '' }[price.value.kind] : null;
+const perHour = price.known && price.value.kind === 'horaire' ? t(lang).fares.perHour : '';
 ---
 
 {price.known ? (
-  <span class="price"><span class="price__kind">{kindLabel}</span> <span class="price__amount nums">{fmt(price.value.amount)}</span> <span class="price__tax">{d.ttc}</span></span>
+  <span class="price">{kindLabel && <span class="price__kind">{kindLabel}</span>} <span class="price__amount nums">{fmt(price.value.amount)}</span> <span class="price__tax">{perHour || d.ttc}</span></span>
 ) : (
   <span class="price price--quote">{d.onQuote}</span>
 )}

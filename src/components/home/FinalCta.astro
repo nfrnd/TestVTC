@@ -3,14 +3,15 @@ import RouteMark from '../RouteMark.astro';
 import type { Lang } from '../../content/types';
 import { t } from '../../i18n';
 import { quoteHref } from '../../i18n/routes';
-import { phone } from '../../lib/site';
+import { routes } from '../../i18n/routes';
+import { isDemo } from '../../content';
+import ContactAction from '../ContactAction.astro';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const d = t(lang);
-const tel = phone();
 ---
 
 <section class="final section ground-surface" aria-labelledby="final-title">
@@ -20,7 +21,8 @@ const tel = phone();
     <p class="lede soft">{d.final.body}</p>
     <div class="btn-row">
       <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>
-      {tel && <a class="btn btn--ghost" href={`tel:${tel.e164}`} aria-label={`${d.cta.callAria} ${tel.display}`}>{d.cta.call}</a>}
+      <ContactAction kind="call" lang={lang} class="btn btn--ghost" />
+      {isDemo && <a class="text-link" href={routes.contact[lang]}>{d.cta.seeContact}</a>}
     </div>
   </div>
 </section>

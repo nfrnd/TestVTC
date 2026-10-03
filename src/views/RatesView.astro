@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import PriceLabel from '../components/PriceLabel.astro';
 import PreviewNote from '../components/PreviewNote.astro';
-import { pricingConditions, services } from '../content/business';
+import FaresTable from '../components/FaresTable.astro';
+import { fares, pricingConditions, services } from '../content';
 import type { Lang } from '../content/types';
 import { t } from '../i18n';
 import { quoteHref } from '../i18n/routes';
@@ -16,37 +17,42 @@ const { lang } = Astro.props;
 const d = t(lang);
 const knownConditions = pricingConditions.filter((c) => c.value.known);
 const showConditions = knownConditions.length > 0 || isPreview;
+const hasFares = fares.routes.length > 0;
 ---
 
 <Base lang={lang} route="rates" title={d.meta.rates.title} description={d.meta.rates.description}>
-  <PageHead title={d.pricing.title} lede={d.pricing.intro} />
+  <PageHead title={hasFares ? d.fares.title : d.pricing.title} lede={d.fares.intro} />
 
-  <section class="section ground-light" aria-label={d.pricing.title}>
+  <section class="section ground-light rates-section" aria-label={d.pricing.title}>
     <div class="wrap">
-      <ol class="offers">
-        {services.map((s) => (
-          <li class="offer" id={s.id}>
-            <div class="offer__main">
-              <h2 class="h-md">{s.title[lang]}</h2>
-              <p class="soft">{s.summary[lang]}</p>
-              {s.status !== 'confirmed' && <PreviewNote lang={lang} note={lang === 'fr' ? 'prestation proposée à faire confirmer' : 'service to be confirmed'} />}
-              {s.conditions.known ? (
-                <div class="offer__conditions">
-                  <h3 class="offer__h3">{d.pricing.offerConditions}</h3>
-                  <ul>{s.conditions.value.map((c) => <li>{c[lang]}</li>)}</ul>
-                </div>
-              ) : (
-                <PreviewNote lang={lang} note={s.conditions.note} />
-              )}
-            </div>
-            <div class="offer__side">
-              <PriceLabel lang={lang} price={s.price} />
-              {!s.price.known && <PreviewNote lang={lang} note={s.price.note} />}
-              <a class="btn btn--primary" href={quoteHref(lang, s.id)} aria-label={`${d.pricing.quoteFor} : ${s.title[lang]}`}>{d.cta.quote}</a>
-            </div>
-          </li>
-        ))}
-      </ol>
+      {hasFares ? (
+        <FaresTable lang={lang} actions />
+      ) : (
+        <ol class="offers">
+          {services.map((s) => (
+            <li class="offer" id={s.id}>
+              <div class="offer__main">
+                <h2 class="h-md">{s.title[lang]}</h2>
+                <p class="soft">{s.summary[lang]}</p>
+                {s.status !== 'confirmed' && <PreviewNote lang={lang} note={lang === 'fr' ? 'prestation proposée à faire confirmer' : 'service to be confirmed'} />}
+                {s.conditions.known ? (
+                  <div class="offer__conditions">
+                    <h3 class="offer__h3">{d.pricing.offerConditions}</h3>
+                    <ul>{s.conditions.value.map((c) => <li>{c[lang]}</li>)}</ul>
+                  </div>
+                ) : (
+                  <PreviewNote lang={lang} note={s.conditions.note} />
+                )}
+              </div>
+              <div class="offer__side">
+                <PriceLabel lang={lang} price={s.price} />
+                {!s.price.known && <PreviewNote lang={lang} note={s.price.note} />}
+                <a class="btn btn--primary" href={quoteHref(lang, s.id)} aria-label={`${d.pricing.quoteFor} : ${s.title[lang]}`}>{d.cta.quote}</a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   </section>
 
@@ -80,6 +86,7 @@ const showConditions = knownConditions.length > 0 || isPreview;
 </Base>
 
 <style>
+  .rates-section { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
   .offers { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgb(17 25 29 / 0.14); }
   .offer { display: grid; gap: 1.5rem; padding: clamp(1.75rem, 4vw, 2.75rem) 0; border-bottom: 1px solid rgb(17 25 29 / 0.14); }
   @media (min-width: 900px) { .offer { grid-template-columns: 1.6fr 1fr; align-items: start; } }
@@ -89,10 +96,10 @@ const showConditions = knownConditions.length > 0 || isPreview;
   .offer__h3 { font-size: 1rem; font-family: var(--sc-font-text); letter-spacing: 0; margin-top: 0.5rem; }
   .offer__conditions ul { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--ink-dark-soft); }
   .conditions { display: grid; gap: 2rem; }
-  @media (min-width: 980px) { .conditions { grid-template-columns: 1fr 1.4fr; } }
+  @media (min-width: 980px) { .conditions { grid-template-columns: 1fr 1.6fr; } }
   .conditions__list { margin: 0; display: grid; }
   .conditions__list div { display: grid; gap: 0.35rem; padding: 1.1rem 0; border-bottom: 1px solid rgb(17 25 29 / 0.14); }
-  @media (min-width: 640px) { .conditions__list div { grid-template-columns: 14rem 1fr; gap: 1.5rem; } }
+  @media (min-width: 640px) { .conditions__list div { grid-template-columns: 12rem 1fr; gap: 1.5rem; } }
   .conditions__list dt { font-weight: 600; }
   .conditions__list dd { margin: 0; color: var(--ink-dark-soft); }
 </style>

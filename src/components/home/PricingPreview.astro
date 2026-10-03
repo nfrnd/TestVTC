@@ -1,9 +1,8 @@
 ---
-import { services } from '../../content/business';
 import type { Lang } from '../../content/types';
 import { t } from '../../i18n';
 import { routes, quoteHref } from '../../i18n/routes';
-import PriceLabel from '../PriceLabel.astro';
+import FaresTable from '../FaresTable.astro';
 
 interface Props {
   lang: Lang;
@@ -15,32 +14,18 @@ const d = t(lang);
 <section class="pricing section ground-light" aria-labelledby="pricing-title">
   <div class="wrap pricing__grid">
     <div class="stack" data-sc-in data-sc-stagger="60">
-      <h2 id="pricing-title" class="h-lg">{d.pricing.title}</h2>
-      <p class="lede soft">{d.pricing.intro}</p>
+      <h2 id="pricing-title" class="h-lg">{d.fares.title}</h2>
+      <p class="lede soft">{d.fares.intro}</p>
       <div class="btn-row" style="margin-top:1.75rem">
         <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>
-        <a class="text-link" href={routes.rates[lang]}>{d.pricing.seeAll}</a>
+        <a class="text-link" href={routes.rates[lang]}>{d.fares.conditions}</a>
       </div>
     </div>
-    <ul class="ledger" data-sc-in data-sc-stagger="50">
-      {services.map((s) => (
-        <li>
-          <a href={quoteHref(lang, s.id)} aria-label={`${d.pricing.quoteFor} : ${s.title[lang]}`}>
-            <span class="ledger__name">{s.title[lang]}</span>
-            <PriceLabel lang={lang} price={s.price} />
-          </a>
-        </li>
-      ))}
-    </ul>
+    <FaresTable lang={lang} />
   </div>
 </section>
 
 <style>
   .pricing__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-  @media (min-width: 980px) { .pricing__grid { grid-template-columns: 1fr 1.1fr; } }
-  .ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgb(17 25 29 / 0.14); }
-  .ledger li { border-bottom: 1px solid rgb(17 25 29 / 0.14); }
-  .ledger a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; min-height: 3.75rem; padding: 1rem 0.25rem; text-decoration: none; transition: background-color 150ms var(--ease), padding 0ms; }
-  .ledger a:hover { background: rgb(17 25 29 / 0.035); }
-  .ledger__name { font-weight: 500; font-size: 1.05rem; }
+  @media (min-width: 1100px) { .pricing__grid { grid-template-columns: 0.8fr 1.2fr; } }
 </style>

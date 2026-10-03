@@ -1,0 +1,89 @@
+PHOTOS IA ET DIRECTION — AZURÉA PRIVÉ / CLAUDE DEMO V2
+
+STATUT DES IMAGES
+Tous les visuels représentent un scénario fictif généré par IA.
+Le chauffeur illustré ne représente pas Noa ni son ami.
+Les vues de Cannes sont des évocations photographiques ; elles ne constituent pas
+un relevé géographique exact ni des photos prises pour une vraie entreprise.
+La représentation du véhicule sert à la maquette ; ce n'est pas un catalogue vérifié.
+
+DIRECTION
+Conserver le ton élégant, ardoise et vert d'eau du projet existant. Un premier écran
+photographique au crépuscule, puis des sections éditoriales claires et des pages pratiques.
+Le véhicule et le chauffeur doivent être bien identifiables, sans superlatifs artificiels.
+Titres et boutons en HTML. Deux familles typographiques maximum.
+Ne pas figer un contraste théorique : le mesurer sur chaque position animée importante.
+Un dégradé sombre local autour du texte est préférable à un voile noir opaque sur toute la photo.
+
+LISTE DE FICHIERS
+hero-desktop.webp : photographie complète du premier écran, ordinateur.
+hero-desktop-960.webp : variante plus légère de la même photo.
+hero-mobile.webp : photographie portrait, cadrage distinct pour téléphone.
+hero-mobile-720.webp : variante légère mobile.
+hero-background.webp et hero-background-960.webp : décor SANS voiture.
+hero-car-alpha.webp et hero-car-alpha-960.webp : voiture transparente, cadre complet.
+driver.webp : portrait du chauffeur fictif Adrien.
+vehicle-profile.webp : vue du véhicule pour la section Tesla.
+interior.webp : habitacle pour la section confort.
+Les autres variantes 720/960 sont renseignées dans le manifeste.
+
+CONTRAT DES CALQUES DESKTOP
+Le fond sans voiture, la voiture transparente et la photographie complète partagent
+une toile de 1672 × 941 pixels et le même cadrage.
+Le calque de la voiture n'est pas recadré autour de sa silhouette.
+Fond et voiture doivent occuper un même conteneur et subir le même ajustement au cadre.
+Une transformation commune de cadrage précède toute différence de parallaxe.
+Avec object-fit: cover, l'objet et le fond doivent avoir le même object-position.
+
+Option A : afficher hero-desktop.webp seul.
+Option B : afficher hero-background.webp puis hero-car-alpha.webp.
+Ne jamais afficher hero-desktop.webp sous hero-car-alpha.webp : la voiture serait doublée.
+
+La voiture transparente conserve son contact au sol et une ombre douce.
+Son alpha a été contrôlé : fond transparent, carrosserie quasi opaque.
+La taille, l'orientation et les reflets sont déjà présents dans l'image.
+Pas de découpe artificielle des roues, de rotation de roues ni de déplacement qui ferait
+glisser la voiture comme un jouet. Une profondeur faible entre plans suffit.
+La photo complète est disponible pour un rendu statique et prefers-reduced-motion.
+
+REPÈRES DE CADRAGE
+Desktop : le véhicule se situe en bas à droite. La partie supérieure et la gauche
+permettent de placer les textes. Le couchant est lumineux : prévoir un contraste local.
+Ne pas placer le bouton sur la carrosserie ou masquer le nez de la voiture avec le texte.
+
+Mobile : la source fait 1122 × 1402 pixels, proche de 4:5. La voiture est en bas.
+Ne pas remplir un écran très étroit de 9:19 avec un object-fit: cover non contrôlé :
+cela couperait les côtés du véhicule.
+Solution simple : texte au-dessus et image en cadre 4:3 avec object-position: center bottom.
+Le recadrage retire surtout le ciel vide et doit conserver la voiture entière.
+Autre solution : conserver la photo complète dans son ratio et placer un texte court
+dans sa partie supérieure. Vérifier alors menu, titre, bouton, voiture et safe area.
+
+RESPONSIVE ET CHARGEMENT
+Les chemins /assets/azurea/... du JSON sont des propositions d’URL :
+les mapper aux imports Astro existants ou copier les fichiers dans public/assets/azurea.
+Tous les chemins consommés doivent réellement exister dans le build.
+Utiliser les WebP de assets/web/, pas les PNG de sources sur la page publique.
+Choisir des srcset et sizes adaptés au cadre. Précharger seulement l'image critique
+qui sera réellement utilisée à ce viewport. LCP, poids et contraste doivent être remesurés.
+Différer les images de profil, habitacle et chauffeur sous le premier écran.
+Prévoir les dimensions intrinsèques pour éviter les décalages de mise en page.
+
+REPLI
+Les mêmes textes et actions doivent rester présents sans JS et avec animations réduites.
+Ne pas charger simultanément la photo complète et tous les calques en priorité élevée.
+Les mouvements importants sont désactivés si l'initialisation échoue.
+
+TEXTES ALTERNATIFS POSSIBLES
+Photographie principale : « Illustration IA d’une Tesla Model 3 noire sur la Riviera au crépuscule. »
+Chauffeur : « Portrait IA d’Adrien, chauffeur fictif de la démonstration. »
+Profil : « Illustration IA du profil de la Tesla Model 3 noire. »
+Habitacle : « Illustration IA de l’habitacle noir d’une Tesla Model 3. »
+Les calques qui décorent le hero ont alt="" lorsque le véhicule est déjà décrit
+dans le contenu voisin. Éviter les répétitions entre plusieurs couches décoratives.
+
+PROVENANCE
+Nouveaux hero desktop, mobile, fond et voiture : génération IA réalisée pour ce kit.
+Portrait, profil et habitacle : images IA reprises du kit Azuréa Privé V1 relu pour cette tâche.
+Les PNG/WebP sources sont fournis. Aucun asset d'une banque payante ou d'un hôtel n'a été utilisé.
+

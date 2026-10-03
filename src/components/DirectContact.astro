@@ -1,9 +1,11 @@
 ---
-// Direct channels, shown only when confirmed (phone, email, WhatsApp).
-import { business } from '../content/business';
+// Direct channels. Live: confirmed details only, real links. Demo: fictional
+// details, every action opens a simulation (ContactAction).
+import { business, isDemo } from '../content';
 import { known, type Lang } from '../content/types';
 import { t } from '../i18n';
 import PreviewNote from './PreviewNote.astro';
+import ContactAction from './ContactAction.astro';
 
 interface Props {
   lang: Lang;
@@ -18,9 +20,9 @@ const any = tel || email || wa;
 
 {any ? (
   <ul class="direct-list">
-    {tel && <li><span>{d.contact.phone}</span><a href={`tel:${tel.e164}`}>{tel.display}</a></li>}
-    {email && <li><span>{d.contact.email}</span><a href={`mailto:${email}`}>{email}</a></li>}
-    {wa && <li><span>WhatsApp</span><a href={`https://wa.me/${wa.e164.replace(/\D/g, '')}`} rel="noopener">{wa.e164}</a></li>}
+    {tel && <li><span>{d.contact.phone}{isDemo && (lang === 'fr' ? ' (fictif)' : ' (fictional)')}</span><ContactAction kind="call" lang={lang} label={tel.display} /></li>}
+    {email && <li><span>{d.contact.email}{isDemo && (lang === 'fr' ? ' (fictif)' : ' (fictional)')}</span><ContactAction kind="email" lang={lang} label={email} /></li>}
+    {wa && <li><span>WhatsApp{isDemo && (lang === 'fr' ? ' (fictif)' : ' (fictional)')}</span><ContactAction kind="whatsapp" lang={lang} label={d.cta.whatsappWrite} /></li>}
   </ul>
 ) : (
   <PreviewNote lang={lang} block note={d.quote.directPending} />
@@ -30,5 +32,5 @@ const any = tel || email || wa;
   .direct-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
   .direct-list li { display: grid; gap: 0.1rem; }
   .direct-list span { font-size: 0.82rem; color: var(--sc-ink-soft); }
-  .direct-list a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 1.1rem; color: var(--focus); }
+  .direct-list :global(a) { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 1.1rem; color: var(--focus); }
 </style>

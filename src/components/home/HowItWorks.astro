@@ -1,0 +1,43 @@
+---
+import type { Lang } from '../../content/types';
+import { t } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+---
+
+<section class="how section ground-mist" aria-labelledby="how-title">
+  <div class="wrap">
+    <h2 id="how-title" class="h-lg how__title">{d.how.title}</h2>
+    <ol class="how__steps" data-sc-in data-sc-stagger="70">
+      {d.quote.steps.map((s) => (
+        <li><p class="how__t">{s.t}</p><p class="how__d">{s.d}</p></li>
+      ))}
+    </ol>
+    <p class="how__note">{d.how.note}</p>
+    {d.how.trust.length > 0 && (
+      <div class="how__trust">
+        <h3 class="h-sm">{d.how.trustTitle}</h3>
+        <ul>{d.how.trust.map((p) => <li>{p}</li>)}</ul>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .how__title { max-width: 18ch; }
+  .how__steps { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 1.5rem; counter-reset: st; }
+  @media (min-width: 860px) { .how__steps { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+  .how__steps li { counter-increment: st; display: grid; gap: 0.5rem; padding-top: 1.25rem; border-top: 2px solid var(--accent-deep); }
+  .how__steps li::before { content: counter(st, decimal-leading-zero); font-family: var(--sc-font-display); font-weight: 600; font-size: 0.95rem; color: var(--accent-deep); }
+  .how__t { font-family: var(--sc-font-display); font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; }
+  .how__d { color: var(--ink-dark-soft); max-width: 36ch; }
+  .how__note { margin-top: 2rem; font-size: 0.92rem; color: var(--ink-dark-soft); }
+  .how__trust { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgb(17 25 29 / 0.14); display: grid; gap: 1rem; }
+  .how__trust ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; }
+  .how__trust li { display: inline-flex; gap: 0.6rem; align-items: center; font-weight: 500; }
+  .how__trust li::before { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent-deep); }
+</style>

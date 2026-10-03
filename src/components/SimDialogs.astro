@@ -1,0 +1,113 @@
+---
+// Demo only: what "Appeler", "WhatsApp" and "E-mail" do in the fictional
+// scenario. Nothing leaves the page: no tel:, mailto: or wa.me link, no request.
+import { business } from '../content';
+import { known, type Lang } from '../content/types';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const s = d.sim;
+const tel = known(business.phone);
+const mailText = `${lang === 'fr' ? 'À' : 'To'} : ${s.mailTo}\n${lang === 'fr' ? 'Objet' : 'Subject'} : ${s.mailSubject}\n\n${s.mailBody}`;
+---
+
+<dialog id="sim-call" class="sim" aria-labelledby="sim-call-title">
+  <div class="sim__card">
+    <h2 id="sim-call-title" class="h-sm">{s.callTitle}</h2>
+    {tel && <p class="sim__number nums">{tel.display}</p>}
+    <p>{s.callText}</p>
+    <div class="sim__actions">
+      <form method="dialog"><button class="btn btn--primary" value="close">{s.understood}</button></form>
+      <a class="sim__nojs-close text-link" href="#contenu">{s.close}</a>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="sim-whatsapp" class="sim" aria-labelledby="sim-wa-title">
+  <div class="sim__card">
+    <h2 id="sim-wa-title" class="h-sm">{s.waTitle}</h2>
+    <p class="sim__example" data-copy-source>{s.waText}</p>
+    <p class="sim__note">{s.waNote}</p>
+    <p class="sim__feedback" role="status" data-copy-feedback></p>
+    <div class="sim__actions">
+      <button class="btn btn--primary" type="button" data-copy hidden>{s.copy}</button>
+      <form method="dialog"><button class="btn btn--ghost" value="close">{s.close}</button></form>
+      <a class="sim__nojs-close text-link" href="#contenu">{s.close}</a>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="sim-email" class="sim" aria-labelledby="sim-mail-title">
+  <div class="sim__card">
+    <h2 id="sim-mail-title" class="h-sm">{s.mailTitle}</h2>
+    <pre class="sim__example sim__mail" data-copy-source>{mailText}</pre>
+    <p class="sim__note">{s.mailNote}</p>
+    <p class="sim__feedback" role="status" data-copy-feedback></p>
+    <div class="sim__actions">
+      <button class="btn btn--primary" type="button" data-copy hidden>{s.copy}</button>
+      <form method="dialog"><button class="btn btn--ghost" value="close">{s.close}</button></form>
+      <a class="sim__nojs-close text-link" href="#contenu">{s.close}</a>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ copied: s.copied, copyFailed: s.copyFailed }}>
+  // Enhancement: real modal dialogs, focus return, copy buttons. Without JS the
+  // #sim-* anchors reveal the same content through :target (see CSS).
+  document.documentElement.classList.add('sim-ready');
+  document.addEventListener('click', (e) => {
+    const trigger = e.target instanceof Element ? e.target.closest('[data-sim]') : null;
+    if (!trigger) return;
+    const dialog = document.getElementById(`sim-${trigger.getAttribute('data-sim')}`);
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    e.preventDefault();
+    dialog.showModal();
+  });
+  document.querySelectorAll('dialog.sim').forEach((dialog) => {
+    const btn = dialog.querySelector('[data-copy]');
+    const src = dialog.querySelector('[data-copy-source]');
+    const feedback = dialog.querySelector('[data-copy-feedback]');
+    if (btn && src && navigator.clipboard) {
+      btn.hidden = false;
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(src.textContent.trim());
+          feedback.textContent = copied;
+        } catch {
+          feedback.textContent = copyFailed;
+        }
+      });
+    }
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => { if (feedback) feedback.textContent = ''; });
+  });
+</script>
+
+<style>
+  .sim {
+    --sc-ink: #f4f6f4; --sc-ink-soft: #beccc9; --focus: var(--sc-accent); --btn-bg: var(--sc-accent); --btn-fg: var(--sc-accent-ink); --btn-hover: var(--accent-hover);
+    color: var(--sc-ink); background: transparent; border: 0; padding: 1rem; max-width: min(34rem, 100%); width: 100%;
+  }
+  :global(dialog.sim::backdrop) { background: rgb(9 14 16 / 0.8); }
+  .sim__card { background: var(--sc-surface); border: 1px solid rgb(244 246 244 / 0.12); border-radius: calc(var(--radius) + 6px); padding: clamp(1.25rem, 4vw, 2rem); display: grid; gap: 1rem; box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.7); }
+  .sim__number { font-family: var(--sc-font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.01em; }
+  .sim__example { margin: 0; padding: 1rem; border-radius: var(--radius); background: rgb(244 246 244 / 0.06); border: 1px solid rgb(244 246 244 / 0.1); line-height: 1.55; }
+  .sim__mail { white-space: pre-wrap; font-family: var(--sc-font-text); font-size: 0.95rem; }
+  .sim__note { font-size: 0.9rem; color: var(--sc-ink-soft); }
+  .sim__feedback:empty { display: none; }
+  .sim__feedback { font-weight: 600; color: var(--sc-accent); }
+  .sim__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .sim__actions form { margin: 0; }
+  /* With JS the native dialog closes itself; the anchor link is the no-JS way out. */
+  :global(html.sim-ready) .sim__nojs-close { display: none; }
+  /* No JavaScript: the #sim-* anchor shows the dialog content as an overlay. */
+  :global(html:not(.sim-ready)) .sim:target {
+    display: block; position: fixed; inset: 0; margin: auto; height: fit-content; z-index: 90;
+    box-shadow: 0 0 0 100vmax rgb(9 14 16 / 0.72);
+  }
+  :global(html:not(.sim-ready)) .sim:target form { display: none; }
+</style>

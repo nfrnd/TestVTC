@@ -1,0 +1,55 @@
+REVUE ET VALIDATION — PROCHAINE LIVRAISON CLAUDE
+
+PORTÉE DE CETTE NOTE
+Le compte-rendu de Claude a été lu. Le code, REVIEW.md et les captures de son dépôt
+ne sont pas encore disponibles ici. Il n'y a donc pas encore d'audit indépendant du code.
+Les nombres de tests et scores cités dans son message restent des résultats déclarés.
+
+PRIORITÉS
+1. Créer un véritable mode démo complet, sans « À confirmer » pour les données fournies.
+2. Intégrer les photographies et obtenir un cadrage soigné sur ordinateur et téléphone.
+3. Conserver la simulation imposée côté serveur et éviter tout contact sortant.
+4. Séparer build optimisé et activation d'une activité réelle, en gardant les contrôles live.
+5. Donner à Noa un moyen réellement utilisable de consulter le résultat.
+
+POINTS DU RAPPORT INITIAL À REPRENDRE
+- Son URL 127.0.0.1 désigne le serveur de son environnement. Elle ne prouve pas un accès
+  depuis l'ordinateur de Noa si ce serveur est dans un conteneur distant.
+- Les mesures de contraste du hero SVG ne valident pas un nouveau hero photographique.
+- Une animation de bouton photographiée pâle mérite une vérification de son état final,
+  de sa durée et de sa lisibilité pendant l'interaction.
+- La page d'erreur sans JS doit éviter de perdre la saisie ; sa limite doit être documentée.
+- Les alertes high sont à documenter avec le vrai audit et les versions verrouillées.
+  Ne pas imposer une rétrogradation majeure ou audit fix --force sans analyse.
+- Une compilation d'adaptateur ne prouve pas un déploiement ni un envoi effectif.
+- Le noindex est attendu sur une démonstration ; il ne faut pas le retirer pour améliorer un score.
+- Le diagnostic du plugin et les preuves de son moteur intact peuvent être conservés.
+  Il n'est pas nécessaire de le réinstaller ni de reconstruire tout le site.
+
+PREUVES À FOURNIR
+- Code ou ZIP du dépôt, sans dépendances installées, secrets et données personnelles.
+- REVIEW.md actualisé.
+- Résultats des vérifications réellement rejouées après les changements.
+- Rapports audit JSON et npm ls pertinents.
+- Captures à 360, 390, 768 et 1440 px.
+- Vues d'accueil au début, au milieu et à la fin du mouvement.
+- Page Tarifs, section chauffeur, formulaire rempli, réussite simulée et un échec utile.
+- Vérification : mode sans JS, animations réduites et contact simulé.
+- Tests de la distinction demo/live et absence d'appel au fournisseur email en démo.
+- Le vrai iPhone reste à tester par Noa après accès au site ; une émulation ne le remplace pas.
+
+ACCEPTATION DE CETTE ITÉRATION
+Le prototype est acceptable pour l'exercice lorsque :
+les pages sont complètes dans les deux langues ;
+les données sont cohérentes et la fiction est indiquée ;
+la voiture est entière et le texte lisible ;
+les boutons fonctionnent et ne lancent pas de vrai contact ;
+le devis se termine sur un récapitulatif simulé ;
+le build démo fonctionne ;
+Noa peut réellement ouvrir le résultat.
+
+LA SUITE
+ChatGPT examine la livraison et prépare des corrections priorisées appuyées sur les fichiers.
+Claude les applique et vérifie les points touchés.
+Noa reste l'intermédiaire et décide des choix de présentation et de toute publication.
+

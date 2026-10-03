@@ -1,0 +1,52 @@
+Le périmètre est désormais une DÉMONSTRATION FICTIVE. Noa veut tester sa capacité à créer ce type de site. Le site ne représente pas encore son ami et aucune donnée réelle n'est nécessaire pour avancer.
+
+Ce complément remplace les anciennes consignes qui interdisaient toute donnée inventée : les données du kit sont maintenant explicitement autorisées pour ce scénario. Elles restent marquées comme fictives et ne doivent pas être converties en données professionnelles validées.
+
+Lis 00-LIRE-DABORD.txt, puis data/business-demo.json, data/textes-fr-en.json et docs/03-ASSETS-ET-DIRECTION.txt dans le dossier azurea-prive-claude-demo-v2. Le scénario détaillé français est fourni dans docs/02-ENTREPRISE-ET-TEXTES-FR.txt.
+
+OBJECTIF DE LA PROCHAINE ITÉRATION
+Conserve le projet Astro existant et sa branche. Termine un aperçu professionnel d'AZURÉA PRIVÉ : Adrien Morel, chauffeur fictif à Cannes, Tesla Model 3 noire. Remplis toutes les pages FR/EN avec les données fournies. Les informations encore marquées « À confirmer » disparaissent dans le mode démo lorsque le scénario les renseigne. Les identifiants officiels restent absents : aucune fausse immatriculation, assurance ou autorisation.
+
+1. SÉPARE LE MODE DÉMO DU MODE RÉEL
+Adapte ta configuration pour distinguer BUSINESS_MODE=demo et BUSINESS_MODE=live, ou une séparation équivalente clairement documentée.
+Le build optimisé de démonstration doit fonctionner avec NODE_ENV=production. Il ne doit pas exiger les coordonnées et justificatifs d'une vraie activité.
+Le garde-fou de publication d'une vraie entreprise reste actif en mode live ; le jeu fictif ne satisfait jamais cette validation. Ne supprime pas le garde-fou et ne marque pas toutes les données comme confirmées.
+Ajoute les scripts de démarrage/build démo adaptés au projet et documente les commandes exactes.
+Conserve noindex en démo et n'émet pas de LocalBusiness qui présenterait cette entreprise fictive comme réelle.
+
+2. INTÈGRE LE SCÉNARIO
+Adapte le JSON au schéma existant de src/content/business.ts et aux valeurs acceptées par le formulaire. Inspecte ces types avant de mapper les identifiants de services. N'écrase pas le projet avec du code venant de MagicPath.
+Les prix de référence : Cannes ↔ aéroport Nice 95 €, gare d'Antibes 55 €, Nice-centre 100 €, Mougins 45 €, Monaco 170 €, mise à disposition 80 €/h avec 3 h minimum.
+Les conditions complètes et textes FR/EN sont fournis. Ils sont fictifs, cohérents entre pages et prêts à être adaptés à tes composants. Ne crée pas un moteur de tarification automatique.
+Mention discrète : « Démonstration — entreprise et tarifs fictifs ». Mention complémentaire au pied de page : images IA, aucun message ou réservation réelle.
+
+3. UTILISE LES PHOTOGRAPHIES IA FOURNIES
+Les assets WebP optimisés sont dans assets/web/. Les originaux sont dans assets/originaux/. Pas besoin d'une banque d'images, d'une clé d'API ou d'un budget de génération supplémentaire.
+Remplace les illustrations SVG provisoires par ces photos. Garde le moteur Scroll Craft intact et adapte seulement les composants du site.
+Deux options desktop :
+- hero-desktop.webp pour une composition photographique simple et son repli statique ;
+- hero-background.webp + hero-car-alpha.webp pour la profondeur en calques. Les deux images ont exactement le même cadre. Utilise le fond SANS voiture, pas la photographie complète sous le détourage, sinon tu affiches deux voitures.
+N'utilise qu'une option à la fois et ne précharge pas systématiquement les deux versions.
+Conserve la voiture entière, son ancrage au sol et des amplitudes faibles. Les roues photographiques ne tournent pas en CSS : l'effet recherché est une profondeur de composition, pas une simulation de conduite.
+Les détails de cadrage, fichiers responsives et limites d'usage sont dans docs/03-ASSETS-ET-DIRECTION.txt.
+Sur téléphone, utilise hero-mobile.webp, compose le texte indépendamment et évite de recadrer les roues hors écran. La photo complète est en 4:5 ; un cadre 4:3 placé sur son bas peut retirer l'espace de ciel si le texte est situé au-dessus.
+Ajoute les visuels de l'habitacle, du véhicule de profil et du chauffeur fictif.
+Mesure à nouveau les contrastes sur les photos. Les mesures et scores obtenus avec les SVG ne valident pas le nouveau rendu.
+Le titre, les textes et les boutons restent du vrai HTML. Les appels à l'action doivent être parfaitement lisibles et atteindre un état final opaque.
+
+4. SIMULE LES CONTACTS ET LES DEMANDES
+Appeler, WhatsApp et email ouvrent une fenêtre de simulation avec les coordonnées de fiction. En mode démo, aucun tel:, mailto:, wa.me, fournisseur email ou destinataire réel ne doit être appelé.
+Dans le formulaire, conserve les deux étapes et ajoute « Remplir un exemple fictif ». L'exemple fourni choisit une date sept jours après la date locale courante, à 10 h 30, heure de Paris.
+Le bouton final est « Simuler ma demande de devis ». La réponse montre un récapitulatif et : « Simulation réussie. Aucun message n'a été envoyé et aucun trajet n'est réservé. »
+Le serveur doit imposer le transport simulé en mode démo, même si une clé réelle existe dans l'environnement. Aucun contenu de demande n'est journalisé ou conservé durablement. Ne te contente pas d'une désactivation du bouton côté client.
+Garde la validation serveur, les protections et les tests utiles. Prévois aussi le parcours sans JS. Si tu ne peux pas conserver la saisie après un échec du POST HTML, documente la limite sans exposer les champs dans une URL et sans enregistrer les coordonnées dans un stockage persistant.
+
+5. FOURNIS UN APERÇU ET DES PREUVES ACTUALISÉES
+Corrige les défauts de cette itération, puis vérifie le build démo optimisé et les parcours modifiés. Regarde les captures à 360, 390, 768 et 1440 px, avec animations réduites et sans JS.
+Vérifie particulièrement : le cadrage de la voiture, les prix identiques sur toutes les pages, l'absence de contact sortant réel et la distinction demo/live.
+Ta précédente réponse signale des alertes npm audit. Fournis le rapport JSON brut, npm ls pour la chaîne concernée et les versions exactes verrouillées, sans lancer un audit fix --force ni une rétrogradation majeure à l'aveugle. Distingue ces alertes de ce que tu as effectivement corrigé.
+Mets à jour REVIEW.md avec les résultats réellement obtenus et les limites restantes. La revue indépendante de ChatGPT n'a pas encore eu lieu.
+Fournis le code ou une archive du dépôt sans node_modules, sans .env, sans secret et sans fichiers personnels, ainsi que 6 captures utiles : accueil desktop/mobile, section chauffeur, tarifs, devis rempli et résultat simulé.
+Un serveur sur 127.0.0.1 dans un conteneur distant n'est pas une URL accessible depuis le poste de Noa. Donne les instructions exactes pour lancer le projet localement, et une URL d'aperçu seulement si elle est réellement accessible. Aucune souscription ou publication publique n'est demandée dans cette itération.
+
+Avance directement. Les données, textes et visuels nécessaires à ce test sont fournis. Regroupe à la fin les seules questions qui bloquent réellement une action.

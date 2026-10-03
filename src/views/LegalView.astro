@@ -4,7 +4,7 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Blank from '../components/Blank.astro';
-import { business } from '../content/business';
+import { business, isDemo } from '../content';
 import type { Lang } from '../content/types';
 import { t } from '../i18n';
 import { routes } from '../i18n/routes';
@@ -21,6 +21,13 @@ const fr = lang === 'fr';
 
 <Base lang={lang} route="legal" title={d.meta.legal.title} description={d.meta.legal.description}>
   <PageHead title={d.meta.legal.title} />
+  {isDemo ? (
+    <section class="section ground-light">
+      <div class="wrap prose">
+        <p>{d.demoInfo.aboutText}</p>
+      </div>
+    </section>
+  ) : (
   <section class="section ground-light">
     <div class="wrap prose">
       <h2>{fr ? 'Éditeur du site' : 'Website publisher'}</h2>
@@ -66,6 +73,7 @@ const fr = lang === 'fr';
       <p class="soft small">{fr ? 'Site' : 'Website'} : {siteUrl}</p>
     </div>
   </section>
+  )}
 </Base>
 
 <style>

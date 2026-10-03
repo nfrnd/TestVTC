@@ -4,7 +4,10 @@
 // the quote form (?prestation=<id>). Built on native radio buttons and CSS
 // :has(), so it works with the keyboard (arrow keys), by touch and without
 // JavaScript. Script only adds the line-drawing animation.
-import { services } from '../../content/business';
+import { services, fares } from '../../content';
+import { known } from '../../content/types';
+import { fill } from '../../i18n';
+import PriceLabel from '../PriceLabel.astro';
 import type { Lang, RouteMotif } from '../../content/types';
 import { t } from '../../i18n';
 import { quoteHref } from '../../i18n/routes';
@@ -37,6 +40,18 @@ const motifs: Record<RouteMotif, Motif> = {
     from: [72, 222],
     to: [566, 172],
   },
+  station: {
+    paths: [{ d: 'M84 214 C 200 214, 300 150, 470 150 L 560 150' }],
+    stops: [[470, 150]],
+    from: [84, 214],
+    to: [560, 150],
+  },
+  riviera: {
+    paths: [{ d: 'M70 220 C 140 170, 190 230, 260 182 S 380 128, 440 150 S 540 112, 584 84' }],
+    stops: [[260, 182], [440, 150]],
+    from: [70, 220],
+    to: [584, 84],
+  },
   event: {
     paths: [{ d: 'M96 206 C 220 120, 380 86, 540 118' }, { d: 'M540 118 C 410 196, 240 240, 96 206', dashed: true }],
     stops: [],
@@ -50,6 +65,8 @@ const motifs: Record<RouteMotif, Motif> = {
     to: [98, 214],
   },
 };
+const hourly = known(fares.hourly);
+const eur = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
 const panelRules = services
   .map((s) => `.selector:has(input[value="${s.id}"]:checked) :is([data-panel="${s.id}"],[data-motif-for="${s.id}"]){display:var(--show,block)}`)
   .join('');
@@ -104,8 +121,18 @@ const panelRules = services
           <div class="panel" data-panel={s.id}>
             <h3 class="h-md">{s.title[lang]}</h3>
             <p class="panel__summary">{s.summary[lang]}</p>
+            {(() => {
+              const routes = fares.routes.filter((r) => r.serviceId === s.id);
+              if (routes.length) return (
+                <ul class="panel__fares">{routes.map((r) => <li><span>{r.from} ↔ {r.to}</span><strong class="nums">{eur(r.price.amount)}</strong></li>)}</ul>
+              );
+              if (s.hourly && hourly) return (
+                <ul class="panel__fares"><li><span>{d.fares.hourly}</span><strong class="nums">{eur(hourly.pricePerHour)} {d.fares.perHour}</strong></li><li><span>{fill(d.fares.minimum, { hours: hourly.minHours, total: eur(hourly.minTotal) })}</span></li></ul>
+              );
+              return <p class="panel__price"><PriceLabel lang={lang} price={s.price} /></p>;
+            })()}
             {s.status !== 'confirmed' && <PreviewNote lang={lang} note={lang === 'fr' ? 'prestation proposée à faire confirmer' : 'service to be confirmed'} />}
-            <a class="btn btn--primary" href={quoteHref(lang, s.id)}>{d.cta.quote}</a>
+            <a class="btn btn--primary" href={quoteHref(lang, s.id)}>{s.cta ? s.cta[lang] : d.cta.quote}</a>
           </div>
         ))}
       </div>
@@ -154,6 +181,9 @@ const panelRules = services
   .panel h3 { margin-top: 0.75rem; }
   .panel__summary { color: #dbe4e2; max-width: 52ch; }
   .panel .btn { justify-self: start; margin-top: 0.4rem; }
+  .panel__fares { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.15rem; max-width: 34rem; }
+  .panel__fares li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid rgb(244 246 244 / 0.1); color: #dbe4e2; }
+  .panel__fares strong { color: #f4f6f4; font-family: var(--sc-font-display); font-weight: 600; white-space: nowrap; }
 
   .motif__path { fill: none; stroke: var(--sc-accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .motif__path.is-dashed { stroke-dasharray: 2 10; stroke-width: 3; opacity: 0.8; }

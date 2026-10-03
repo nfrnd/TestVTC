@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "2.0",
+  "datasetId": "azurea-prive-claude-demo-v2",
+  "mode": "demo",
+  "fictional": true,
+  "brand": {
+    "name": "AZURÉA PRIVÉ",
+    "slug": "azurea-prive",
+    "sloganFr": "Cannes, à votre rythme.",
+    "sloganEn": "Cannes, at your own pace.",
+    "positioning": "Chauffeur privé indépendant à Cannes, service élégant et contact direct",
+    "palette": {
+      "canvas": "#11191D",
+      "surface": "#1C292F",
+      "ink": "#F4F6F4",
+      "inkSoft": "#BECCC9",
+      "accent": "#A8D5CC",
+      "accentInk": "#112622"
+    }
+  },
+  "owner": {
+    "name": "Adrien Morel",
+    "ageInScenario": 35,
+    "roleFr": "Chauffeur indépendant à Cannes",
+    "roleEn": "Independent chauffeur in Cannes",
+    "fictional": true,
+    "languages": [
+      "fr",
+      "en"
+    ]
+  },
+  "company": {
+    "businessFormFr": "Microentreprise fictive de démonstration",
+    "baseCity": "Cannes",
+    "postalCode": "06400",
+    "countryCode": "FR",
+    "publicLocation": "Cannes, Côte d’Azur, France",
+    "receptionOffice": false,
+    "registeredAddress": null,
+    "siret": null,
+    "vtcRegistration": null,
+    "insurancePolicy": null,
+    "taxRegime": null
+  },
+  "contact": {
+    "phoneDisplay": "06 39 98 12 34",
+    "phoneInternational": "+33 6 39 98 12 34",
+    "emailDisplay": "bonjour@azurea-prive.example",
+    "websiteDisplay": "azurea-prive.example",
+    "whatsappInScenario": true,
+    "openingHours": {
+      "days": "daily",
+      "start": "07:00",
+      "end": "22:00",
+      "timeZone": "Europe/Paris"
+    },
+    "rideAvailabilityFr": "Sur réservation, selon disponibilité ; départs tôt ou tard possibles",
+    "outboundBehavior": "simulate_only",
+    "telLinks": false,
+    "mailtoLinks": false,
+    "whatsappLinks": false,
+    "googleBusinessUrl": null,
+    "socialProfiles": []
+  },
+  "coverage": {
+    "cities": [
+      "Cannes",
+      "Le Cannet",
+      "Mougins",
+      "Antibes",
+      "Juan-les-Pins",
+      "Nice",
+      "Monaco"
+    ],
+    "airport": "Aéroport Nice Côte d’Azur",
+    "hourlyBaseArea": [
+      "Cannes",
+      "Le Cannet",
+      "Mougins"
+    ]
+  },
+  "vehicle": {
+    "make": "Tesla",
+    "model": "Model 3",
+    "generationForVisuals": "Restylage Highland 2024 — représentation IA",
+    "color": "Noire",
+    "interior": "Noir",
+    "steering": "left",
+    "wheelsForVisuals": "18 pouces gris foncé, style Photon",
+    "recommendedPassengers": 3,
+    "maxPassengersOnRequest": 4,
+    "luggage": {
+      "mediumSuitcases": 2,
+      "cabinBags": 2,
+      "subjectToConfirmation": true
+    },
+    "equipment": [
+      "Climatisation",
+      "Eau",
+      "Recharge du téléphone"
+    ],
+    "childSeat": "Sur demande préalable et confirmation",
+    "petPolicy": "Petit animal en caisse de transport, sur demande préalable et confirmation",
+    "fleetSize": 1
+  },
+  "services": [
+    {
+      "id": "airport",
+      "titleFr": "Transferts aéroport",
+      "titleEn": "Airport transfers",
+      "descriptionFr": "Organisez votre transfert entre Cannes et l’aéroport Nice Côte d’Azur. Le numéro de vol aide à préparer la prise en charge.",
+      "descriptionEn": "Plan your transfer between Cannes and Nice Côte d’Azur Airport. Your flight number helps prepare the pick-up."
+    },
+    {
+      "id": "station",
+      "titleFr": "Transferts gare",
+      "titleEn": "Train station transfers",
+      "descriptionFr": "Préparez votre arrivée ou votre départ dans les gares de la région, avec horaires et lieu de rendez-vous convenus.",
+      "descriptionEn": "Prepare your arrival or departure at a local train station, with an agreed time and meeting point."
+    },
+    {
+      "id": "riviera",
+      "titleFr": "Cannes et la Riviera",
+      "titleEn": "Cannes and the Riviera",
+      "descriptionFr": "Hôtel, restaurant ou rendez-vous : rejoignez votre prochaine adresse à Cannes, Mougins, Antibes, Nice ou Monaco.",
+      "descriptionEn": "Hotel, restaurant or appointment: travel to your next address in Cannes, Mougins, Antibes, Nice or Monaco."
+    },
+    {
+      "id": "business",
+      "titleFr": "Professionnels et événements",
+      "titleEn": "Business and events",
+      "descriptionFr": "Partagez vos adresses et votre programme pour organiser vos déplacements d’affaires, de congrès ou de soirée.",
+      "descriptionEn": "Share your addresses and schedule to plan business meetings, conference travel or an evening out."
+    },
+    {
+      "id": "hourly",
+      "titleFr": "Mise à disposition",
+      "titleEn": "Hourly chauffeur service",
+      "descriptionFr": "À partir de trois heures, construisez un programme de plusieurs étapes avec un même chauffeur.",
+      "descriptionEn": "From three hours, build a multi-stop itinerary with the same chauffeur."
+    }
+  ],
+  "pricing": {
+    "fictional": true,
+    "currency": "EUR",
+    "display": "Prix finaux fictifs du scénario",
+    "basis": "Par véhicule, par aller simple, dans les deux sens du trajet indiqué",
+    "fixedRoutes": [
+      {
+        "id": "cannes-nice-airport",
+        "serviceId": "airport",
+        "from": "Cannes-centre",
+        "to": "Aéroport Nice Côte d’Azur",
+        "priceEur": 95,
+        "bidirectional": true
+      },
+      {
+        "id": "cannes-antibes-station",
+        "serviceId": "station",
+        "from": "Cannes-centre",
+        "to": "Gare d’Antibes",
+        "priceEur": 55,
+        "bidirectional": true
+      },
+      {
+        "id": "cannes-nice-centre",
+        "serviceId": "riviera",
+        "from": "Cannes-centre",
+        "to": "Nice-centre",
+        "priceEur": 100,
+        "bidirectional": true
+      },
+      {
+        "id": "cannes-mougins",
+        "serviceId": "riviera",
+        "from": "Cannes-centre",
+        "to": "Mougins-centre",
+        "priceEur": 45,
+        "bidirectional": true
+      },
+      {
+        "id": "cannes-monaco",
+        "serviceId": "riviera",
+        "from": "Cannes-centre",
+        "to": "Monaco",
+        "priceEur": 170,
+        "bidirectional": true
+      }
+    ],
+    "hourly": {
+      "pricePerHourEur": 80,
+      "minHours": 3,
+      "minTotalEur": 240,
+      "includedKmPerHour": 30,
+      "area": [
+        "Cannes",
+        "Le Cannet",
+        "Mougins"
+      ],
+      "otherPrograms": "Sur devis"
+    },
+    "dayPickupWindow": {
+      "start": "06:00",
+      "endExclusive": "22:00"
+    },
+    "nightSurcharge": {
+      "start": "22:00",
+      "endExclusive": "06:00",
+      "rate": 0.2,
+      "appliesTo": "Transport ou base horaire ; chaque prise en charge d’un aller-retour est considérée séparément, hors attente supplémentaire"
+    },
+    "ordinaryTollsAndParkingIncludedInFixedRoutes": true,
+    "waiting": {
+      "airportMinutesIncluded": 45,
+      "airportStart": "Atterrissage réel",
+      "otherMinutesIncluded": 15,
+      "otherStart": "Heure convenue",
+      "extraEurPerStarted15Minutes": 15,
+      "requiresAgreement": true
+    },
+    "eventAdjustments": "Conditions particulières communiquées et acceptées avant confirmation",
+    "quoteEngine": "none"
+  },
+  "booking": {
+    "quoteFree": true,
+    "quoteIsReservation": false,
+    "confirmation": "Écrite après accord",
+    "paymentsInScenario": [
+      "Carte à bord",
+      "Espèces"
+    ],
+    "onlinePayment": false,
+    "cancellationScenario": {
+      "freeUntilHoursBefore": 24,
+      "lateRate": 0.5,
+      "noShowRate": 1
+    },
+    "realBookingEnabled": false
+  },
+  "demo": {
+    "visibleLabelFr": "Démonstration — entreprise et tarifs fictifs",
+    "visibleLabelEn": "Demo — fictional business and prices",
+    "footerFr": "AZURÉA PRIVÉ est une entreprise fictive créée pour une démonstration. Les visuels sont générés par IA. Aucun message, paiement ou réservation n’est transmis.",
+    "footerEn": "AZURÉA PRIVÉ is a fictional business created for a demonstration. Images are AI-generated. No message, payment or booking is transmitted.",
+    "submitLabelFr": "Simuler ma demande de devis",
+    "submitLabelEn": "Simulate my quote request",
+    "successFr": "Simulation réussie. Votre récapitulatif est prêt ; aucun message n’a été envoyé et aucun trajet n’est réservé.",
+    "successEn": "Simulation successful. Your summary is ready; no message has been sent and no ride has been booked.",
+    "referenceIdPrefix": "DEMO-",
+    "indexable": false,
+    "structuredLocalBusiness": false,
+    "externalEmailTransport": false,
+    "persistentPersonalData": false,
+    "requestExample": {
+      "clientName": "Camille Exemple",
+      "preferredContact": "email",
+      "email": "camille@example.com",
+      "phone": "+33639981234",
+      "serviceId": "airport",
+      "from": "Cannes-centre",
+      "to": "Aéroport Nice Côte d’Azur",
+      "daysFromToday": 7,
+      "localTime": "10:30",
+      "timeZone": "Europe/Paris",
+      "passengers": 2,
+      "luggage": "1 valise moyenne et 2 sacs cabine",
+      "message": "Exemple fictif pour tester le parcours."
+    }
+  },
+  "assets": {
+    "desktop": "/assets/azurea/hero-desktop.webp",
+    "mobile": "/assets/azurea/hero-mobile.webp",
+    "background": "/assets/azurea/hero-background.webp",
+    "car": "/assets/azurea/hero-car-alpha.webp",
+    "driver": "/assets/azurea/driver.webp",
+    "profile": "/assets/azurea/vehicle-profile.webp",
+    "interior": "/assets/azurea/interior.webp"
+  }
+}
+

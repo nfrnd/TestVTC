@@ -1,0 +1,362 @@
+{
+  "fr": {
+    "meta": {
+      "homeTitle": "AZURÉA PRIVÉ — Chauffeur privé à Cannes | Démonstration",
+      "homeDescription": "Prototype fictif de chauffeur privé à Cannes en Tesla Model 3 noire : services, tarifs et simulation de demande de devis."
+    },
+    "nav": {
+      "services": "Services",
+      "vehicle": "La Tesla",
+      "fares": "Tarifs",
+      "driver": "Votre chauffeur",
+      "contact": "Contact",
+      "quote": "Demander un devis",
+      "menuOpen": "Ouvrir le menu",
+      "menuClose": "Fermer le menu"
+    },
+    "hero": {
+      "eyebrow": "AZURÉA PRIVÉ · CHAUFFEUR INDÉPENDANT",
+      "title": "Votre chauffeur privé à Cannes.",
+      "signature": "Cannes, à votre rythme.",
+      "text": "Pour vos transferts, vos rendez-vous et vos journées sur la Riviera, retrouvez Adrien à bord d’une Tesla Model 3 noire. Un contact direct et un trajet préparé avec vous.",
+      "primaryCta": "Demander un devis",
+      "secondaryCta": "Appeler Adrien",
+      "vehicleLink": "Découvrir la Tesla",
+      "facts": [
+        "Basé à Cannes",
+        "Français / English",
+        "Sur réservation"
+      ]
+    },
+    "services": {
+      "title": "Un chauffeur pour les moments qui comptent.",
+      "text": "Un avion à prendre, une arrivée à organiser, un rendez-vous ou une journée à composer : décrivez votre programme, je prépare le trajet avec vous.",
+      "cta": "Demander ce trajet"
+    },
+    "vehicle": {
+      "title": "Le calme fait aussi partie du voyage.",
+      "text": "Une silhouette noire sobre, un habitacle épuré et un espace préparé pour votre trajet. Installez-vous et profitez de votre déplacement.",
+      "passengers": "3 passagers recommandés. Un quatrième sur demande, sans gros bagages.",
+      "luggage": "2 valises moyennes et 2 sacs cabine, selon leurs dimensions.",
+      "comfort": "Eau, recharge du téléphone et climatisation.",
+      "cta": "Préparer mon trajet"
+    },
+    "driver": {
+      "title": "Adrien, du premier message à l’arrivée.",
+      "intro": "Je m’appelle Adrien et je suis chauffeur indépendant à Cannes.",
+      "bio": "J’ai imaginé AZURÉA PRIVÉ autour d’une idée simple : rendre vos déplacements aussi agréables à organiser qu’à vivre. Je prends le temps de comprendre votre trajet, vos horaires et les détails qui comptent pour vous. Pour un transfert, un rendez-vous ou une journée sur la Riviera, vous échangez directement avec moi. Mon approche : une présentation soignée, de l’attention et un accueil naturel.",
+      "signature": "Adrien Morel · Chauffeur indépendant à Cannes",
+      "cta": "Contacter Adrien"
+    },
+    "howItWorks": {
+      "title": "Votre trajet, en trois étapes.",
+      "steps": [
+        {
+          "title": "Décrivez votre trajet.",
+          "text": "Adresses, horaires, passagers et bagages : quelques informations suffisent pour commencer."
+        },
+        {
+          "title": "Recevez une proposition.",
+          "text": "Le chauffeur précise la disponibilité, le tarif et les conditions correspondant à votre demande."
+        },
+        {
+          "title": "Confirmez votre réservation.",
+          "text": "Après votre accord, vous recevez une confirmation écrite et les détails de prise en charge."
+        }
+      ],
+      "note": "Dans cette démonstration, seule la demande est simulée."
+    },
+    "fares": {
+      "title": "Des repères clairs pour préparer votre trajet.",
+      "text": "Des forfaits pour les trajets fréquents, une proposition personnalisée pour vos autres programmes.",
+      "demoLabel": "Tarifs fictifs pour tester le site.",
+      "oneWay": "Aller simple, par véhicule",
+      "hour": "/ heure",
+      "minimum": "Minimum 3 heures, soit 240 €",
+      "custom": "Autre trajet : sur devis",
+      "night": "Entre 22 h et 6 h : majoration fictive de 20 %.",
+      "conditions": "Voir les tarifs et conditions",
+      "cta": "Demander ce trajet"
+    },
+    "quote": {
+      "title": "Parlons de votre prochain trajet.",
+      "text": "Quelques détails pour préparer une proposition adaptée à votre programme.",
+      "notice": "Démonstration : utilisez des informations fictives. Rien n’est transmis.",
+      "tripStep": "Votre trajet",
+      "contactStep": "Vos coordonnées",
+      "service": "Type de prestation",
+      "from": "Lieu de départ",
+      "to": "Destination",
+      "date": "Date souhaitée",
+      "time": "Heure de prise en charge",
+      "timeZone": "Heure de Paris",
+      "passengers": "Passagers",
+      "luggage": "Bagages",
+      "returnTrip": "Aller-retour",
+      "returnDate": "Date de retour",
+      "returnTime": "Heure de retour",
+      "duration": "Durée souhaitée",
+      "program": "Programme ou itinéraire envisagé",
+      "flightTrain": "Numéro de vol ou de train, facultatif",
+      "name": "Votre nom",
+      "contactMethod": "Comment souhaitez-vous être recontacté ?",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp",
+      "message": "Votre message, facultatif",
+      "next": "Continuer",
+      "previous": "Retour au trajet",
+      "submit": "Simuler ma demande de devis",
+      "example": "Remplir un exemple fictif",
+      "summary": "Récapitulatif de démonstration",
+      "success": "Simulation réussie. Aucun message n’a été envoyé et aucun trajet n’est réservé.",
+      "error": "La simulation n’a pas abouti. Votre saisie est conservée ; vous pouvez réessayer.",
+      "privacy": "Aucune donnée de ce formulaire n’est transmise à un chauffeur réel."
+    },
+    "contact": {
+      "title": "Un contact direct pour préparer la suite.",
+      "text": "Une question sur un trajet ou un programme ? Échangez directement avec Adrien.",
+      "hours": "Tous les jours, de 7 h à 22 h, heure de Paris.",
+      "location": "Cannes, Côte d’Azur. Prises en charge sur rendez-vous, sans bureau d’accueil.",
+      "call": "Appeler Adrien",
+      "whatsapp": "Écrire sur WhatsApp",
+      "email": "Écrire un e-mail",
+      "modalTitle": "Simulation de contact",
+      "modalText": "Ce contact est fictif. Aucun appel ou message ne sera lancé.",
+      "submit": "Simuler mon message",
+      "success": "Message simulé. Aucun envoi n’a été effectué."
+    },
+    "faq": {
+      "title": "Avant de prendre la route.",
+      "items": [
+        {
+          "q": "Comment réserver un trajet ?",
+          "a": "Commencez par une demande de devis. Adrien précise sa disponibilité, le tarif et les conditions, puis confirme votre réservation par écrit après votre accord."
+        },
+        {
+          "q": "Les prix sont-ils indiqués par personne ?",
+          "a": "Les forfaits correspondent à un aller simple, par véhicule, dans les deux sens du trajet indiqué. Ils couvrent une prise en charge de 6 h à 22 h ; une majoration de 20 % s’applique la nuit."
+        },
+        {
+          "q": "Puis-je demander un trajet tôt le matin ou la nuit ?",
+          "a": "Oui, sur réservation et selon disponibilité. Une prise en charge à partir de 22 h et avant 6 h entraîne une majoration de 20 %."
+        },
+        {
+          "q": "Que se passe-t-il si mon vol arrive en retard ?",
+          "a": "Précisez le numéro de vol et communiquez tout changement. Le transfert comprend 45 minutes d’attente après l’atterrissage réel, puis 15 € par tranche de 15 minutes commencée, après accord et selon disponibilité."
+        },
+        {
+          "q": "Combien de passagers et de bagages à bord ?",
+          "a": "Trois passagers sont recommandés. Un quatrième est possible sur demande, sans gros bagages. Prévoyez deux valises moyennes et deux sacs cabine, dont les dimensions seront à confirmer."
+        },
+        {
+          "q": "Puis-je prévoir plusieurs arrêts ?",
+          "a": "La mise à disposition commence à trois heures, à 80 € de l’heure. La base couvre Cannes, Le Cannet et Mougins, avec 30 km par heure inclus. Un autre programme est précisé dans le devis."
+        },
+        {
+          "q": "Quels moyens de paiement sont proposés ?",
+          "a": "Le règlement prévu est par carte à bord ou en espèces. Aucun paiement n’est possible dans cette démonstration."
+        },
+        {
+          "q": "Puis-je modifier ou annuler mon trajet ?",
+          "a": "Toute modification doit être reconfirmée. Annulation gratuite jusqu’à 24 heures avant, puis 50 % à moins de 24 heures et 100 % en cas d’absence. Ces conditions sont fictives pour ce test."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Où souhaitez-vous aller ?",
+      "text": "Votre point de départ, votre destination, vos horaires : préparons la suite ensemble.",
+      "cta": "Demander un devis"
+    },
+    "legal": {
+      "title": "À propos de cette démonstration",
+      "text": "AZURÉA PRIVÉ et Adrien Morel sont fictifs. Cette page présente un scénario de microentreprise pour tester un site vitrine. Il n’existe aucune immatriculation, assurance ou autorisation professionnelle associée à ce prototype. Aucun service réel n’est proposé.",
+      "privacyTitle": "Confidentialité de la démonstration",
+      "privacyText": "Les formulaires servent à simuler une demande avec des informations fictives. Aucun service de transport réel n’est contacté. Cette page sera complétée avec les informations de l’hébergement utilisé si un aperçu en ligne est créé."
+    },
+    "demo": {
+      "label": "Démonstration — entreprise et tarifs fictifs",
+      "footer": "AZURÉA PRIVÉ est une entreprise fictive créée pour une démonstration. Les visuels sont générés par IA. Aucun message, paiement ou réservation n’est transmis."
+    }
+  },
+  "en": {
+    "meta": {
+      "homeTitle": "AZURÉA PRIVÉ — Private Chauffeur in Cannes | Demo",
+      "homeDescription": "Fictional chauffeur website prototype in Cannes with a black Tesla Model 3: services, sample fares and a simulated quote request."
+    },
+    "nav": {
+      "services": "Services",
+      "vehicle": "The Tesla",
+      "fares": "Fares",
+      "driver": "Your chauffeur",
+      "contact": "Contact",
+      "quote": "Request a quote",
+      "menuOpen": "Open menu",
+      "menuClose": "Close menu"
+    },
+    "hero": {
+      "eyebrow": "AZURÉA PRIVÉ · INDEPENDENT CHAUFFEUR",
+      "title": "Your private chauffeur in Cannes.",
+      "signature": "Cannes, at your own pace.",
+      "text": "For transfers, appointments and days on the Riviera, meet Adrien aboard a black Tesla Model 3. Direct contact and a journey planned with you.",
+      "primaryCta": "Request a quote",
+      "secondaryCta": "Call Adrien",
+      "vehicleLink": "Discover the Tesla",
+      "facts": [
+        "Based in Cannes",
+        "French / English",
+        "By reservation"
+      ]
+    },
+    "services": {
+      "title": "A chauffeur for the moments that matter.",
+      "text": "A flight to catch, an arrival to arrange, an appointment or a day to plan: share your schedule and I will prepare the journey with you.",
+      "cta": "Request this journey"
+    },
+    "vehicle": {
+      "title": "Peace of mind is part of the journey.",
+      "text": "A discreet black silhouette, a minimalist interior and a space prepared for your trip. Settle in and enjoy the journey.",
+      "passengers": "3 passengers recommended. A fourth on request, without large luggage.",
+      "luggage": "2 medium suitcases and 2 cabin bags, depending on their dimensions.",
+      "comfort": "Water, phone charging and air conditioning.",
+      "cta": "Plan my journey"
+    },
+    "driver": {
+      "title": "Adrien, from the first message to your arrival.",
+      "intro": "My name is Adrien and I am an independent chauffeur in Cannes.",
+      "bio": "I created AZURÉA PRIVÉ around a simple idea: make journeys as pleasant to organise as they are to experience. I take the time to understand your itinerary, timing and the details that matter to you. For a transfer, an appointment or a day on the Riviera, you speak directly with me. My approach: a smart presentation, personal attention and a natural welcome.",
+      "signature": "Adrien Morel · Independent chauffeur in Cannes",
+      "cta": "Contact Adrien"
+    },
+    "howItWorks": {
+      "title": "Your journey in three steps.",
+      "steps": [
+        {
+          "title": "Describe your journey.",
+          "text": "Addresses, timing, passengers and luggage: a few details are enough to get started."
+        },
+        {
+          "title": "Receive a proposal.",
+          "text": "The chauffeur confirms availability, the fare and the conditions for your request."
+        },
+        {
+          "title": "Confirm your booking.",
+          "text": "After you agree, you receive written confirmation and the pick-up details."
+        }
+      ],
+      "note": "This demonstration only simulates the request."
+    },
+    "fares": {
+      "title": "Clear starting points for your journey.",
+      "text": "Fixed fares for frequent journeys, and a personalised proposal for other plans.",
+      "demoLabel": "Fictional fares for website testing.",
+      "oneWay": "One way, per vehicle",
+      "hour": "/ hour",
+      "minimum": "Minimum 3 hours, or €240",
+      "custom": "Other journeys: on request",
+      "night": "Between 10 pm and 6 am: fictional 20% surcharge.",
+      "conditions": "View fares and conditions",
+      "cta": "Request this journey"
+    },
+    "quote": {
+      "title": "Let’s plan your next journey.",
+      "text": "A few details to prepare a proposal suited to your plans.",
+      "notice": "Demo: use fictional details. Nothing is transmitted.",
+      "tripStep": "Your journey",
+      "contactStep": "Your contact details",
+      "service": "Service type",
+      "from": "Pick-up location",
+      "to": "Destination",
+      "date": "Preferred date",
+      "time": "Pick-up time",
+      "timeZone": "Paris time",
+      "passengers": "Passengers",
+      "luggage": "Luggage",
+      "returnTrip": "Return journey",
+      "returnDate": "Return date",
+      "returnTime": "Return pick-up time",
+      "duration": "Preferred duration",
+      "program": "Planned itinerary or schedule",
+      "flightTrain": "Flight or train number, optional",
+      "name": "Your name",
+      "contactMethod": "How would you prefer to be contacted?",
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp",
+      "message": "Your message, optional",
+      "next": "Continue",
+      "previous": "Back to the journey",
+      "submit": "Simulate my quote request",
+      "example": "Fill in a fictional example",
+      "summary": "Demo summary",
+      "success": "Simulation successful. No message has been sent and no ride has been booked.",
+      "error": "The simulation could not be completed. Your details are preserved; please try again.",
+      "privacy": "No information from this form is sent to a real chauffeur."
+    },
+    "contact": {
+      "title": "Direct contact to plan what comes next.",
+      "text": "A question about a journey or an itinerary? Speak directly with Adrien.",
+      "hours": "Every day, 7 am to 10 pm, Paris time.",
+      "location": "Cannes, French Riviera. Pick-ups by appointment, with no reception office.",
+      "call": "Call Adrien",
+      "whatsapp": "Write on WhatsApp",
+      "email": "Write an email",
+      "modalTitle": "Contact simulation",
+      "modalText": "These contact details are fictional. No call or message will be started.",
+      "submit": "Simulate my message",
+      "success": "Message simulated. Nothing has been sent."
+    },
+    "faq": {
+      "title": "Before you travel.",
+      "items": [
+        {
+          "q": "How do I book a journey?",
+          "a": "Start with a quote request. Adrien confirms availability, the fare and conditions, then provides written booking confirmation after you agree."
+        },
+        {
+          "q": "Are the fares per person?",
+          "a": "The fixed fares are one way, per vehicle, in either direction of the listed route. They cover pick-ups between 6 am and 10 pm; a 20% night surcharge applies."
+        },
+        {
+          "q": "Can I request an early or late journey?",
+          "a": "Yes, by reservation and subject to availability. Pick-ups from 10 pm until before 6 am carry a 20% surcharge."
+        },
+        {
+          "q": "What if my flight is delayed?",
+          "a": "Provide the flight number and communicate any changes. The transfer includes 45 minutes of waiting after actual landing, then €15 per started 15 minutes, with agreement and subject to availability."
+        },
+        {
+          "q": "How many passengers and bags can travel?",
+          "a": "Three passengers are recommended. A fourth is possible on request without large luggage. Allow for two medium suitcases and two cabin bags, with dimensions to be confirmed."
+        },
+        {
+          "q": "Can I plan several stops?",
+          "a": "Hourly service starts at three hours, at €80 per hour. The base covers Cannes, Le Cannet and Mougins with 30 km per hour included. Other plans are specified in the quote."
+        },
+        {
+          "q": "Which payment methods are offered?",
+          "a": "The planned payment methods are card on board and cash. No payment is possible in this demonstration."
+        },
+        {
+          "q": "Can I change or cancel my journey?",
+          "a": "Changes must be reconfirmed. Cancellation is free until 24 hours beforehand, then 50% within 24 hours and 100% for a no-show. These conditions are fictional for this test."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Where would you like to go?",
+      "text": "Your pick-up, your destination, your timing: let’s plan what comes next.",
+      "cta": "Request a quote"
+    },
+    "legal": {
+      "title": "About this demonstration",
+      "text": "AZURÉA PRIVÉ and Adrien Morel are fictional. This page presents a self-employed chauffeur scenario to test a business website. There is no registration, insurance or professional authorisation associated with this prototype. No real service is offered.",
+      "privacyTitle": "Demo privacy",
+      "privacyText": "The forms simulate a request using fictional details. No real transport service is contacted. This page will be completed with information about the hosting used if an online preview is created."
+    },
+    "demo": {
+      "label": "Demo — fictional business and prices",
+      "footer": "AZURÉA PRIVÉ is a fictional business created for a demonstration. Images are AI-generated. No message, payment or booking is transmitted."
+    }
+  }
+}

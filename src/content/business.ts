@@ -1,6 +1,8 @@
 // ============================================================================
-// THE file to edit for business facts: name, contacts, services, prices,
-// conditions, vehicle, hours, languages, legal information.
+// LIVE mode content (BUSINESS_MODE=live): the real driver's business facts.
+// THE file to edit for name, contacts, services, prices, conditions, vehicle,
+// hours, languages and legal information. The fictional demonstration lives in
+// ./demo.ts and is never mixed with this file.
 //
 // Rules
 //  - Replace `unknown('…')` with `confirmed(value)` only once the driver has
@@ -10,66 +12,69 @@
 //  - The email that RECEIVES the form submissions is not here: it is the
 //    server variable MAIL_TO (see .env.example), so visitors cannot choose it.
 // ============================================================================
-import { confirmed, unknown, type Field, type FaqItem, type L10n, type Service } from './types';
+import { confirmed, unknown, type FaqItem, type Field, type L10n, type Service, type SiteContent, type BusinessInfo, type VehicleInfo } from './types';
 
-export const business = {
+export const business: BusinessInfo = {
   /** Trading name. Until confirmed, the site uses a neutral descriptor (i18n: brand.fallback). */
-  name: unknown('Nom commercial', { critical: true }) as Field<string>,
+  name: unknown('Nom commercial', { critical: true }),
+  slogan: unknown('Signature / slogan (facultatif)'),
   activity: confirmed<L10n>({ fr: 'Chauffeur VTC', en: 'Private driver (VTC)' }),
   city: confirmed('Cannes'),
 
   /** E.164 for links (+33…) and a display form. Enables the "Appeler" button everywhere. */
-  phone: unknown('Numéro de téléphone professionnel', { critical: true }) as Field<{ e164: string; display: string }>,
+  phone: unknown('Numéro de téléphone professionnel', { critical: true }),
   /** Public email shown on the Contact page (may differ from MAIL_TO). */
-  email: unknown('Adresse email publique', { critical: true }) as Field<string>,
+  email: unknown('Adresse email publique', { critical: true }),
   /** Only set if the driver really uses WhatsApp for bookings. */
-  whatsapp: unknown('Utilisation de WhatsApp (oui/non) et numéro') as Field<{ e164: string }>,
+  whatsapp: unknown('Utilisation de WhatsApp (oui/non) et numéro'),
 
-  hours: unknown('Horaires / disponibilités') as Field<L10n>,
-  languages: unknown('Langues parlées') as Field<L10n>,
+  hours: unknown('Horaires / disponibilités'),
+  languages: unknown('Langues parlées'),
   /** Cannes is confirmed as the base. Destinations beyond Cannes must be confirmed one by one. */
-  serviceArea: unknown('Zone desservie et destinations au-delà de Cannes') as Field<L10n>,
-  googleBusinessUrl: unknown('Lien fiche Google / carte (facultatif)') as Field<string>,
+  serviceArea: unknown('Zone desservie et destinations au-delà de Cannes'),
+  googleBusinessUrl: unknown('Lien fiche Google / carte (facultatif)'),
 
   driver: {
-    name: unknown('Prénom (et nom) du chauffeur') as Field<string>,
+    name: unknown('Prénom (et nom) du chauffeur'),
     /** Path under public/photos/ (e.g. '/photos/chauffeur.webp'), authentic photo only. */
-    photo: unknown('Photo authentique du chauffeur') as Field<{ src: string; alt: L10n }>,
-    bio: unknown('Présentation rédigée ou validée par le chauffeur') as Field<L10n>,
+    photo: unknown('Photo authentique du chauffeur'),
+    bio: unknown('Présentation rédigée ou validée par le chauffeur'),
   },
 
   legal: {
-    legalName: unknown('Nom / raison sociale de l’exploitant', { critical: true }) as Field<string>,
-    legalForm: unknown('Statut juridique (EI, SASU…)', { critical: true }) as Field<string>,
-    siret: unknown('SIRET', { critical: true }) as Field<string>,
-    vtcRegistry: unknown('Numéro d’inscription au registre des exploitants VTC', { critical: true }) as Field<string>,
-    address: unknown('Adresse professionnelle (ou domiciliation)', { critical: true }) as Field<string>,
-    vat: unknown('N° TVA intracommunautaire ou mention de franchise') as Field<string>,
-    publicationDirector: unknown('Directeur / directrice de la publication', { critical: true }) as Field<string>,
-    mediator: unknown('Médiateur de la consommation (nom et site)', { critical: true }) as Field<string>,
-    insurance: unknown('Assurance RC professionnelle (assureur, couverture)') as Field<string>,
-    host: unknown('Hébergeur (nom, adresse, téléphone)', { critical: true }) as Field<string>,
-    emailProvider: unknown('Prestataire d’envoi des emails (ex. Resend) et localisation des données', { critical: true }) as Field<string>,
-    retention: unknown('Durée de conservation des demandes, validée par le responsable', { critical: true }) as Field<L10n>,
+    legalName: unknown('Nom / raison sociale de l’exploitant', { critical: true }),
+    legalForm: unknown('Statut juridique (EI, SASU…)', { critical: true }),
+    siret: unknown('SIRET', { critical: true }),
+    vtcRegistry: unknown('Numéro d’inscription au registre des exploitants VTC', { critical: true }),
+    address: unknown('Adresse professionnelle (ou domiciliation)', { critical: true }),
+    vat: unknown('N° TVA intracommunautaire ou mention de franchise'),
+    publicationDirector: unknown('Directeur / directrice de la publication', { critical: true }),
+    mediator: unknown('Médiateur de la consommation (nom et site)', { critical: true }),
+    insurance: unknown('Assurance RC professionnelle (assureur, couverture)'),
+    host: unknown('Hébergeur (nom, adresse, téléphone)', { critical: true }),
+    emailProvider: unknown('Prestataire d’envoi des emails (ex. Resend) et localisation des données', { critical: true }),
+    retention: unknown('Durée de conservation des demandes, validée par le responsable', { critical: true }),
   },
 };
 
-export const vehicle = {
+export const vehicle: VehicleInfo = {
   model: confirmed('Tesla Model 3'),
   color: confirmed<L10n>({ fr: 'noire', en: 'black' }),
   /** 2017-2023 or 2024+ ("Highland"). The illustration fits both silhouettes. */
-  generation: unknown('Génération / année de la Model 3') as Field<string>,
+  generation: unknown('Génération / année de la Model 3'),
   /** Drives the passengers field limit in the quote form and the server schema. */
-  maxPassengers: unknown('Nombre maximum de passagers transportés') as Field<number>,
-  luggage: unknown('Capacité bagages (nombre de valises)') as Field<L10n>,
+  maxPassengers: unknown('Nombre maximum de passagers transportés'),
+  passengersNote: unknown('Précision sur les passagers (recommandé / sur demande)'),
+  luggage: unknown('Capacité bagages (nombre de valises)'),
+  comfort: unknown('Équipements réellement disponibles à bord'),
   /** Real photos under public/photos/ replace the illustration (see docs/ASSETS.md). */
-  photos: unknown('Photos réelles du véhicule (extérieur, intérieur)') as Field<string[]>,
+  photos: unknown('Photos réelles du véhicule (extérieur, intérieur)'),
 };
 
 // Model-inherent facts true of every Tesla Model 3, whatever the generation.
-export const vehicleFacts: L10n[] = [
-  { fr: '100 % électrique : pas de bruit de moteur thermique', en: 'Fully electric: no combustion engine noise' },
-  { fr: 'Toit en verre sur toute la longueur de l’habitacle', en: 'Glass roof over the whole cabin' },
+export const vehicleFacts: { text: L10n }[] = [
+  { text: { fr: '100 % électrique : pas de bruit de moteur thermique', en: 'Fully electric: no combustion engine noise' } },
+  { text: { fr: 'Toit en verre sur toute la longueur de l’habitacle', en: 'Glass roof over the whole cabin' } },
 ];
 
 // Service ideas from the brief, all to be confirmed by the driver.
@@ -78,6 +83,7 @@ export const services: Service[] = [
   {
     id: 'transfert',
     motif: 'transfer',
+    travelRef: true,
     status: 'to-confirm',
     title: { fr: 'Aéroport ou gare', en: 'Airport or station' },
     short: { fr: 'Arrivée, départ, correspondance', en: 'Arrival, departure, connection' },
@@ -212,7 +218,21 @@ export const faq: FaqItem[] = [
   },
 ];
 
-/** Upper bound used only when the vehicle capacity is unknown, to reject absurd input. */
-export const PASSENGERS_SANITY_MAX = 20;
-export const passengerLimit = (): number =>
-  vehicle.maxPassengers.known ? vehicle.maxPassengers.value : PASSENGERS_SANITY_MAX;
+export const liveContent: SiteContent = {
+  mode: 'live',
+  fictional: false,
+  business,
+  vehicle,
+  vehicleFacts,
+  services,
+  fares: {
+    routes: [],
+    hourly: unknown('Tarif de mise à disposition'),
+    night: unknown('Majoration de nuit éventuelle'),
+  },
+  pricingConditions,
+  faq,
+  // WhatsApp is offered as a reply channel only once confirmed (business.whatsapp).
+  contactChannels: business.whatsapp.known ? ['phone', 'email', 'whatsapp'] : ['email', 'phone'],
+  demo: null,
+};

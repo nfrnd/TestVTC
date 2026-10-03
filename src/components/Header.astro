@@ -1,4 +1,5 @@
 ---
+import { isDemo } from '../content';
 import type { Lang } from '../content/types';
 import { t } from '../i18n';
 import { routes, otherLang, quoteHref, type RouteKey } from '../i18n/routes';
@@ -13,17 +14,26 @@ const { lang, route } = Astro.props;
 const d = t(lang);
 const other = otherLang(lang);
 const switchHref = route ? routes[route][other] : routes.home[other];
-const links = [
-  { href: `${routes.home[lang]}#trajets`, label: d.nav.services, current: false },
-  { href: routes.rates[lang], label: d.nav.rates, current: route === 'rates' },
-  { href: routes.contact[lang], label: d.nav.contact, current: route === 'contact' },
-];
+const home = routes.home[lang];
+const links = isDemo
+  ? [
+      { href: `${home}#trajets`, label: d.nav.services, current: false },
+      { href: `${home}#tesla`, label: d.nav.vehicle, current: false },
+      { href: routes.rates[lang], label: d.nav.rates, current: route === 'rates' },
+      { href: `${home}#chauffeur`, label: d.nav.driver, current: false },
+      { href: routes.contact[lang], label: d.nav.contact, current: route === 'contact' },
+    ]
+  : [
+      { href: `${home}#trajets`, label: d.nav.services, current: false },
+      { href: routes.rates[lang], label: d.nav.rates, current: route === 'rates' },
+      { href: routes.contact[lang], label: d.nav.contact, current: route === 'contact' },
+    ];
 const showCta = route !== 'quote';
 ---
 
 <header class="site-header">
   <div class="site-header__bar">
-    <a class="brand glass" href={routes.home[lang]} aria-label={`${brandName(lang)}, ${lang === 'fr' ? 'accueil' : 'home'}`}>
+    <a class="brand glass" href={home} aria-label={`${brandName(lang)}, ${lang === 'fr' ? 'accueil' : 'home'}`}>
       <RouteMark />
       <span class="brand__name">{brandName(lang)}</span>
     </a>
@@ -37,7 +47,7 @@ const showCta = route !== 'quote';
     </nav>
 
     <details class="menu glass" data-menu>
-      <summary aria-label={d.nav.menu}><span class="menu__icon" aria-hidden="true"></span>{d.nav.menu}</summary>
+      <summary aria-label={d.nav.menuOpen} data-open-label={d.nav.menuOpen} data-close-label={d.nav.menuClose}><span class="menu__icon" aria-hidden="true"></span>{d.nav.menu}</summary>
       <nav class="menu__panel glass" aria-label={d.nav.label}>
         {links.map((l) => <a href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a>)}
         <a href={switchHref} hreflang={other} lang={other}>{d.nav.switchTo}</a>
@@ -49,14 +59,18 @@ const showCta = route !== 'quote';
 
 <script>
   // Progressive enhancement of the <details> menu: Escape and outside clicks close it,
-  // and choosing a link closes it too (in-page anchors otherwise leave it open).
+  // choosing a link closes it, and the summary's accessible name follows its state.
   const menu = document.querySelector<HTMLDetailsElement>('[data-menu]');
   if (menu) {
+    const summary = menu.querySelector('summary')!;
     const close = () => menu.open && (menu.open = false);
+    menu.addEventListener('toggle', () => {
+      summary.setAttribute('aria-label', (menu.open ? summary.dataset.closeLabel : summary.dataset.openLabel) ?? '');
+    });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && menu.open) {
         close();
-        menu.querySelector('summary')?.focus();
+        summary.focus();
       }
     });
     document.addEventListener('click', (e) => {

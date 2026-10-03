@@ -7,6 +7,7 @@ import Hero from '../components/home/Hero.astro';
 import Services from '../components/home/Services.astro';
 import Tesla from '../components/home/Tesla.astro';
 import Driver from '../components/home/Driver.astro';
+import HowItWorks from '../components/home/HowItWorks.astro';
 import PricingPreview from '../components/home/PricingPreview.astro';
 import Faq from '../components/Faq.astro';
 import FinalCta from '../components/home/FinalCta.astro';
@@ -25,6 +26,7 @@ const d = t(lang);
   <Services lang={lang} />
   <Tesla lang={lang} />
   <Driver lang={lang} />
+  <HowItWorks lang={lang} />
   <PricingPreview lang={lang} />
   <Faq lang={lang} />
   <FinalCta lang={lang} />
@@ -34,15 +36,28 @@ const d = t(lang);
   // The engine is vendored unmodified (src/vendor/scrollcraft, MIT, Nate Herk).
   import '../vendor/scrollcraft/scrollcraft.js';
 
+  // Same media query as Hero.astro: only the layered composition is pinned.
+  const LAYERED = '(min-width: 1100px) and (min-aspect-ratio: 3/2)';
   const hero = document.querySelector<HTMLElement>('[data-hero]');
   if (hero) {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      // Static composition: no pinned scroll space, the second line is simply shown.
+    const layered = matchMedia(LAYERED).matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!layered) {
+      // Phones, tablets, reduced motion: natural flow, no pinned scroll space.
       hero.setAttribute('data-sc-act', 'flow');
       hero.removeAttribute('data-sc-span');
-      hero.querySelector('[data-sc-cue]')?.removeAttribute('data-sc-cue');
-    } else if (matchMedia('(max-width: 760px)').matches) {
-      hero.setAttribute('data-sc-span', '1.45');
+    } else {
+      // Publish the rendered depth (car scale) so Scroll Craft's harness can tell
+      // a moving fixed stage from dead scroll (verify.md, data-sc-verify-state).
+      const stage = hero.querySelector<HTMLElement>('[data-sc-stage]');
+      let last = '';
+      let queued = false;
+      const publish = () => {
+        queued = false;
+        const p = parseFloat(getComputedStyle(hero).getPropertyValue('--sc-p')) || 0;
+        const v = (1 + Math.min(1, Math.max(0, p)) * 0.055).toFixed(3);
+        if (stage && v !== last) stage.setAttribute('data-sc-verify-state', (last = v));
+      };
+      addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => requestAnimationFrame(publish)); } }, { passive: true });
     }
   }
   (window as unknown as { ScrollCraft: { mount: (root: Element) => unknown } }).ScrollCraft.mount(document.body);

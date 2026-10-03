@@ -1,8 +1,9 @@
 ---
-import carSvg from '../../assets/art/car-studio.svg?raw';
-import { vehicle, vehicleFacts } from '../../content/business';
+import { content, isDemo, vehicle, vehicleFacts } from '../../content';
 import { known, type Lang } from '../../content/types';
 import { t } from '../../i18n';
+import { quoteHref } from '../../i18n/routes';
+import { resolveImage } from '../../lib/images';
 import PreviewNote from '../PreviewNote.astro';
 
 interface Props {
@@ -10,50 +11,75 @@ interface Props {
 }
 const { lang } = Astro.props;
 const d = t(lang);
-const maxPassengers = known(vehicle.maxPassengers);
+const photos = known(vehicle.photos);
+// Live mode has no real photos yet: the AI profile view stays as a labelled provisional visual.
+const profile = resolveImage(photos?.profile ?? 'asset:vehicle-profile')!;
+const interior = photos ? resolveImage(photos.interior) : null;
+const passengers = known(vehicle.passengersNote);
 const luggage = known(vehicle.luggage);
+const comfort = known(vehicle.comfort);
+const generation = known(vehicle.generation);
+const fr = lang === 'fr';
 ---
 
-<section class="tesla section ground-mist" data-sc-act="flow" aria-labelledby="tesla-title">
+<section id="tesla" class="tesla section ground-mist" data-sc-act="flow" aria-labelledby="tesla-title">
   <div class="wrap tesla__grid">
     <div class="tesla__text stack" data-sc-in data-sc-stagger="60">
       <h2 id="tesla-title" class="h-lg">{d.tesla.title}</h2>
       <p class="lede soft">{d.tesla.intro}</p>
-      <ul class="facts">
-        {vehicleFacts.map((f) => <li>{f[lang]}</li>)}
-      </ul>
-      <dl class="specs">
-        <div><dt>{d.tesla.model}</dt><dd>{vehicle.model.value}</dd></div>
-        <div><dt>{d.tesla.color}</dt><dd>{vehicle.color.value[lang]}</dd></div>
-        {maxPassengers ? <div><dt>{d.tesla.passengers}</dt><dd class="nums">{maxPassengers}</dd></div> : null}
-        {luggage ? <div><dt>{d.tesla.luggage}</dt><dd>{luggage[lang]}</dd></div> : null}
-      </dl>
-      {(!maxPassengers || !luggage) && (
-        <PreviewNote lang={lang} block note={lang === 'fr' ? 'capacité passagers et bagages, génération du véhicule' : 'passenger and luggage capacity, car generation'} />
-      )}
+      <ol class:list={['points', { 'points--numbered': vehicleFacts.some((f) => f.title) }]}>
+        {vehicleFacts.map((f) => <li>{f.title && <strong>{f.title[lang]}</strong>} <span>{f.text[lang]}</span></li>)}
+      </ol>
     </div>
-    <figure class="tesla__figure">
-      <div class="tesla__art" data-sc-reveal="left" data-sc-reveal-at="0.12 0.48" role="img" aria-label={lang === 'fr' ? 'Illustration : une Tesla Model 3 noire vue de profil' : 'Illustration: a black Tesla Model 3 seen from the side'}>
-        <Fragment set:html={carSvg} />
-      </div>
-      <figcaption>{d.tesla.caption}</figcaption>
+    <figure class="tesla__profile" data-sc-reveal="left" data-sc-reveal-at="0.1 0.42">
+      <img src={profile.src} srcset={profile.srcset} sizes="(min-width: 980px) 58vw, 100vw" width={profile.width} height={profile.height} loading="lazy" decoding="async"
+        alt={fr ? 'Illustration IA du profil de la Tesla Model 3 noire.' : 'AI illustration of the black Tesla Model 3 in profile.'} />
     </figure>
+  </div>
+
+  <div class="wrap tesla__details">
+    {interior && (
+      <figure class="tesla__interior">
+        <img src={interior.src} srcset={interior.srcset} sizes="(min-width: 980px) 46vw, 100vw" width={interior.width} height={interior.height} loading="lazy" decoding="async"
+          alt={fr ? 'Illustration IA de l’habitacle noir d’une Tesla Model 3.' : 'AI illustration of the black interior of a Tesla Model 3.'} />
+      </figure>
+    )}
+    <div class="tesla__specs">
+      <dl class="specs">
+        <div><dt>{d.tesla.model}</dt><dd>{vehicle.model.value}{generation && isDemo ? ` · ${fr ? 'restylage 2024' : '2024 refresh'}` : ''}</dd></div>
+        <div><dt>{d.tesla.color}</dt><dd>{vehicle.color.value[lang]}</dd></div>
+        {passengers && <div><dt>{d.tesla.passengers}</dt><dd>{passengers[lang]}</dd></div>}
+        {luggage && <div><dt>{d.tesla.luggage}</dt><dd>{luggage[lang]}</dd></div>}
+        {comfort && <div><dt>{fr ? 'À bord' : 'On board'}</dt><dd>{comfort[lang]}</dd></div>}
+      </dl>
+      {(!passengers || !luggage) && <PreviewNote lang={lang} block note={fr ? 'capacité passagers et bagages, équipements, génération du véhicule' : 'passenger and luggage capacity, equipment, car generation'} />}
+      <p class="tesla__caption">{d.tesla.caption}</p>
+      {content.demo && <a class="btn btn--primary" href={quoteHref(lang)}>{fr ? 'Préparer mon trajet' : 'Plan my journey'}</a>}
+    </div>
   </div>
 </section>
 
 <style>
   .tesla__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-  @media (min-width: 980px) { .tesla__grid { grid-template-columns: 0.9fr 1.3fr; } }
-  .facts { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
-  .facts li { display: grid; grid-template-columns: 1.25rem 1fr; gap: 0.6rem; align-items: baseline; }
-  .facts li::before { content: ''; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--accent-deep); translate: 0 -0.08em; }
-  .specs { margin: 1.75rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1px; background: rgb(17 25 29 / 0.12); border-block: 1px solid rgb(17 25 29 / 0.12); }
-  .specs div { background: var(--mist); padding: 0.9rem 0; }
-  .specs dt { font-size: 0.82rem; color: var(--ink-dark-soft); letter-spacing: 0.04em; }
+  @media (min-width: 980px) { .tesla__grid { grid-template-columns: 0.8fr 1.3fr; } }
+  .points { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; gap: 0.9rem; counter-reset: pt; }
+  .points li { display: grid; grid-template-columns: 1.6rem 1fr; column-gap: 0.75rem; align-items: baseline; }
+  .points li::before { content: ''; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--accent-deep); grid-row: span 2; }
+  .points--numbered li { counter-increment: pt; }
+  .points--numbered li::before { content: counter(pt); width: 1.6rem; height: 1.6rem; display: grid; place-items: center; font-size: 0.8rem; font-weight: 700; color: var(--paper); background: var(--accent-deep); }
+  .points strong { font-family: var(--sc-font-display); font-weight: 600; font-size: 1.1rem; }
+  .points span { color: var(--ink-dark-soft); }
+  .points strong + span { grid-column: 2; }
+  .tesla__profile, .tesla__interior { margin: 0; }
+  .tesla__profile img, .tesla__interior img { width: 100%; height: auto; border-radius: calc(var(--radius) + 6px); box-shadow: 0 2px 4px rgb(17 25 29 / 0.12), 0 24px 50px -28px rgb(17 25 29 / 0.55); }
+  .tesla__details { display: grid; gap: clamp(2rem, 5vw, 4rem); margin-top: clamp(2.5rem, 6vw, 4.5rem); align-items: center; }
+  @media (min-width: 980px) { .tesla__details:has(.tesla__interior) { grid-template-columns: 1.1fr 0.9fr; } }
+  .tesla__specs { display: grid; gap: 1.25rem; justify-items: start; }
+  .specs { margin: 0; width: 100%; display: grid; gap: 0; border-top: 1px solid rgb(17 25 29 / 0.12); }
+  .specs div { display: grid; gap: 0.15rem; padding: 0.85rem 0; border-bottom: 1px solid rgb(17 25 29 / 0.12); }
+  @media (min-width: 640px) { .specs div { grid-template-columns: 9rem 1fr; gap: 1rem; } }
+  .specs dt { font-size: 0.85rem; color: var(--ink-dark-soft); }
+  .specs dd { margin: 0; font-weight: 600; }
   .specs dd::first-letter { text-transform: uppercase; }
-  .specs dd { margin: 0.15rem 0 0; font-family: var(--sc-font-display); font-size: 1.2rem; font-weight: 600; letter-spacing: -0.01em; }
-  .tesla__figure { margin: 0; display: grid; gap: 0.75rem; }
-  .tesla__art { position: relative; padding: clamp(1rem, 3vw, 2rem) 0; }
-  .tesla__art :global(svg) { width: 100%; height: auto; overflow: visible; }
-  .tesla__figure figcaption { font-size: 0.85rem; color: var(--ink-dark-soft); }
+  .tesla__caption { font-size: 0.85rem; color: var(--ink-dark-soft); }
 </style>

@@ -1,18 +1,20 @@
 ---
-import { business } from '../content/business';
+import { business, demo, isDemo } from '../content';
 import { known, type Lang } from '../content/types';
 import { t } from '../i18n';
 import { routes, quoteHref } from '../i18n/routes';
-import { brandName, isPreview, phone } from '../lib/site';
+import { brandName, isPreview } from '../lib/site';
 import RouteMark from './RouteMark.astro';
+import ContactAction from './ContactAction.astro';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const d = t(lang);
-const tel = phone();
+const tel = known(business.phone);
 const email = known(business.email);
+const slogan = known(business.slogan);
 ---
 
 <footer class="site-footer ground-dark">
@@ -20,21 +22,32 @@ const email = known(business.email);
     <div class="site-footer__grid">
       <div class="stack">
         <p class="brand" style="padding:0"><RouteMark /><span class="brand__name">{brandName(lang)}</span></p>
+        {slogan && <p class="site-footer__slogan">{slogan[lang]}</p>}
         <p class="soft">{business.activity.value[lang]} · {business.city.value} · {lang === 'fr' ? 'Tesla Model 3 noire' : 'Black Tesla Model 3'}</p>
       </div>
       <ul>
-        <li><a href={quoteHref(lang)}>{d.cta.quote}</a></li>
+        {isDemo && <li><a href={`${routes.home[lang]}#trajets`}>{d.nav.services}</a></li>}
         <li><a href={routes.rates[lang]}>{d.nav.rates}</a></li>
+        <li><a href={quoteHref(lang)}>{d.cta.quote}</a></li>
         <li><a href={routes.contact[lang]}>{d.footer.contact}</a></li>
-        {tel && <li><a href={`tel:${tel.e164}`}>{tel.display}</a></li>}
-        {email && <li><a href={`mailto:${email}`}>{email}</a></li>}
+        {tel && <li><ContactAction kind="call" lang={lang} label={tel.display} /></li>}
+        {email && <li><ContactAction kind="email" lang={lang} label={email} /></li>}
       </ul>
       <ul>
         <li><a href={routes.legal[lang]}>{d.footer.legal}</a></li>
         <li><a href={routes.privacy[lang]}>{d.footer.privacy}</a></li>
       </ul>
     </div>
-    <p class="site-footer__small">{d.footer.illustration}</p>
+    {demo ? (
+      <p class="site-footer__small site-footer__demo">{demo.footer[lang]} {d.footer.illustration}</p>
+    ) : (
+      <p class="site-footer__small">{d.footer.illustration}</p>
+    )}
     {isPreview && <p class="site-footer__small"><span class="pv">{d.preview.banner}</span></p>}
   </div>
 </footer>
+
+<style>
+  .site-footer__slogan { font-family: var(--sc-font-display); font-size: 1.15rem; }
+  .site-footer__demo { max-width: 62ch; }
+</style>

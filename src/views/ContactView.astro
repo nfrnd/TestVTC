@@ -3,40 +3,89 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import ContactForm from '../components/forms/ContactForm.astro';
 import DirectContact from '../components/DirectContact.astro';
+import ContactAction from '../components/ContactAction.astro';
 import PreviewNote from '../components/PreviewNote.astro';
-import { business } from '../content/business';
+import { business, isDemo } from '../content';
 import { known, type Lang } from '../content/types';
 import { t } from '../i18n';
+import { quoteHref } from '../i18n/routes';
+import { resolveImage } from '../lib/images';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const d = t(lang);
+const c = d.contact;
 const hours = known(business.hours);
 const area = known(business.serviceArea);
 const map = known(business.googleBusinessUrl);
-const photo = known(business.driver.photo);
+const photoRef = known(business.driver.photo);
+const photo = photoRef ? resolveImage(photoRef.src) : null;
 const name = known(business.driver.name);
+const tel = known(business.phone);
+const email = known(business.email);
+const wa = known(business.whatsapp);
+const fict = lang === 'fr' ? 'Coordonnée fictive' : 'Fictional detail';
 ---
 
 <Base lang={lang} route="contact" title={d.meta.contact.title} description={d.meta.contact.description} actionBar={false}>
-  <PageHead title={d.contact.title} lede={d.contact.intro} />
+  <PageHead title={c.title} lede={c.intro} />
   <section class="section ground-light contact-section">
     <div class="wrap contact-grid">
       <div class="contact-info">
-        {photo && <img class="contact-photo" src={photo.src} alt={photo.alt[lang]} width="320" height="400" loading="lazy" />}
-        {name && <p class="h-sm">{name}</p>}
-        <h2 class="h-md">{d.contact.coordinates}</h2>
-        <DirectContact lang={lang} />
-        <dl class="contact-dl">
-          <div><dt>{d.contact.area}</dt><dd>{area ? area[lang] : d.contact.areaBase} {!area && <PreviewNote lang={lang} note={business.serviceArea.known ? '' : (business.serviceArea as { note: string }).note} />}</dd></div>
-          <div><dt>{d.contact.hours}</dt><dd>{hours ? hours[lang] : <PreviewNote lang={lang} note={(business.hours as { note: string }).note} />}</dd></div>
-        </dl>
-        {map ? <a class="text-link" href={map} rel="noopener">{d.contact.map}</a> : <PreviewNote lang={lang} note={(business.googleBusinessUrl as { note: string }).note} />}
+        {photo && photoRef && (
+          <figure class="contact-person">
+            <img src={photo.src} srcset={photo.srcset} sizes="7rem" width={photo.width} height={photo.height} alt={photoRef.alt[lang]} loading="lazy" decoding="async" />
+            <figcaption><strong>{name}</strong><span>{d.driver.signature || business.activity.value[lang]}</span></figcaption>
+          </figure>
+        )}
+        {isDemo ? (
+          <div class="blocks">
+            {tel && (
+              <article class="block">
+                <h2 class="h-sm">{c.phoneTitle}</h2>
+                <p class="block__value nums">{tel.display} <span class="block__tag">{fict}</span></p>
+                <p class="soft">{c.phoneText}</p>
+                <ContactAction kind="call" lang={lang} class="btn btn--primary" />
+              </article>
+            )}
+            {wa && (
+              <article class="block">
+                <h2 class="h-sm">{c.whatsappTitle}</h2>
+                <p class="soft">{c.whatsappText}</p>
+                <ContactAction kind="whatsapp" lang={lang} class="btn btn--ghost" />
+              </article>
+            )}
+            {email && (
+              <article class="block">
+                <h2 class="h-sm">{c.emailTitle}</h2>
+                <p class="block__value">{email} <span class="block__tag">{fict}</span></p>
+                <ContactAction kind="email" lang={lang} class="btn btn--ghost" />
+              </article>
+            )}
+            <article class="block">
+              <h2 class="h-sm">{c.zoneTitle}</h2>
+              <p class="soft">{c.areaBase}</p>
+              <p class="block__note">{c.zoneNote}</p>
+              {hours && <p class="block__note">{hours[lang]}</p>}
+              <a class="text-link" href={quoteHref(lang)}>{lang === 'fr' ? 'Décrire mon trajet' : 'Describe my journey'}</a>
+            </article>
+          </div>
+        ) : (
+          <>
+            <h2 class="h-md">{c.coordinates}</h2>
+            <DirectContact lang={lang} />
+            <dl class="contact-dl">
+              <div><dt>{c.area}</dt><dd>{area ? area[lang] : c.areaBase} {!area && <PreviewNote lang={lang} note={(business.serviceArea as { note: string }).note} />}</dd></div>
+              <div><dt>{c.hours}</dt><dd>{hours ? hours[lang] : <PreviewNote lang={lang} note={(business.hours as { note: string }).note} />}</dd></div>
+            </dl>
+            {map ? <a class="text-link" href={map} rel="noopener">{c.map}</a> : <PreviewNote lang={lang} note={(business.googleBusinessUrl as { note: string }).note} />}
+          </>
+        )}
       </div>
       <div class="contact-form">
-        <h2 id="contact-form-title" class="h-md">{d.contact.formTitle}</h2>
+        <h2 id="contact-form-title" class="h-md">{c.formTitle}</h2>
         <ContactForm lang={lang} />
       </div>
     </div>
@@ -46,9 +95,17 @@ const name = known(business.driver.name);
 <style>
   .contact-section { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
   .contact-grid { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
-  @media (min-width: 1000px) { .contact-grid { grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.3fr); } }
-  .contact-info { display: grid; gap: 1rem; justify-items: start; }
-  .contact-photo { width: 10rem; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
+  @media (min-width: 1000px) { .contact-grid { grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.2fr); } }
+  .contact-info { display: grid; gap: 1.25rem; justify-items: stretch; }
+  .contact-person { margin: 0; display: flex; gap: 1rem; align-items: center; }
+  .contact-person img { width: 5.5rem; height: 5.5rem; object-fit: cover; object-position: 50% 15%; border-radius: 50%; }
+  .contact-person figcaption { display: grid; gap: 0.15rem; }
+  .contact-person span { font-size: 0.9rem; color: var(--ink-dark-soft); }
+  .blocks { display: grid; gap: 1rem; }
+  .block { display: grid; gap: 0.6rem; justify-items: start; padding: 1.25rem; border-radius: calc(var(--radius) + 4px); background: #fff; border: 1px solid rgb(17 25 29 / 0.1); }
+  .block__value { font-family: var(--sc-font-display); font-size: 1.25rem; font-weight: 600; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: baseline; overflow-wrap: anywhere; }
+  .block__tag { font: 600 0.72rem/1.4 var(--sc-font-text); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-dark-soft); }
+  .block__note { font-size: 0.9rem; color: var(--ink-dark-soft); }
   .contact-dl { margin: 0.5rem 0 0; display: grid; gap: 1rem; width: 100%; }
   .contact-dl div { border-top: 1px solid rgb(17 25 29 / 0.14); padding-top: 0.9rem; }
   .contact-dl dt { font-size: 0.85rem; color: var(--ink-dark-soft); }

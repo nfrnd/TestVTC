@@ -1,0 +1,30 @@
+PROMPTS RÉELLEMENT UTILISÉS POUR LES NOUVEAUX VISUELS
+
+Le hero desktop utilise comme référence le hero photo du kit Azuréa V1.
+
+Les trois autres visuels utilisent comme référence le nouveau hero desktop.
+
+
+
+1. HERO DESKTOP
+Use case: ads-marketing. Asset type: photorealistic desktop hero photograph for a fictional premium private chauffeur website in Cannes, "AZURÉA PRIVÉ". Input image 1 is a vehicle identity and location reference, not a layout to copy. Generate one NEW polished realistic professional automotive advertising photograph in a wide 16:9 composition, high resolution. Keep the same recognizable glossy black Tesla Model 3 Highland 2024 with slim headlights, grey 18-inch Photon aerodynamic wheel covers, black interior, left-hand drive; realistic geometry and four wheels, no tuning. It is stationary on a beautiful pale stone seaside promenade resembling Cannes' Croisette at the transition between golden hour and blue hour. Calm Mediterranean bay, distant coastal hills, understated elegant waterfront buildings on the far right, one tall palm near the right edge. Camera front three-quarter view at vehicle headlight height, car faces toward lower left and occupies the lower RIGHT 55 percent of the frame, fully visible with at least 6 percent padding at right and bottom. Keep the entire left 40 percent and upper half uncluttered with smooth slate-blue sea/sky so a separate HTML title can be placed on the left. The road under the wheels is flat, credible and clean, the contact shadow is natural. Warm last sun reflections on the black paint against cool teal blue-hour surroundings. Refined editorial realism, sharp tactile bodywork, natural glass, believable subtle headlights, no extreme bloom, no fisheye, no oversaturated orange sunset, no exaggerated luxury props, no people, no extra cars, no text, no watermark, blank neutral registration plate. This is a website image asset, not a screenshot or a layout: DO NOT render words, logos for AZURÉA, user interface, buttons, arrows, borders or cards. Existing Tesla emblem may be naturally subtle. Premium photography, not vector art or 3D cartoon.
+
+
+2. HERO_CAR_ALPHA
+Fond transparent demandé : true
+Use case: background-extraction. Input image 1 is the EDIT TARGET. Extract exactly the complete black Tesla Model 3 from this image as a photographic PNG with a genuine transparent background. Keep the identical 16:9 canvas dimensions and the EXACT same car position, size, perspective, orientation, wheels, reflections, glass, neutral blank plate, lighting and surface details. The car must remain in the lower right of the frame. Remove the sea, sky, palm, buildings, stone wall and paving, replacing them with real alpha transparency, not a solid color or checkerboard. Keep only the car and a very subtle soft ground-contact shadow under its tires. No newly invented parts, no independent wheel separation, no recentering, no enlarged object, no cropping to its silhouette, no text. Preserve realistic antialiased car edges. This layer will be overlaid onto a matching background plate in a website hero. Outside the car all of the original image canvas must be transparent.
+
+
+3. HERO_CLEAN_PLATE
+Fond transparent demandé : false
+Use case: precise-object-edit. Input image 1 is the EDIT TARGET. Create the matching clean background plate for this website hero by removing ONLY the Tesla and all of its cast/contact shadow, and realistically reconstructing the pale stone paving and low seawall previously hidden behind it. Keep the IDENTICAL 16:9 canvas, identical framing and camera, horizon line, sunset colors, sea, distant hills, buildings, palm on the right, stone wall and every visible part of the road. Do not move any landmark, do not change light or weather, and do not introduce cars, people or any other objects. The resulting photograph should be a serene empty Croisette-inspired seaside scene, with an uninterrupted flat stone road in the bottom foreground. No text, watermark, logo, layout or interface.
+
+
+4. HERO_MOBILE
+Fond transparent demandé : false
+Use case: ads-marketing. Input image 1 is a vehicle identity, landscape and lighting reference. Make a NEW portrait 4:5 high-resolution photograph separately composed as a mobile website hero. Same glossy black Tesla Model 3 Highland 2024, same grey 18-inch Photon wheel covers, black interior, left-hand drive, front three-quarter view facing slightly toward the viewer's left, blank neutral registration plate. Same refined blue-hour Cannes Croisette-inspired seaside atmosphere, subtle warm sunset on the left, palm at the far right, elegant buildings softly distant. The entire stationary car is fully inside the LOWER 45 percent, centered horizontally, with comfortable padding on all four sides and a believable contact shadow on the flat stone paving. The UPPER 48 percent must be uncluttered smooth slate-blue sky and calm sea for separate HTML title and button. Keep car and wheels physically realistic, no stretched body, no fisheye, no chopped wheels, no people or extra cars. Beautiful professional automotive photography, warm reflections on rich black paint, sharp car with lightly softer backdrop. No words, no buttons, no borders, no generated interface, no watermark. Do not resize the landscape into portrait; art-direct the portrait composition independently.
+
+
+
+ASSETS REPRIS
+Portrait du chauffeur, profil du véhicule et habitacle : sources IA du kit Azuréa V1. Leurs prompts initiaux ne sont pas recréés ici.

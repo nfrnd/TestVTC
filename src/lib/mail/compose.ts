@@ -1,6 +1,7 @@
 // Builds the email the driver receives. Plain text first (always readable),
 // plus a minimal HTML version where every user value is escaped.
 import type { ContactData, QuoteData } from '../validation';
+import type { Summary } from '../summary';
 
 export interface MailMessage {
   subject: string;
@@ -19,11 +20,6 @@ function headerSafe(s: string, max = 90) {
   return one.length > max ? `${one.slice(0, max - 1)}…` : one;
 }
 
-function frDate(date: string) {
-  const [y, m, d] = date.split('-').map(Number);
-  return new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d)));
-}
-
 function render(title: string, rows: [string, string][], footer: string, replyTo?: string): Omit<MailMessage, 'subject'> {
   const filled = rows.filter(([, v]) => v);
   const width = Math.max(...filled.map(([k]) => k.length));
@@ -37,27 +33,13 @@ function render(title: string, rows: [string, string][], footer: string, replyTo
   return { text, html, replyTo };
 }
 
-export function composeQuote(d: QuoteData, opts: { serviceTitle?: string; requestId: string; lang: string; simulated?: boolean }): MailMessage {
-  const contactLine = d.contactMethod === 'email' ? `Email (${d.email})` : `Téléphone (${d.phone})`;
-  const rows: [string, string][] = [
-    ['Départ', d.departure],
-    ['Arrivée', d.arrival],
-    ['Date', frDate(d.date)],
-    ['Heure', `${d.time} (heure de Paris, Europe/Paris)`],
-    ['Passagers', String(d.passengers)],
-    ['Prestation', opts.serviceTitle ?? 'Non précisée'],
-    ['Nom', d.name],
-    ['Réponse souhaitée', contactLine],
-    ['Email', d.email],
-    ['Téléphone', d.phone],
-    ['Bagages', d.luggage],
-    ['Vol / train', d.travelRef],
-    ['Retour souhaité', d.returnTrip],
-    ['Autre demande', d.details],
-    ['Langue du site', opts.lang === 'en' ? 'Anglais' : 'Français'],
-  ];
+export function composeQuote(d: QuoteData, opts: { summary: Summary; requestId: string; lang: string; simulated?: boolean }): MailMessage {
+  const rows: [string, string][] = opts.summary.rows.map((r) => [r.label, r.value]);
+  rows.push(['Repère tarifaire', opts.summary.fare.lines.join(' / ')]);
+  rows.push(['Langue du site', opts.lang === 'en' ? 'Anglais' : 'Français']);
+  const when = d.timeTbd ? `${d.date} (horaire à préciser)` : `${d.date} ${d.time}`;
   return {
-    subject: headerSafe(`${opts.simulated ? '[TEST] ' : ''}Demande de devis : ${d.date} ${d.time}, ${d.departure} vers ${d.arrival}`),
+    subject: headerSafe(`${opts.simulated ? '[TEST] ' : ''}Demande de devis : ${when}, ${d.departure}${d.arrival ? ` vers ${d.arrival}` : ''}`),
     ...render(
       'Nouvelle demande de devis',
       rows,
