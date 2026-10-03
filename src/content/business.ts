@@ -73,7 +73,7 @@ export const vehicle: VehicleInfo = {
 
 // Model-inherent facts true of every Tesla Model 3, whatever the generation.
 export const vehicleFacts: { text: L10n }[] = [
-  { text: { fr: '100 % électrique : pas de bruit de moteur thermique', en: 'Fully electric: no combustion engine noise' } },
+  { text: { fr: '100 % électrique : pas de bruit de moteur thermique', en: 'Fully electric: no combustion engine noise' } },
   { text: { fr: 'Toit en verre sur toute la longueur de l’habitacle', en: 'Glass roof over the whole cabin' } },
 ];
 
@@ -162,7 +162,7 @@ export const faq: FaqItem[] = [
   {
     id: 'engagement',
     status: 'documented',
-    q: { fr: 'Envoyer une demande de devis confirme-t-il mon trajet ?', en: 'Does sending a quote request confirm my ride?' },
+    q: { fr: 'Envoyer une demande de devis confirme-t-il mon trajet ?', en: 'Does sending a quote request confirm my ride?' },
     a: {
       fr: 'Non. Le chauffeur étudie votre demande puis vous contacte pour préciser le tarif et sa disponibilité. Le trajet est confirmé ensuite, directement avec le chauffeur.',
       en: 'No. The driver reviews your request, then contacts you to confirm the price and availability. The ride is confirmed afterwards, directly with the driver.',
@@ -171,7 +171,7 @@ export const faq: FaqItem[] = [
   {
     id: 'vehicule',
     status: 'documented',
-    q: { fr: 'Dans quel véhicule vais-je voyager ?', en: 'Which car will I travel in?' },
+    q: { fr: 'Dans quel véhicule vais-je voyager ?', en: 'Which car will I travel in?' },
     a: {
       fr: 'Dans une Tesla Model 3 noire, une berline 100 % électrique.',
       en: 'In a black Tesla Model 3, a fully electric saloon.',
@@ -180,7 +180,7 @@ export const faq: FaqItem[] = [
   {
     id: 'heure',
     status: 'documented',
-    q: { fr: 'Dans quel fuseau horaire indiquer l’heure ?', en: 'Which time zone should I use?' },
+    q: { fr: 'Dans quel fuseau horaire indiquer l’heure ?', en: 'Which time zone should I use?' },
     a: {
       fr: 'À l’heure de Paris (Europe/Paris), c’est-à-dire l’heure locale à Cannes, même si vous réservez depuis l’étranger.',
       en: 'Paris time (Europe/Paris), the local time in Cannes, even if you book from abroad.',
@@ -189,7 +189,7 @@ export const faq: FaqItem[] = [
   {
     id: 'infos',
     status: 'documented',
-    q: { fr: 'Quelles informations préparer ?', en: 'What information should I prepare?' },
+    q: { fr: 'Quelles informations préparer ?', en: 'What information should I prepare?' },
     a: {
       fr: 'Le lieu de départ, le lieu d’arrivée, la date, l’heure, le nombre de passagers et, si possible, vos bagages et votre numéro de vol ou de train.',
       en: 'The pick-up place, the destination, the date, the time, the number of passengers and, if possible, your luggage and flight or train number.',
@@ -198,7 +198,7 @@ export const faq: FaqItem[] = [
   {
     id: 'paiement-en-ligne',
     status: 'documented',
-    q: { fr: 'Dois-je payer sur le site ?', en: 'Do I pay on the website?' },
+    q: { fr: 'Dois-je payer sur le site ?', en: 'Do I pay on the website?' },
     a: {
       fr: 'Non, aucun paiement n’est demandé sur ce site. Les modalités sont précisées avec le chauffeur.',
       en: 'No, no payment is taken on this website. Terms are agreed with the driver.',
@@ -207,13 +207,13 @@ export const faq: FaqItem[] = [
   {
     id: 'siege-enfant',
     status: 'to-document',
-    q: { fr: 'Un siège enfant est-il disponible ?', en: 'Is a child seat available?' },
+    q: { fr: 'Un siège enfant est-il disponible ?', en: 'Is a child seat available?' },
     a: { fr: 'À confirmer par le chauffeur.', en: 'To be confirmed by the driver.' },
   },
   {
     id: 'langues',
     status: 'to-document',
-    q: { fr: 'Quelles langues parle le chauffeur ?', en: 'Which languages does the driver speak?' },
+    q: { fr: 'Quelles langues parle le chauffeur ?', en: 'Which languages does the driver speak?' },
     a: { fr: 'À confirmer par le chauffeur.', en: 'To be confirmed by the driver.' },
   },
 ];

@@ -24,7 +24,8 @@ interface Props {
 }
 const { lang, route, title, description, noindex = false, actionBar = true, jsonLd = false } = Astro.props;
 const d = t(lang);
-const fullTitle = route === 'home' ? title : `${title} · ${brandName(lang)}`;
+// Titles that already carry the brand (the demo kit's titles do) are not suffixed twice.
+const fullTitle = route === 'home' || title.includes(brandName(lang)) ? title : `${title} · ${brandName(lang)}`;
 const canonical = route ? absolute(routes[route][lang]) : undefined;
 const robots = !indexable || noindex ? 'noindex, nofollow' : 'index, follow';
 const ogLocale = lang === 'fr' ? 'fr_FR' : 'en_GB';

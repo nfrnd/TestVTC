@@ -49,110 +49,150 @@ const assert = (cond, msg) => { if (!cond) throw new Error(msg); };
 const future = (days = 4) => new Date(Date.now() + days * 864e5).toISOString().slice(0, 10);
 
 // ---------------------------------------------------------------------------
-await test('hero: activity, city, car and primary action usable on first paint', async (page) => {
+const CAR = { left: 542 / 1672, right: 1576 / 1672, top: 340 / 941, bottom: 850 / 941 }; // measured in hero-car-alpha.png
+
+await test('hero: activity, city, vehicle and primary action usable on first paint', async (page) => {
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
-  const h1 = await page.textContent('h1');
-  assert(/chauffeur privé à Cannes/i.test(h1), 'h1');
+  assert(/chauffeur privé à Cannes/i.test(await page.textContent('h1')), 'h1');
   const cta = page.locator('[data-hero-actions] a', { hasText: 'Demander un devis' });
   assert(await cta.isVisible(), 'hero CTA visible');
   assert((await cta.getAttribute('href')) === '/devis/', 'CTA href');
-  const lede = await page.textContent('.hero__lede');
-  assert(/Tesla Model 3/.test(lede), 'vehicle in hero');
-  assert(await page.locator('.hero__car[role=img]').isVisible(), 'car visible');
+  assert(/Tesla Model 3/.test(await page.textContent('.hero__lede')), 'vehicle in hero');
+  assert(await page.locator('.demo-strip').isVisible(), 'demo label visible');
 });
 
-await test('hero: wheels roll in proportion to travel (no sliding)', async (page) => {
-  await page.goto(BASE, { waitUntil: 'networkidle' });
-  const read = () => page.evaluate(() => ({
-    car: getComputedStyle(document.querySelector('.hero__car')).transform,
-    wheel: getComputedStyle(document.querySelector('.hero__car .wheel')).transform,
-  }));
-  const a = await read();
-  await page.evaluate(() => scrollTo(0, innerHeight * 0.3));
-  await page.waitForTimeout(400);
-  const b = await read();
-  assert(a.car !== b.car && a.wheel !== b.wheel, 'car and wheels move with scroll');
-  return { start: a, mid: b };
-});
+for (const [w, h] of [[1100, 720], [1440, 900], [1920, 1080], [2560, 1080]]) {
+  await test(`hero ${w}x${h}: one composition loaded, car whole at start and end of the movement`, async (page) => {
+    const imgs = [];
+    page.on('response', (r) => /hero-(background|car-alpha|desktop|mobile)/.test(r.url()) && imgs.push(r.url().split('/').pop()));
+    await page.goto(BASE, { waitUntil: 'networkidle' });
+    const names = imgs.map((u) => u.split('.')[0]);
+    assert(names.some((n) => n.startsWith('hero-background')) && names.some((n) => n.startsWith('hero-car-alpha')), `layers loaded: ${names}`);
+    assert(!names.some((n) => n.startsWith('hero-desktop') || n.startsWith('hero-mobile')), `no second option loaded: ${names}`);
+    const out = [];
+    for (const f of [0, 0.4]) {
+      await page.evaluate((v) => scrollTo(0, innerHeight * v), f);
+      await page.waitForTimeout(350);
+      const r = await page.evaluate((car) => {
+        const b = document.querySelector('.hero__layer--car img').getBoundingClientRect();
+        return { l: b.left + b.width * car.left, r: b.left + b.width * car.right, b: b.top + b.height * car.bottom, vw: innerWidth };
+      }, CAR);
+      assert(r.l >= 0 && r.r <= r.vw + 0.5, `car inside horizontally at ${f}: ${Math.round(r.l)}..${Math.round(r.r)} / ${r.vw}`);
+      out.push(r);
+    }
+    return out;
+  }, { viewport: { width: w, height: h } });
+}
 
-await test('services: choosing a journey updates summary and quote link (mouse + keyboard)', async (page) => {
+for (const [w, h, expect] of [[390, 844, 'hero-mobile'], [360, 640, 'hero-mobile'], [768, 1024, 'hero-desktop']]) {
+  await test(`hero ${w}x${h}: stacked, single photo (${expect}), car not cropped`, async (page) => {
+    const imgs = [];
+    page.on('response', (r) => /hero-/.test(r.url()) && imgs.push(r.url().split('/').pop()));
+    await page.goto(BASE, { waitUntil: 'networkidle' });
+    assert(imgs.length === 1 && imgs[0].startsWith(expect), `loaded: ${imgs}`);
+    const r = await page.evaluate(() => {
+      const img = document.querySelector('.hero__photo img');
+      const b = img.getBoundingClientRect();
+      return { w: b.width, vw: innerWidth, act: document.querySelector('[data-hero]').getAttribute('data-sc-act') };
+    });
+    assert(r.act === 'flow', 'not pinned on small screens');
+    assert(Math.abs(r.w - r.vw) < 1, 'photo full width, no side crop');
+  }, { viewport: { width: w, height: h } });
+}
+
+await test('services: choosing a journey updates summary, prices and quote link (mouse + keyboard)', async (page) => {
   await page.goto(BASE);
-  await page.locator('label.option', { hasText: 'Déplacements professionnels' }).click();
-  const panel = page.locator('[data-panel="affaires"]');
+  await page.locator('label.option', { hasText: 'Professionnels' }).click();
+  const panel = page.locator('[data-panel="business"]');
   assert(await panel.isVisible(), 'panel visible after click');
-  assert((await panel.locator('a.btn').getAttribute('href')) === '/devis/?prestation=affaires', 'CTA carries only the choice');
-  assert(!(await page.locator('[data-panel="transfert"]').isVisible()), 'other panel hidden');
-  await page.focus('input[value="affaires"]');
+  assert((await panel.locator('a.btn').getAttribute('href')) === '/devis/?prestation=business', 'CTA carries only the choice');
+  await page.focus('input[value="business"]');
   await page.keyboard.press('ArrowDown');
-  assert(await page.locator('[data-panel="evenement"]').isVisible(), 'arrow key selects next');
-  assert(await page.locator('[data-motif-for="evenement"]').isVisible(), 'motif follows');
+  assert(await page.locator('[data-panel="hourly"]').isVisible(), 'arrow key selects next');
+  assert(/80/.test(await page.locator('[data-panel="hourly"]').textContent()), 'hourly price shown');
 });
 
-await test('quote: ?prestation preselects only the journey type', async (page) => {
-  await page.goto(`${BASE}/devis/?prestation=affaires`);
-  assert((await page.inputValue('select[name=service]')) === 'affaires', 'select preset');
-  assert(/Déplacements professionnels/.test(await page.textContent('[data-preselected]')), 'note');
-  assert((await page.inputValue('input[name=departure]')) === '', 'nothing else prefilled');
+await test('prices are identical on every page (content file is the only source)', async (page) => {
+  const norm = (s) => s.replace(/[  ]/g, ' ');
+  const expected = ['95 €', '55 €', '100 €', '45 €', '170 €', '80 €', '240 €'];
+  for (const p of ['/', '/tarifs/', '/en/', '/en/rates/']) {
+    await page.goto(BASE + p);
+    const text = norm(await page.textContent('main'));
+    for (const e of expected) assert(text.includes(p.startsWith('/en') ? e.replace(/(\d+) €/, '€$1') : e) || text.includes(e), `${p} missing ${e}`);
+  }
+  await page.goto(BASE + '/');
+  const faq = norm(await page.textContent('.faq'));
+  assert(faq.includes('80 €') && faq.includes('20 %') && faq.includes('45 minutes'), 'FAQ uses the same figures');
+});
+
+await test('quote: ?prestation & ?trajet preselect the service and places only', async (page) => {
+  await page.goto(`${BASE}/devis/?prestation=airport&trajet=cannes-nice-airport`);
+  assert((await page.inputValue('select[name=service]')) === 'airport', 'select preset');
+  assert((await page.inputValue('input[name=departure]')) === 'Cannes-centre', 'departure from route');
+  assert((await page.inputValue('input[name=name]')) === '', 'nothing personal prefilled');
   await page.goto(`${BASE}/devis/?prestation=monaco`);
   assert((await page.inputValue('select[name=service]')) === '', 'unknown id ignored');
 });
 
 async function fillStep1(page) {
-  await page.fill('input[name=departure]', 'Hôtel Martinez, Cannes');
-  await page.fill('input[name=arrival]', 'Gare de Cannes');
+  await page.selectOption('select[name=service]', 'airport');
+  await page.fill('input[name=departure]', 'Cannes-centre');
+  await page.fill('input[name=arrival]', 'Aéroport Nice Côte d’Azur');
   await page.fill('input[name=date]', future());
   await page.fill('input[name=time]', '14:30');
-  await page.fill('input[name=passengers]', '2');
 }
 async function fillStep2(page) {
   await page.fill('input[name=name]', 'Camille Test');
+  await page.check('input[name=contactMethod][value=email]');
   await page.fill('input[name=email]', 'camille@example.com');
 }
 
-await test('quote: step errors near fields, recap kept when going back', async (page) => {
+await test('quote: field errors, conditional fields, recap kept when going back', async (page) => {
   await page.goto(`${BASE}/devis/`);
-  await page.fill('input[name=passengers]', '');
   await page.click('[data-next]');
-  assert((await page.textContent('#e-departure')).length > 0, 'error shown next to field');
-  assert((await page.getAttribute('input[name=departure]', 'aria-invalid')) === 'true', 'aria-invalid');
+  assert((await page.textContent('#e-departure')) === 'Indiquez votre lieu de départ.', 'scenario error message');
   assert(await page.evaluate(() => document.activeElement?.getAttribute('name')) === 'departure', 'focus on first error');
+  assert(!(await page.locator('[data-when="travelref"]').isVisible()), 'flight field hidden until relevant');
   await fillStep1(page);
+  assert(await page.locator('[data-when="travelref"]').isVisible(), 'flight field for airport');
+  await page.check('input[name=tripType][value=return]');
+  assert(await page.locator('[data-when="return"]').isVisible(), 'return fields');
+  await page.check('input[name=tripType][value=oneway]');
+  await page.selectOption('select[name=service]', 'hourly');
+  assert(await page.locator('[data-when="hourly"]').isVisible() && !(await page.locator('input[name=arrival]').isVisible()), 'hourly fields swap');
+  await page.selectOption('select[name=service]', 'airport');
   await page.click('[data-next]');
   assert(await page.locator('[data-step="2"]').isVisible(), 'step 2 visible');
-  assert(/Hôtel Martinez/.test(await page.textContent('[data-recap-body]')), 'recap');
   assert(/Europe\/Paris/.test(await page.textContent('[data-recap-body]')), 'recap states the time zone');
+  await page.check('input[name=contactMethod][value=whatsapp]');
+  assert(await page.locator('input[name=phone]').isVisible() && !(await page.locator('input[name=email]').isVisible()), 'only the chosen channel');
   await page.click('[data-back]');
-  assert((await page.inputValue('input[name=arrival]')) === 'Gare de Cannes', 'values kept');
+  assert((await page.inputValue('input[name=arrival]')) === 'Aéroport Nice Côte d’Azur', 'values kept');
 });
 
-await test('quote: valid submission says "simulated" in test mode; double click sends once', async (page) => {
+await test('quote: fictional example + simulated result with summary; double click sends once', async (page) => {
   let posts = 0;
   page.on('request', (r) => r.url().endsWith('/api/demandes') && r.method() === 'POST' && posts++);
   await page.goto(`${BASE}/devis/`);
-  await fillStep1(page);
+  await page.click('[data-example]');
+  const expectedDate = await page.evaluate(() => {
+    const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    const d = new Date(`${p}T00:00:00Z`); d.setUTCDate(d.getUTCDate() + 7); return d.toISOString().slice(0, 10);
+  });
+  assert((await page.inputValue('input[name=date]')) === expectedDate && (await page.inputValue('input[name=time]')) === '10:30', 'example date = Paris today + 7, 10:30');
   await page.click('[data-next]');
-  await fillStep2(page);
+  assert((await page.textContent('[data-submit]')).trim() === 'Simuler ma demande de devis', 'submit label');
   await page.locator('[data-submit]').dblclick();
   await page.waitForSelector('[data-done-box]:not([hidden])');
-  const text = await page.textContent('[data-done-box]');
-  assert(/Mode test/.test(text), 'simulated result announced as such');
-  assert(/n’est pas encore réservé/.test(text), 'states that nothing is booked');
+  const text = (await page.textContent('[data-done-box]')).replace(/[  ]/g, ' ');
+  assert(text.includes('Simulation réussie. Aucun message n’a été envoyé et aucun trajet n’est réservé.'), 'exact simulation message');
+  assert(/DEMO-[A-Z0-9]{8}/.test(text) && text.includes('95 €') && text.includes('Repère tarifaire de démonstration'), 'reference + fare guide');
   assert(posts === 1, `one request only (got ${posts})`);
+  await page.click('[data-edit]');
+  assert((await page.inputValue('input[name=departure]')) === 'Cannes-centre', 'edit keeps values');
 });
 
-await test('quote: confirmed sending shows the exact required message (provider mocked)', async (page) => {
-  await page.route('**/api/demandes', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, status: 'sent' }) }));
-  await page.goto(`${BASE}/devis/`);
-  await fillStep1(page);
-  await page.click('[data-next]');
-  await fillStep2(page);
-  await page.click('[data-submit]');
-  await page.waitForSelector('[data-done-box]:not([hidden])');
-  const text = await page.textContent('[data-done-text]');
-  assert(text === 'Votre demande a été transmise. Le chauffeur vous contactera pour préciser le tarif et la disponibilité.', `message: ${text}`);
-});
-
-await test('quote: server-side errors are mapped to fields and step 1 reopens', async (page) => {
+await test('quote: server-side errors mapped to fields, step 1 reopens', async (page) => {
   await page.route('**/api/demandes', (r) => r.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ ok: false, status: 'invalid', errors: { arrival: 'tooShort' } }) }));
   await page.goto(`${BASE}/devis/`);
   await fillStep1(page);
@@ -163,7 +203,7 @@ await test('quote: server-side errors are mapped to fields and step 1 reopens', 
   assert(await page.locator('[data-step="1"]').isVisible(), 'back on step 1');
 });
 
-await test('quote: transport failure keeps fields and re-enables the button', async (page) => {
+await test('quote: simulation failure keeps fields and re-enables the button', async (page) => {
   await page.route('**/api/demandes', (r) => r.fulfill({ status: 502, contentType: 'application/json', body: JSON.stringify({ ok: false, status: 'failed' }) }));
   await page.goto(`${BASE}/devis/`);
   await fillStep1(page);
@@ -172,7 +212,7 @@ await test('quote: transport failure keeps fields and re-enables the button', as
   const rid = await page.inputValue('input[name=requestId]');
   await page.click('[data-submit]');
   await page.waitForSelector('[data-error-box]:not([hidden])');
-  assert(/n’a pas pu être transmise/.test(await page.textContent('[data-error-text]')), 'useful explanation');
+  assert(/simulation n’a pas abouti/.test(await page.textContent('[data-error-text]')), 'useful explanation');
   assert(!(await page.isDisabled('[data-submit]')), 'button re-enabled');
   assert((await page.inputValue('input[name=name]')) === 'Camille Test', 'fields kept');
   assert((await page.inputValue('input[name=requestId]')) === rid, 'same request id for the retry');
@@ -189,67 +229,84 @@ await test('quote: network failure has its own message', async (page) => {
   assert(/connexion/.test(await page.textContent('[data-error-text]')), 'network message');
 }, { allowErrors: true });
 
-await test('contact: short form submits (test transport)', async (page) => {
-  await page.goto(`${BASE}/en/contact/`);
-  await page.fill('input[name=name]', 'Alex');
-  await page.check('input[value=phone]');
-  await page.fill('input[name=phone]', '+44 20 7946 0000');
-  await page.fill('textarea[name=message]', 'Hello, is Saturday evening possible?');
-  await page.click('[data-submit]');
-  await page.waitForSelector('[data-done-box]:not([hidden])');
-  assert(/Test mode/.test(await page.textContent('[data-done-box]')), 'english simulated message');
-});
-
-await test('no JavaScript: content, selector, FAQ and form posting all work', async (page) => {
-  await page.goto(BASE);
-  assert(await page.locator('.hero__beat').evaluate((e) => getComputedStyle(e).opacity === '1'), 'cued text visible');
-  assert(await page.locator('[data-panel="transfert"]').isVisible(), 'default panel visible');
-  await page.locator('label.option', { hasText: 'Événements' }).click();
-  assert(await page.locator('[data-panel="evenement"]').isVisible(), 'CSS-only selector');
-  await page.locator('.qa summary').first().click();
-  assert(await page.locator('.qa').first().evaluate((d) => d.open), 'FAQ opens');
+await test('contact: simulated call, WhatsApp and email dialogs; no outbound link anywhere', async (page) => {
+  for (const p of ['/', '/tarifs/', '/devis/', '/contact/', '/mentions-legales/', '/confidentialite/', '/en/', '/en/contact/']) {
+    const html = await (await fetch(BASE + p)).text();
+    assert(!/href="(tel:|mailto:|https:\/\/wa\.me)/.test(html), `${p} contains an outbound contact link`);
+  }
   await page.goto(`${BASE}/contact/`);
-  assert(await page.locator('[data-step], input[name=email]').first().isVisible(), 'form visible');
+  for (const kind of ['call', 'whatsapp', 'email']) {
+    await page.locator(`.blocks a[data-sim="${kind}"]`).click();
+    const dialog = page.locator(`#sim-${kind}`);
+    assert(await dialog.isVisible(), `${kind} dialog open`);
+    await page.keyboard.press('Escape');
+    assert(!(await dialog.isVisible()), `${kind} dialog closes with Escape`);
+  }
   await page.fill('input[name=name]', 'Alex');
+  await page.check('input[name=contactMethod][value=email]');
   await page.fill('input[name=email]', 'alex@example.com');
   await page.fill('textarea[name=message]', 'Bonjour, une question sur un trajet.');
-  await Promise.all([page.waitForURL('**/contact/simulation/'), page.click('button[type=submit]')]);
-  assert(!page.url().includes('alex%40'), 'POST, no personal data in URL');
+  await page.click('[data-submit]');
+  await page.waitForSelector('[data-done-box]:not([hidden])');
+  assert(/Message simulé/.test(await page.textContent('[data-done-box]')), 'simulated contact message');
+});
+
+await test('no JavaScript: content, selector, dialogs, FAQ and a quote posted to a summary page', async (page) => {
+  await page.goto(BASE);
+  assert(await page.locator('[data-panel="airport"]').isVisible(), 'default panel visible');
+  await page.locator('label.option', { hasText: 'Mise à disposition' }).click();
+  assert(await page.locator('[data-panel="hourly"]').isVisible(), 'CSS-only selector');
+  await page.locator('.qa summary').first().click();
+  assert(await page.locator('.qa').first().evaluate((d) => d.open), 'FAQ opens');
+  await page.locator('.hero a[data-sim="call"]').click();
+  assert(await page.locator('#sim-call').isVisible(), 'call simulation shown via :target');
+  await page.goto(`${BASE}/devis/`);
+  await page.selectOption('select[name=service]', 'airport');
+  await page.fill('input[name=departure]', 'Cannes-centre');
+  await page.fill('input[name=arrival]', 'Gare d’Antibes');
+  await page.fill('input[name=date]', future());
+  await page.fill('input[name=time]', '09:00');
+  await page.fill('input[name=name]', 'Alex');
+  await page.check('input[name=contactMethod][value=email]');
+  await page.fill('input[name=email]', 'alex@example.com');
+  await Promise.all([page.waitForNavigation(), page.click('button[type=submit]')]);
+  const html = await page.content();
+  assert(page.url().endsWith('/api/demandes'), 'POST to the endpoint, no data in the URL');
+  assert(/Simulation terminée/.test(html) && /Gare d’Antibes/.test(html), 'summary page');
 }, { javaScriptEnabled: false });
 
-await test('reduced motion: hero not pinned, nothing moves, content complete', async (page) => {
+await test('reduced motion: hero not pinned, layers static, content complete', async (page) => {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   const r = await page.evaluate(() => ({
     act: document.querySelector('[data-hero]').getAttribute('data-sc-act'),
     h: document.querySelector('[data-hero]').getBoundingClientRect().height,
     vh: innerHeight,
-    car: getComputedStyle(document.querySelector('.hero__car')).transform,
-    beat: getComputedStyle(document.querySelector('.hero__beat')).opacity,
+    car: getComputedStyle(document.querySelector('.hero__layer--car')).transform,
   }));
   assert(r.act === 'flow', 'not pinned');
   assert(Math.abs(r.h - r.vh) < 2, `no extra scroll space (${r.h} vs ${r.vh})`);
   assert(r.car === 'none', 'car static');
-  assert(r.beat === '1', 'second line shown');
 }, { reducedMotion: 'reduce' });
 
 await test('hero media unavailable: text and action still there, no script error', async (page) => {
-  await page.route(/\.svg$/, (r) => r.abort());
+  await page.route(/\.webp$/, (r) => r.abort());
   await page.goto(BASE, { waitUntil: 'load' });
   assert(await page.locator('[data-hero-actions] a').first().isVisible(), 'CTA');
   assert(await page.locator('h1').isVisible(), 'h1');
-}, { allowErrors: false });
+});
 
 await test('mobile: menu opens and closes with Escape; language switch goes to equivalent page', async (page) => {
   await page.goto(`${BASE}/tarifs/`);
   await page.click('.menu summary');
   assert(await page.locator('.menu__panel').isVisible(), 'menu open');
+  assert((await page.getAttribute('.menu summary', 'aria-label')) === 'Fermer le menu', 'accessible name follows state');
   await page.keyboard.press('Escape');
   assert(!(await page.locator('.menu').evaluate((d) => d.open)), 'closed');
   await page.click('.menu summary');
   await Promise.all([page.waitForURL('**/en/rates/'), page.click('.menu__panel a[hreflang=en]')]);
 }, { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
 
-await test('mobile action bar: hidden over the hero, shown after it, never covering content', async (page) => {
+await test('mobile action bar: Appeler (simulated) + Devis, hidden over the hero, never covering content', async (page) => {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   const hiddenAtTop = await page.locator('[data-action-bar]').evaluate((b) => b.classList.contains('is-hidden'));
   await page.evaluate(() => scrollTo(0, innerHeight * 2.2));
@@ -259,6 +316,8 @@ await test('mobile action bar: hidden over the hero, shown after it, never cover
   const barH = await page.locator('[data-action-bar]').evaluate((b) => b.getBoundingClientRect().height);
   assert(hiddenAtTop && shown, `bar visibility ${hiddenAtTop}/${shown}`);
   assert(pad >= barH - 1, `body reserves bar space (${pad} >= ${barH})`);
+  await page.locator('[data-action-bar] a[data-sim="call"]').click();
+  assert(await page.locator('#sim-call').isVisible(), 'call is simulated');
   await page.goto(`${BASE}/devis/`);
   assert((await page.locator('[data-action-bar]').count()) === 0, 'no bar over the quote form');
 }, { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
@@ -305,7 +364,7 @@ await test('keyboard: skip link then visible focus ring on first controls', asyn
   return outline;
 });
 
-await test('SEO: titles, canonical, hreflang, robots (preview noindex), sitemap pairs translations', async (page) => {
+await test('SEO: titles, canonical, hreflang, robots (demo noindex, no LocalBusiness), sitemap pairs translations', async (page) => {
   const seen = new Set();
   for (const p of pages) {
     await page.goto(BASE + p);
@@ -316,13 +375,15 @@ await test('SEO: titles, canonical, hreflang, robots (preview noindex), sitemap 
       alts: [...document.querySelectorAll('link[rel=alternate][hreflang]')].map((l) => l.hreflang),
       robots: document.querySelector('meta[name=robots]')?.content,
       lang: document.documentElement.lang,
+      jsonld: Boolean(document.querySelector('script[type="application/ld+json"]')),
     }));
     assert(m.h1 === 1, `${p} one h1`);
     assert(!seen.has(m.title), `${p} unique title`);
     seen.add(m.title);
     assert(m.canonical, `${p} canonical`);
     assert(m.alts.includes('fr') && m.alts.includes('en') && m.alts.includes('x-default'), `${p} hreflang`);
-    assert(/noindex/.test(m.robots), `${p} preview is noindex`);
+    assert(/noindex/.test(m.robots), `${p} demo is noindex`);
+    assert(!m.jsonld, `${p} no LocalBusiness in demo`);
   }
   const robots = await (await fetch(`${BASE}/robots.txt`)).text();
   assert(/Disallow: \//.test(robots), 'robots disallow in preview');

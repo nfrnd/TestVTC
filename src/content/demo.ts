@@ -67,7 +67,7 @@ const services: Service[] = [
     title: { fr: 'Cannes et la Riviera', en: 'Cannes and the Riviera' },
     short: { fr: 'Mougins, Antibes, Nice, Monaco', en: 'Mougins, Antibes, Nice, Monaco' },
     summary: {
-      fr: 'Hôtel, restaurant ou rendez-vous : rejoignez votre prochaine adresse à Cannes, Mougins, Antibes, Nice ou Monaco.',
+      fr: 'Hôtel, restaurant ou rendez-vous : rejoignez votre prochaine adresse à Cannes, Mougins, Antibes, Nice ou Monaco.',
       en: 'Hotel, restaurant or appointment: travel to your next address in Cannes, Mougins, Antibes, Nice or Monaco.',
     },
     price: confirmed({ amount: 45, kind: 'a-partir-de' }),
@@ -103,7 +103,7 @@ const services: Service[] = [
     },
     price: confirmed({ amount: 80, kind: 'horaire' }),
     conditions: confirmed([
-      { fr: 'Minimum 3 heures, soit 240 €. Base : Cannes, Le Cannet et Mougins, 30 km par heure inclus.', en: 'Minimum 3 hours, or €240. Base area: Cannes, Le Cannet and Mougins, 30 km per hour included.' },
+      { fr: 'Minimum 3 heures, soit 240 €. Base : Cannes, Le Cannet et Mougins, 30 km par heure inclus.', en: 'Minimum 3 hours, or €240. Base area: Cannes, Le Cannet and Mougins, 30 km per hour included.' },
       { fr: 'Autre programme ou dépassement précisé dans le devis.', en: 'Other plans or extra distance specified in the quote.' },
     ]),
     cta: { fr: 'Préparer mon programme', en: 'Plan my itinerary' },
@@ -113,7 +113,7 @@ const services: Service[] = [
 const faq: FaqItem[] = [
   {
     id: 'reserver',
-    q: { fr: 'Comment réserver un trajet ?', en: 'How do I book a journey?' },
+    q: { fr: 'Comment réserver un trajet ?', en: 'How do I book a journey?' },
     a: {
       fr: 'Commencez par une demande de devis. Adrien précise sa disponibilité, le tarif et les conditions, puis confirme votre réservation par écrit après votre accord.',
       en: 'Start with a quote request. Adrien confirms availability, the fare and conditions, then provides written booking confirmation after you agree.',
@@ -121,15 +121,15 @@ const faq: FaqItem[] = [
   },
   {
     id: 'par-personne',
-    q: { fr: 'Les prix sont-ils indiqués par personne ?', en: 'Are the fares per person?' },
+    q: { fr: 'Les prix sont-ils indiqués par personne ?', en: 'Are the fares per person?' },
     a: {
-      fr: 'Les forfaits correspondent à un aller simple, par véhicule, dans les deux sens du trajet indiqué. Ils couvrent une prise en charge de 6 h à 22 h ; une majoration de 20 % s’applique la nuit.',
+      fr: 'Les forfaits correspondent à un aller simple, par véhicule, dans les deux sens du trajet indiqué. Ils couvrent une prise en charge de 6 h à 22 h ; une majoration de 20 % s’applique la nuit.',
       en: 'The fixed fares are one way, per vehicle, in either direction of the listed route. They cover pick-ups between 6 am and 10 pm; a 20% night surcharge applies.',
     },
   },
   {
     id: 'nuit',
-    q: { fr: 'Puis-je demander un trajet tôt le matin ou la nuit ?', en: 'Can I request an early or late journey?' },
+    q: { fr: 'Puis-je demander un trajet tôt le matin ou la nuit ?', en: 'Can I request an early or late journey?' },
     a: {
       fr: 'Oui, sur réservation et selon disponibilité. Une prise en charge à partir de 22 h et avant 6 h entraîne une majoration de 20 %.',
       en: 'Yes, by reservation and subject to availability. Pick-ups from 10 pm until before 6 am carry a 20% surcharge.',
@@ -137,7 +137,7 @@ const faq: FaqItem[] = [
   },
   {
     id: 'retard-vol',
-    q: { fr: 'Que se passe-t-il si mon vol arrive en retard ?', en: 'What if my flight is delayed?' },
+    q: { fr: 'Que se passe-t-il si mon vol arrive en retard ?', en: 'What if my flight is delayed?' },
     a: {
       fr: 'Précisez le numéro de vol et communiquez tout changement. Le transfert comprend 45 minutes d’attente après l’atterrissage réel, puis 15 € par tranche de 15 minutes commencée, après accord et selon disponibilité.',
       en: 'Provide the flight number and communicate any changes. The transfer includes 45 minutes of waiting after actual landing, then €15 per started 15 minutes, with agreement and subject to availability.',
@@ -145,7 +145,7 @@ const faq: FaqItem[] = [
   },
   {
     id: 'capacite',
-    q: { fr: 'Combien de passagers et de bagages à bord ?', en: 'How many passengers and bags can travel?' },
+    q: { fr: 'Combien de passagers et de bagages à bord ?', en: 'How many passengers and bags can travel?' },
     a: {
       fr: 'Trois passagers sont recommandés. Un quatrième est possible sur demande, sans gros bagages. Prévoyez deux valises moyennes et deux sacs cabine, dont les dimensions seront à confirmer.',
       en: 'Three passengers are recommended. A fourth is possible on request without large luggage. Allow for two medium suitcases and two cabin bags, with dimensions to be confirmed.',
@@ -153,7 +153,7 @@ const faq: FaqItem[] = [
   },
   {
     id: 'arrets',
-    q: { fr: 'Puis-je prévoir plusieurs arrêts ?', en: 'Can I plan several stops?' },
+    q: { fr: 'Puis-je prévoir plusieurs arrêts ?', en: 'Can I plan several stops?' },
     a: {
       fr: 'La mise à disposition commence à trois heures, à 80 € de l’heure. La base couvre Cannes, Le Cannet et Mougins, avec 30 km par heure inclus. Un autre programme est précisé dans le devis.',
       en: 'Hourly service starts at three hours, at €80 per hour. The base covers Cannes, Le Cannet and Mougins with 30 km per hour included. Other plans are specified in the quote.',
@@ -161,7 +161,7 @@ const faq: FaqItem[] = [
   },
   {
     id: 'paiement',
-    q: { fr: 'Quels moyens de paiement sont proposés ?', en: 'Which payment methods are offered?' },
+    q: { fr: 'Quels moyens de paiement sont proposés ?', en: 'Which payment methods are offered?' },
     a: {
       fr: 'Le règlement prévu est par carte à bord ou en espèces. Aucun paiement n’est possible dans cette démonstration.',
       en: 'The planned payment methods are card on board and cash. No payment is possible in this demonstration.',
@@ -169,7 +169,7 @@ const faq: FaqItem[] = [
   },
   {
     id: 'annulation',
-    q: { fr: 'Puis-je modifier ou annuler mon trajet ?', en: 'Can I change or cancel my journey?' },
+    q: { fr: 'Puis-je modifier ou annuler mon trajet ?', en: 'Can I change or cancel my journey?' },
     a: {
       fr: 'Toute modification doit être reconfirmée. Annulation gratuite jusqu’à 24 heures avant, puis 50 % à moins de 24 heures et 100 % en cas d’absence. Ces conditions sont fictives pour ce test.',
       en: 'Changes must be reconfirmed. Cancellation is free until 24 hours beforehand, then 50% within 24 hours and 100% for a no-show. These conditions are fictional for this test.',
@@ -204,7 +204,7 @@ export const demoContent: SiteContent = {
         alt: { fr: 'Portrait IA d’Adrien, chauffeur fictif de la démonstration.', en: 'AI portrait of Adrien, the fictional chauffeur of this demonstration.' },
       }),
       bio: confirmed({
-        fr: 'J’ai imaginé AZURÉA PRIVÉ autour d’une idée simple : rendre vos déplacements aussi agréables à organiser qu’à vivre. Je prends le temps de comprendre votre trajet, vos horaires et les détails qui comptent pour vous. Pour un transfert, un rendez-vous ou une journée sur la Riviera, vous échangez directement avec moi. Mon approche : une présentation soignée, de l’attention et un accueil naturel.',
+        fr: 'J’ai imaginé AZURÉA PRIVÉ autour d’une idée simple : rendre vos déplacements aussi agréables à organiser qu’à vivre. Je prends le temps de comprendre votre trajet, vos horaires et les détails qui comptent pour vous. Pour un transfert, un rendez-vous ou une journée sur la Riviera, vous échangez directement avec moi. Mon approche : une présentation soignée, de l’attention et un accueil naturel.',
         en: 'I created AZURÉA PRIVÉ around a simple idea: make journeys as pleasant to organise as they are to experience. I take the time to understand your itinerary, timing and the details that matter to you. For a transfer, an appointment or a day on the Riviera, you speak directly with me. My approach: a smart presentation, personal attention and a natural welcome.',
       }),
     },
@@ -220,7 +220,7 @@ export const demoContent: SiteContent = {
       insurance: noLegal('Assurance'),
       host: noLegal('Hébergeur'),
       emailProvider: noLegal('Prestataire email'),
-      retention: unknown('Aucune conservation : rien n’est transmis ni stocké en démonstration'),
+      retention: unknown('Aucune conservation : rien n’est transmis ni stocké en démonstration'),
     },
   },
   vehicle: {
@@ -258,15 +258,15 @@ export const demoContent: SiteContent = {
   },
   pricingConditions: [
     { id: 'base', label: { fr: 'Forfaits', en: 'Fixed fares' }, value: confirmed({ fr: 'Par véhicule et par aller simple, applicables dans les deux sens pour les lieux indiqués. Prix finaux du scénario.', en: 'Per vehicle, one way, valid in both directions for the listed places. Final prices of the scenario.' }) },
-    { id: 'nuit', label: { fr: 'Nuit', en: 'Night' }, value: confirmed({ fr: 'Tarif de base pour une prise en charge de 6 h à 22 h. À partir de 22 h et avant 6 h : majoration de 20 % sur le forfait de transport ou la base de mise à disposition, hors attente supplémentaire.', en: 'Base fare for pick-ups from 6 am to 10 pm. From 10 pm until before 6 am: 20% surcharge on the transport fare or the hourly base, excluding extra waiting.' }) },
+    { id: 'nuit', label: { fr: 'Nuit', en: 'Night' }, value: confirmed({ fr: 'Tarif de base pour une prise en charge de 6 h à 22 h. À partir de 22 h et avant 6 h : majoration de 20 % sur le forfait de transport ou la base de mise à disposition, hors attente supplémentaire.', en: 'Base fare for pick-ups from 6 am to 10 pm. From 10 pm until before 6 am: 20% surcharge on the transport fare or the hourly base, excluding extra waiting.' }) },
     { id: 'peages', label: { fr: 'Péages et stationnement', en: 'Tolls and parking' }, value: confirmed({ fr: 'Péages et stationnement ordinaires inclus dans les forfaits des trajets affichés.', en: 'Ordinary tolls and parking included in the listed fixed fares.' }) },
-    { id: 'attente', label: { fr: 'Attente', en: 'Waiting' }, value: confirmed({ fr: 'Aéroport : 45 minutes incluses à compter de l’atterrissage réel. Autres points : 15 minutes à compter de l’heure convenue. Au-delà : 15 € par tranche de 15 minutes commencée, selon disponibilité et après accord.', en: 'Airport: 45 minutes included from actual landing. Other pick-ups: 15 minutes from the agreed time. Beyond: €15 per started 15 minutes, subject to availability and agreement.' }) },
-    { id: 'aller-retour', label: { fr: 'Aller-retour', en: 'Return journeys' }, value: confirmed({ fr: 'Addition des deux trajets ; la majoration de nuit s’applique séparément selon l’heure de chaque prise en charge.', en: 'Both journeys are added; the night surcharge applies separately to each pick-up time.' }) },
-    { id: 'disposition', label: { fr: 'Mise à disposition', en: 'Hourly service' }, value: confirmed({ fr: '80 € de l’heure, minimum 3 heures, soit 240 €. Base : Cannes, Le Cannet et Mougins, 30 km par heure inclus. Programme différent ou dépassement précisé dans le devis.', en: '€80 per hour, minimum 3 hours, or €240. Base area: Cannes, Le Cannet and Mougins, 30 km per hour included. Other plans or extra distance specified in the quote.' }) },
+    { id: 'attente', label: { fr: 'Attente', en: 'Waiting' }, value: confirmed({ fr: 'Aéroport : 45 minutes incluses à compter de l’atterrissage réel. Autres points : 15 minutes à compter de l’heure convenue. Au-delà : 15 € par tranche de 15 minutes commencée, selon disponibilité et après accord.', en: 'Airport: 45 minutes included from actual landing. Other pick-ups: 15 minutes from the agreed time. Beyond: €15 per started 15 minutes, subject to availability and agreement.' }) },
+    { id: 'aller-retour', label: { fr: 'Aller-retour', en: 'Return journeys' }, value: confirmed({ fr: 'Addition des deux trajets ; la majoration de nuit s’applique séparément selon l’heure de chaque prise en charge.', en: 'Both journeys are added; the night surcharge applies separately to each pick-up time.' }) },
+    { id: 'disposition', label: { fr: 'Mise à disposition', en: 'Hourly service' }, value: confirmed({ fr: '80 € de l’heure, minimum 3 heures, soit 240 €. Base : Cannes, Le Cannet et Mougins, 30 km par heure inclus. Programme différent ou dépassement précisé dans le devis.', en: '€80 per hour, minimum 3 hours, or €240. Base area: Cannes, Le Cannet and Mougins, 30 km per hour included. Other plans or extra distance specified in the quote.' }) },
     { id: 'evenements', label: { fr: 'Grands événements', en: 'Major events' }, value: confirmed({ fr: 'Une tarification différente ne s’applique qu’après communication et accord avant réservation.', en: 'A different fare applies only after it has been shared and agreed before booking.' }) },
-    { id: 'devis', label: { fr: 'Devis et réservation', en: 'Quote and booking' }, value: confirmed({ fr: 'Devis gratuit et sans engagement ; réservation après confirmation écrite.', en: 'Free, no-obligation quote; booking after written confirmation.' }) },
+    { id: 'devis', label: { fr: 'Devis et réservation', en: 'Quote and booking' }, value: confirmed({ fr: 'Devis gratuit et sans engagement ; réservation après confirmation écrite.', en: 'Free, no-obligation quote; booking after written confirmation.' }) },
     { id: 'paiement', label: { fr: 'Paiement', en: 'Payment' }, value: confirmed({ fr: 'Carte bancaire à bord ou espèces. Aucun paiement en ligne.', en: 'Card on board or cash. No online payment.' }) },
-    { id: 'annulation', label: { fr: 'Annulation', en: 'Cancellation' }, value: confirmed({ fr: 'Sans frais jusqu’à 24 heures avant le départ ; à moins de 24 heures : 50 % ; absence au rendez-vous : 100 %. Aucun montant n’est prélevé dans ce prototype.', en: 'Free until 24 hours before departure; within 24 hours: 50%; no-show: 100%. No amount is charged in this prototype.' }) },
+    { id: 'annulation', label: { fr: 'Annulation', en: 'Cancellation' }, value: confirmed({ fr: 'Sans frais jusqu’à 24 heures avant le départ ; à moins de 24 heures : 50 % ; absence au rendez-vous : 100 %. Aucun montant n’est prélevé dans ce prototype.', en: 'Free until 24 hours before departure; within 24 hours: 50%; no-show: 100%. No amount is charged in this prototype.' }) },
   ],
   faq,
   contactChannels: ['phone', 'email', 'whatsapp'],

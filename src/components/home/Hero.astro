@@ -1,9 +1,10 @@
 ---
 // Hero. Two compositions, one loaded per viewport (media-conditioned <picture>):
 //  - LAYERED (wide landscape screens): clean plate without car + transparent car,
-//    same 1672x941 frame, same fit. Short Scroll Craft `pin`; both planes scale
-//    gently around the front tyre's contact point (69 %, 89 %), the car a little
-//    more than the background, so it never floats and its wheels never "turn".
+//    same 1672x941 frame, same fit. Short Scroll Craft `pin`: a restrained
+//    camera push-in where the car grows three times faster than the background
+//    (x1.09 vs x1.03), both scaled around the front tyre's contact point
+//    (69 %, 89 %) so it never floats and its wheels never "turn".
 //  - STACKED (phones, tablets, narrow windows): text first, then ONE complete
 //    photo (portrait photo cropped 4:3 from the bottom on phones; full
 //    landscape photo on tablets). The car stays whole.
@@ -31,7 +32,7 @@ const d = t(lang);
 const tel = phone();
 
 const LAYERED = '(min-width: 1100px) and (min-aspect-ratio: 3/2)';
-const FRAME_SIZES = '(min-aspect-ratio: 16/9) 100vw, 178vh';
+const FRAME_SIZES = '(min-aspect-ratio: 2/1) 199vh, (min-aspect-ratio: 16/9) 100vw, 178vh';
 const PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const bgSet = `${bg960} 960w, ${bg} 1672w`;
 const carSet = `${car960} 960w, ${car} 1672w`;
@@ -107,11 +108,30 @@ const deskSet = `${desk960} 960w, ${desk} 1672w`;
     .hero__photo { display: none; }
     .hero__media { display: block; position: absolute; inset: 0; z-index: 0; }
     /* Same frame for both planes ("cover"), shifted only as far as needed to keep
-       the car's rear 1 % inside the right edge: the most sky for the copy. */
+       the car's rear ~2.5 % inside the right edge, room for the end-of-scroll zoom. */
     .hero__frame {
       --w: max(100cqw, calc(100cqh * 1672 / 941));
       position: absolute; bottom: 0; aspect-ratio: 1672 / 941; width: var(--w);
-      left: calc(-1 * max(0px, 0.953 * var(--w) - 100cqw));
+      left: calc(-1 * max(0px, 0.97 * var(--w) - 100cqw));
+    }
+    /* Ultra-wide (2:1 and wider): "cover" would blow the car up under the copy.
+       The frame is sized on the height instead, kept right, and its left edge
+       fades into the dark ground the scrim already uses (the car starts at 32 %
+       of the frame, the fade stops at 22 %). */
+    @media (min-aspect-ratio: 2/1) {
+      .hero__media { background: #0a1013; }
+      .hero__frame {
+        --w: calc(112cqh * 1672 / 941);
+        left: calc(100cqw - 0.97 * var(--w));
+        mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+      }
+      /* The copy column sits further right on these screens: the scrim follows it
+         (extra specificity: this block precedes the base scrim rule). */
+      .hero__stage .hero__scrim {
+        background:
+          linear-gradient(180deg, rgb(10 16 19 / 0.7) 0%, rgb(10 16 19 / 0.35) 16%, transparent 34%),
+          linear-gradient(98deg, rgb(10 16 19 / 0.88) 0%, rgb(10 16 19 / 0.82) 38%, rgb(10 16 19 / 0.45) 52%, transparent 66%);
+      }
     }
     .hero__layer, .hero__layer img { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero__layer { transform-origin: 68.8% 88.8%; }
@@ -119,7 +139,7 @@ const deskSet = `${desk960} 960w, ${desk} 1672w`;
       display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
         linear-gradient(180deg, rgb(10 16 19 / 0.7) 0%, rgb(10 16 19 / 0.35) 16%, transparent 34%),
-        linear-gradient(98deg, rgb(10 16 19 / 0.86) 0%, rgb(10 16 19 / 0.72) 26%, rgb(10 16 19 / 0.3) 46%, transparent 60%);
+        linear-gradient(98deg, rgb(10 16 19 / 0.88) 0%, rgb(10 16 19 / 0.8) 28%, rgb(10 16 19 / 0.4) 46%, transparent 62%);
     }
     /* Aligned with the header's brand pill; kept in the sky and left of the car's nose. */
     .hero__copy {
@@ -127,6 +147,8 @@ const deskSet = `${desk960} 960w, ${desk} 1672w`;
       padding: 0 0 0 max(var(--sc-gutter), calc((100cqw - var(--sc-maxw)) / 2 + var(--sc-gutter) / 2)); gap: 0.8rem;
     }
     .hero__title { font-size: clamp(2.6rem, 1.2rem + 2.5vw, 3.7rem); max-width: none; white-space: nowrap; }
+    /* Secondary action sits on the photo: a dark fill keeps its label readable whatever is behind it. */
+    .hero__actions :global(.btn--ghost) { --b-bg: rgb(10 16 19 / 0.72); }
     .hero__lede { max-width: min(27rem, 30cqw); font-size: 1.12rem; }
     .hero__actions { max-width: min(28rem, 30cqw); }
     .hero__facts { max-width: min(28rem, 24cqw); }
@@ -135,6 +157,6 @@ const deskSet = `${desk960} 960w, ${desk} 1672w`;
 
   @media (min-width: 1100px) and (min-aspect-ratio: 3/2) and (prefers-reduced-motion: no-preference) {
     .hero__layer--bg { transform: scale(calc(1 + var(--sc-p, 0) * 0.03)); }
-    .hero__layer--car { transform: scale(calc(1 + var(--sc-p, 0) * 0.055)); }
+    .hero__layer--car { transform: scale(calc(1 + var(--sc-p, 0) * 0.09)); }
   }
 </style>
