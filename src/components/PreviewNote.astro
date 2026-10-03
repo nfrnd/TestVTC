@@ -1,0 +1,21 @@
+---
+// Visible only in preview builds: flags information that still has to be
+// confirmed. Renders nothing in production.
+import { isPreview } from '../lib/site';
+import { t } from '../i18n';
+import type { Lang } from '../content/types';
+
+interface Props {
+  lang: Lang;
+  note: string;
+  block?: boolean;
+}
+const { lang, note, block = false } = Astro.props;
+const label = t(lang).preview.toConfirm;
+---
+
+{isPreview && (
+  <span class:list={['pv', { 'pv-block': block }]} data-preview-note>
+    <strong>{label}</strong> {note}
+  </span>
+)}

@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+import bricolageUrl from '../assets/fonts/bricolage-grotesque-latin-wght.woff2?url';
+import geistUrl from '../assets/fonts/geist-latin-wght.woff2?url';
+import type { Lang } from '../content/types';
+import { t, htmlLang } from '../i18n';
+import { routes, type RouteKey } from '../i18n/routes';
+import { absolute, isPreview, brandName } from '../lib/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ActionBar from '../components/ActionBar.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+interface Props {
+  lang: Lang;
+  route: RouteKey | null; // null for the 404 page
+  title: string;
+  description: string;
+  noindex?: boolean;
+  actionBar?: boolean;
+  jsonLd?: boolean;
+}
+const { lang, route, title, description, noindex = false, actionBar = true, jsonLd = false } = Astro.props;
+const d = t(lang);
+const fullTitle = route === 'home' ? title : `${title} · ${brandName(lang)}`;
+const canonical = route ? absolute(routes[route][lang]) : undefined;
+const robots = isPreview || noindex ? 'noindex, nofollow' : 'index, follow';
+const ogLocale = lang === 'fr' ? 'fr_FR' : 'en_GB';
+---
+
+<!doctype html>
+<html lang={htmlLang[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {route && !noindex && (
+      <>
+        <link rel="alternate" hreflang="fr" href={absolute(routes[route].fr)} />
+        <link rel="alternate" hreflang="en" href={absolute(routes[route].en)} />
+        <link rel="alternate" hreflang="x-default" href={absolute(routes[route].fr)} />
+      </>
+    )}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={lang === 'fr' ? 'en_GB' : 'fr_FR'} />
+    <meta property="og:image" content={absolute('/og-image.png')} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={d.hero.artLabel} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#11191d" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href={bricolageUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={geistUrl} as="font" type="font/woff2" crossorigin />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <slot name="head" />
+    {jsonLd && <JsonLd lang={lang} />}
+  </head>
+  <body class:list={['ground-dark', { 'has-action-bar': actionBar }]}>
+    <a class="skip-link" href="#contenu">{d.skip}</a>
+    <Header lang={lang} route={route} />
+    <main id="contenu" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    {actionBar && <ActionBar lang={lang} />}
+  </body>
+</html>

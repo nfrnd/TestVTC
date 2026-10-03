@@ -1,0 +1,183 @@
+---
+// Signature interaction. Choosing a type of journey redraws an abstract route
+// pattern and the summary beside it; the button carries only that choice into
+// the quote form (?prestation=<id>). Built on native radio buttons and CSS
+// :has(), so it works with the keyboard (arrow keys), by touch and without
+// JavaScript. Script only adds the line-drawing animation.
+import { services } from '../../content/business';
+import type { Lang, RouteMotif } from '../../content/types';
+import { t } from '../../i18n';
+import { quoteHref } from '../../i18n/routes';
+import PreviewNote from '../PreviewNote.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+
+type Motif = { paths: { d: string; dashed?: boolean }[]; stops: [number, number][]; from: [number, number]; to: [number, number]; zone?: [number, number, number] };
+const motifs: Record<RouteMotif, Motif> = {
+  transfer: {
+    paths: [{ d: 'M70 232 C 210 236, 300 86, 566 92' }],
+    stops: [],
+    from: [70, 232],
+    to: [566, 92],
+  },
+  local: {
+    paths: [{ d: 'M262 196 C 290 150, 330 214, 384 140' }],
+    stops: [],
+    from: [262, 196],
+    to: [384, 140],
+    zone: [322, 168, 112],
+  },
+  business: {
+    paths: [{ d: 'M72 222 H 228 Q 250 222 250 200 V 132 Q 250 110 272 110 H 428 Q 450 110 450 132 V 172 H 566' }],
+    stops: [[250, 166], [450, 110]],
+    from: [72, 222],
+    to: [566, 172],
+  },
+  event: {
+    paths: [{ d: 'M96 206 C 220 120, 380 86, 540 118' }, { d: 'M540 118 C 410 196, 240 240, 96 206', dashed: true }],
+    stops: [],
+    from: [96, 206],
+    to: [540, 118],
+  },
+  hourly: {
+    paths: [{ d: 'M98 214 C 132 96, 252 82, 300 150 S 428 236, 478 146 S 566 66, 588 124 C 606 176, 520 252, 384 242 S 164 262, 98 214' }],
+    stops: [[300, 150], [478, 146], [384, 242]],
+    from: [98, 214],
+    to: [98, 214],
+  },
+};
+const panelRules = services
+  .map((s) => `.selector:has(input[value="${s.id}"]:checked) :is([data-panel="${s.id}"],[data-motif-for="${s.id}"]){display:var(--show,block)}`)
+  .join('');
+---
+
+<section id="trajets" class="services section ground-light" aria-labelledby="services-title">
+  <div class="wrap services__grid">
+    <header class="services__head stack">
+      <h2 id="services-title" class="h-lg">{d.services.title}</h2>
+      <p class="lede soft">{d.services.intro}</p>
+    </header>
+
+    <div class="selector" data-selector>
+      <fieldset class="selector__options">
+        <legend class="visually-hidden">{d.services.legend}</legend>
+        {services.map((s, i) => (
+          <label class="option">
+            <input type="radio" name="trajet" value={s.id} checked={i === 0} />
+            <span class="option__mark" aria-hidden="true"></span>
+            <span class="option__text">
+              <span class="option__title">{s.title[lang]}</span>
+              <span class="option__short">{s.short[lang]}</span>
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <div class="board ground-dark">
+        <svg class="route" viewBox="0 0 640 300" role="presentation" aria-hidden="true" focusable="false">
+          <defs>
+            <pattern id="route-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#becbc9" opacity=".16"></circle>
+            </pattern>
+          </defs>
+          <rect width="640" height="300" fill="url(#route-grid)"></rect>
+          {services.map((s) => {
+            const m = motifs[s.motif];
+            return (
+              <g class="motif" data-motif-for={s.id}>
+                {m.zone && <circle class="motif__zone" cx={m.zone[0]} cy={m.zone[1]} r={m.zone[2]}></circle>}
+                {m.paths.map((p) => <path class:list={['motif__path', { 'is-dashed': p.dashed }]} d={p.d}></path>)}
+                {m.stops.map(([x, y]) => <circle class="motif__stop" cx={x} cy={y} r="5"></circle>)}
+                <circle class="motif__from" cx={m.from[0]} cy={m.from[1]} r="7"></circle>
+                <circle class="motif__to" cx={m.to[0]} cy={m.to[1]} r="11"></circle>
+              </g>
+            );
+          })}
+        </svg>
+        <p class="board__note">{d.services.motifNote}</p>
+
+        {services.map((s) => (
+          <div class="panel" data-panel={s.id}>
+            <h3 class="h-md">{s.title[lang]}</h3>
+            <p class="panel__summary">{s.summary[lang]}</p>
+            {s.status !== 'confirmed' && <PreviewNote lang={lang} note={lang === 'fr' ? 'prestation proposée à faire confirmer' : 'service to be confirmed'} />}
+            <a class="btn btn--primary" href={quoteHref(lang, s.id)}>{d.cta.quote}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:inline set:html={`@supports selector(:has(*)){.selector .panel,.selector .motif{display:none}${panelRules}}`}></style>
+
+<style>
+  .services__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
+  .services__head { max-width: 40rem; }
+  .selector { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
+  @media (min-width: 980px) {
+    .selector { grid-template-columns: minmax(18rem, 0.85fr) 1.4fr; }
+  }
+
+  .selector__options { border: 0; margin: 0; padding: 0; display: grid; }
+  .option {
+    position: relative; display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: center;
+    min-height: 4rem; padding: 0.85rem 1rem; border-radius: var(--radius); cursor: pointer;
+    border-bottom: 1px solid rgb(17 25 29 / 0.1);
+    transition: background-color 160ms var(--ease);
+  }
+  .option input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .option__mark { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1.5px solid var(--ink-dark-soft); display: grid; place-items: center; transition: border-color 160ms var(--ease); }
+  .option__mark::after { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent-deep); transform: scale(0); transition: transform 180ms var(--ease); }
+  .option__text { display: grid; gap: 0.1rem; }
+  .option__title { font-family: var(--sc-font-display); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.01em; line-height: 1.25; }
+  .option__short { color: var(--ink-dark-soft); font-size: 0.95rem; }
+  .option:hover { background: rgb(17 25 29 / 0.04); }
+  .option:has(input:checked) { background: #fff; box-shadow: 0 1px 0 rgb(17 25 29 / 0.06), 0 8px 20px -14px rgb(17 25 29 / 0.45); border-bottom-color: transparent; }
+  .option:has(input:checked) .option__mark { border-color: var(--accent-deep); }
+  .option:has(input:checked) .option__mark::after { transform: scale(1); }
+  .option:has(input:focus-visible) { outline: 2px solid var(--accent-deep); outline-offset: 2px; }
+
+  .board {
+    border-radius: calc(var(--radius) + 6px); padding: clamp(1.25rem, 3vw, 2.25rem);
+    background: linear-gradient(160deg, #1c292f 0%, #11191d 70%);
+    box-shadow: 0 2px 4px rgb(17 25 29 / 0.2), 0 24px 50px -24px rgb(17 25 29 / 0.6);
+    display: grid; gap: 1rem;
+  }
+  .route { width: 100%; height: auto; aspect-ratio: 640 / 300; }
+  .board__note { font-size: 0.82rem; color: #becbc9; }
+  .panel { --show: grid; gap: 1rem; align-content: start; padding-top: 0.5rem; border-top: 1px solid rgb(244 246 244 / 0.1); }
+  .panel h3 { margin-top: 0.75rem; }
+  .panel__summary { color: #dbe4e2; max-width: 52ch; }
+  .panel .btn { justify-self: start; margin-top: 0.4rem; }
+
+  .motif__path { fill: none; stroke: var(--sc-accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .motif__path.is-dashed { stroke-dasharray: 2 10; stroke-width: 3; opacity: 0.8; }
+  .motif__zone { fill: rgb(168 213 204 / 0.06); stroke: rgb(168 213 204 / 0.35); stroke-dasharray: 3 7; }
+  .motif__from { fill: #f4f6f4; }
+  .motif__to { fill: none; stroke: #f4f6f4; stroke-width: 2.5; }
+  .motif__stop { fill: #11191d; stroke: var(--sc-accent); stroke-width: 2.5; }
+</style>
+
+<script>
+  // Enhancement only: draw the newly selected route instead of swapping it.
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const root = document.querySelector<HTMLElement>('[data-selector]');
+  root?.addEventListener('change', (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.name !== 'trajet' || reduce.matches) return;
+    const g = root.querySelector<SVGGElement>(`[data-motif-for="${CSS.escape(input.value)}"]`);
+    if (!g) return;
+    g.querySelectorAll<SVGPathElement>('.motif__path:not(.is-dashed)').forEach((p) => {
+      const len = p.getTotalLength();
+      p.animate([{ strokeDasharray: `${len}`, strokeDashoffset: `${len}` }, { strokeDasharray: `${len}`, strokeDashoffset: '0' }], { duration: 650, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
+    });
+    g.querySelectorAll('.motif__to, .motif__stop, .motif__zone, .is-dashed').forEach((el, i) => {
+      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 300 + i * 60, easing: 'ease-out', fill: 'backwards' });
+    });
+  });
+</script>

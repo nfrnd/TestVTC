@@ -1,0 +1,51 @@
+---
+// Native <details>: keyboard, screen readers and no-JS all work without code.
+// Only answers documented in src/content/business.ts are public; the others
+// are listed in preview builds so Noa can see what is missing.
+import { faq } from '../content/business';
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+import { isPreview } from '../lib/site';
+import PreviewNote from './PreviewNote.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const items = faq.filter((q) => q.status === 'documented');
+const pending = faq.filter((q) => q.status !== 'documented');
+---
+
+<section class="faq section ground-light" aria-labelledby="faq-title">
+  <div class="wrap faq__grid">
+    <h2 id="faq-title" class="h-lg">{d.faq.title}</h2>
+    <div class="faq__list">
+      {items.map((q) => (
+        <details class="qa">
+          <summary><span>{q.q[lang]}</span><span class="qa__icon" aria-hidden="true"></span></summary>
+          <p>{q.a[lang]}</p>
+        </details>
+      ))}
+      {isPreview && pending.length > 0 && (
+        <p class="faq__pending"><PreviewNote lang={lang} block note={(lang === 'fr' ? 'questions à documenter : ' : 'questions to document: ') + pending.map((q) => q.q[lang]).join(' · ')} /></p>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { padding-top: 0; }
+  .faq__grid { display: grid; gap: 2rem; border-top: 1px solid rgb(17 25 29 / 0.14); padding-top: var(--sc-section); }
+  @media (min-width: 980px) { .faq__grid { grid-template-columns: 1fr 1.1fr; } }
+  .qa { border-bottom: 1px solid rgb(17 25 29 / 0.14); }
+  .qa summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; min-height: 3.75rem; padding: 1rem 0.25rem; font-weight: 600; font-size: 1.05rem; line-height: 1.4; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary:hover { color: var(--accent-deep); }
+  .qa__icon { flex: none; width: 0.9rem; height: 0.9rem; position: relative; }
+  .qa__icon::before, .qa__icon::after { content: ''; position: absolute; inset: 50% 0 auto 0; height: 2px; margin-top: -1px; background: currentColor; border-radius: 2px; transition: transform 200ms var(--ease); }
+  .qa__icon::after { transform: rotate(90deg); }
+  .qa[open] .qa__icon::after { transform: rotate(0deg); }
+  .qa p { padding: 0 0.25rem 1.25rem; color: var(--ink-dark-soft); max-width: 60ch; }
+  .faq__pending { margin-top: 1.5rem; }
+</style>

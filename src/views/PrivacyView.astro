@@ -1,0 +1,67 @@
+---
+// Privacy notice. Describes what the code actually does (see docs/DONNEES.md);
+// controller identity, retention and processors must be validated by the
+// business owner before publication.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Blank from '../components/Blank.astro';
+import { business } from '../content/business';
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+import { routes } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const L = business.legal;
+const fr = lang === 'fr';
+---
+
+<Base lang={lang} route="privacy" title={d.meta.privacy.title} description={d.meta.privacy.description}>
+  <PageHead title={d.meta.privacy.title} lede={fr ? 'Ce que deviennent les informations envoyées par les formulaires de devis et de contact.' : 'What happens to the information sent through the quote and contact forms.'} />
+  <section class="section ground-light">
+    <div class="wrap prose">
+      <h2>{fr ? 'Responsable du traitement' : 'Data controller'}</h2>
+      <p><Blank lang={lang} field={L.legalName} />, <Blank lang={lang} field={L.address} />. {fr ? 'Contact' : 'Contact'} : <Blank lang={lang} field={business.email} /></p>
+
+      <h2>{fr ? 'Données collectées' : 'Data collected'}</h2>
+      <ul>
+        <li>{fr ? 'Demande de devis : lieux de départ et d’arrivée, date et heure, nombre de passagers, type de trajet (facultatif), nom, moyen de réponse, email et/ou téléphone, et les informations complémentaires que vous choisissez d’ajouter (bagages, vol ou train, retour, autre demande).' : 'Quote request: pick-up and destination, date and time, number of passengers, type of journey (optional), name, preferred reply method, email and/or phone, and any additional information you choose to add (luggage, flight or train, return, other request).'}</li>
+        <li>{fr ? 'Message de contact : nom, moyen de réponse, email et/ou téléphone, message.' : 'Contact message: name, preferred reply method, email and/or phone, message.'}</li>
+      </ul>
+      <p>{fr ? 'Ne saisissez pas d’informations sensibles (santé, etc.) dans les champs libres.' : 'Please do not enter sensitive information (health, etc.) in the free-text fields.'}</p>
+
+      <h2>{fr ? 'Finalité et base légale' : 'Purpose and legal basis'}</h2>
+      <p>{fr ? 'Répondre à votre demande et préparer le trajet que vous sollicitez (mesures précontractuelles prises à votre demande, article 6.1.b du RGPD). Aucune prospection, aucune revente, aucune décision automatisée.' : 'To answer your request and prepare the journey you ask for (pre-contractual steps taken at your request, article 6(1)(b) GDPR). No marketing, no resale, no automated decision.'}</p>
+
+      <h2>{fr ? 'Destinataires' : 'Recipients'}</h2>
+      <p>{fr ? 'Le chauffeur, seul destinataire des demandes. Prestataires techniques intervenant pour son compte :' : 'The driver, the only recipient of the requests. Technical providers acting on the driver’s behalf:'}</p>
+      <ul>
+        <li>{fr ? 'Hébergement du site' : 'Website hosting'} : <Blank lang={lang} field={L.host} /></li>
+        <li>{fr ? 'Envoi des emails' : 'Email delivery'} : <Blank lang={lang} field={L.emailProvider} /></li>
+      </ul>
+      <p>{fr ? 'Le site n’enregistre pas les demandes dans une base de données : elles sont transmises par email au chauffeur. Les journaux techniques du serveur ne contiennent ni le trajet ni vos coordonnées.' : 'The website does not store requests in a database: they are sent to the driver by email. The server’s technical logs contain neither the journey nor your contact details.'}</p>
+
+      <h2>{fr ? 'Durée de conservation' : 'Retention'}</h2>
+      <p><Blank lang={lang} field={L.retention} /></p>
+
+      <h2>{fr ? 'Cookies et traceurs' : 'Cookies and trackers'}</h2>
+      <p>{fr ? 'Ce site ne dépose aucun cookie et n’utilise aucun traceur, outil de mesure d’audience, publicité, widget social ou carte intégrée. Il ne fait appel à aucun service tiers dans votre navigateur : les polices et les images sont servies par le site lui-même. Aucun bandeau de consentement n’est donc nécessaire.' : 'This website sets no cookies and uses no tracker, analytics, advertising, social widget or embedded map. It calls no third-party service from your browser: fonts and images are served by the website itself. No consent banner is therefore required.'}</p>
+
+      <h2>{fr ? 'Vos droits' : 'Your rights'}</h2>
+      <p>{fr ? 'Vous pouvez demander l’accès, la rectification, l’effacement ou la limitation de vos données, et vous opposer à leur traitement, en écrivant au contact ci-dessus. Vous pouvez aussi adresser une réclamation à la CNIL (www.cnil.fr).' : 'You can ask for access, rectification, erasure or restriction of your data, and object to its processing, by writing to the contact above. You can also lodge a complaint with the CNIL (www.cnil.fr), the French data protection authority.'}</p>
+      <p><a href={routes.legal[lang]}>{d.footer.legal}</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 48rem; }
+  .prose h2 { font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.75rem); margin: 2.75rem 0 0.9rem; letter-spacing: -0.02em; }
+  .prose h2:first-child { margin-top: 0; }
+  .prose p + p, .prose ul + p, .prose p + ul { margin-top: 0.9rem; }
+  .prose ul { padding-left: 1.1rem; display: grid; gap: 0.4rem; margin: 0; }
+  .prose a { color: var(--accent-deep); font-weight: 600; }
+</style>

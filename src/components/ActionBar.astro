@@ -1,0 +1,37 @@
+---
+// Mobile-only bottom bar: the primary action everywhere, plus "Appeler" once a
+// real phone number is configured. Hidden while a form field has focus (the
+// keyboard is open) and while the hero's own buttons are on screen.
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+import { quoteHref } from '../i18n/routes';
+import { phone } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const tel = phone();
+---
+
+<div class="action-bar" data-action-bar>
+  <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>
+  {tel && <a class="btn btn--ghost" href={`tel:${tel.e164}`} aria-label={`${d.cta.callAria} ${tel.display}`}>{d.cta.call}</a>}
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-action-bar]');
+  if (bar) {
+    let fieldFocused = false;
+    let heroVisible = false;
+    const sync = () => bar.classList.toggle('is-hidden', fieldFocused || heroVisible);
+    const isField = (el: EventTarget | null) => el instanceof HTMLElement && el.matches('input, select, textarea');
+    document.addEventListener('focusin', (e) => { fieldFocused = isField(e.target); sync(); });
+    document.addEventListener('focusout', () => { fieldFocused = false; requestAnimationFrame(() => { fieldFocused = isField(document.activeElement); sync(); }); });
+    const heroActions = document.querySelector('[data-hero-actions]');
+    if (heroActions && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; sync(); }).observe(heroActions);
+    }
+  }
+</script>

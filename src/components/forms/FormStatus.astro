@@ -1,0 +1,47 @@
+---
+// Live regions for the enhanced form: errors (assertive) and outcome (polite).
+// The direct-contact links are rendered server-side from confirmed data only.
+import { business } from '../../content/business';
+import { known, type Lang } from '../../content/types';
+import { t } from '../../i18n';
+import { routes } from '../../i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const tel = known(business.phone);
+const email = known(business.email);
+const hasDirect = Boolean(tel || email);
+---
+
+<div data-status class="form-status">
+  <div class="notice notice--error" role="alert" data-error-box hidden>
+    <p data-error-text></p>
+    {hasDirect && (
+      <div>
+        <p>{d.status.direct}</p>
+        <ul class="direct">
+          {tel && <li><a href={`tel:${tel.e164}`}>{d.contact.phone} : {tel.display}</a></li>}
+          {email && <li><a href={`mailto:${email}`}>{d.contact.email} : {email}</a></li>}
+        </ul>
+      </div>
+    )}
+  </div>
+  <div class="done" data-done-box hidden tabindex="-1">
+    <div class="notice" data-done-notice>
+      <p class="done__title h-sm" data-done-text></p>
+      <p data-done-extra></p>
+    </div>
+    <p class="btn-row" style="margin-top:1.5rem">
+      <a class="btn btn--ghost" href={routes.home[lang]}>{d.status.backHome}</a>
+    </p>
+  </div>
+</div>
+
+<style>
+  .direct { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+  .done:focus { outline: none; }
+  .done__title { font-family: var(--sc-font-display); }
+</style>

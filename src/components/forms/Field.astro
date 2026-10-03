@@ -1,0 +1,27 @@
+---
+// One labelled field with its hint and error slot (aria-describedby wired).
+interface Props {
+  name: string;
+  label: string;
+  type?: string;
+  hint?: string;
+  required?: boolean;
+  optional?: string;
+  textarea?: boolean;
+  [attr: string]: unknown;
+}
+const { name, label, type = 'text', hint, required = false, optional, textarea = false, ...rest } = Astro.props;
+const id = `f-${name}`;
+const describedBy = [hint ? `h-${name}` : null, `e-${name}`].filter(Boolean).join(' ');
+---
+
+<div class="field">
+  <label class="label" for={id}>{label}{optional && <span class="opt"> ({optional})</span>}</label>
+  {hint && <p class="hint" id={`h-${name}`}>{hint}</p>}
+  {textarea ? (
+    <textarea class="input" id={id} name={name} required={required} aria-describedby={describedBy} rows="4" {...rest}></textarea>
+  ) : (
+    <input class="input" id={id} name={name} type={type} required={required} aria-describedby={describedBy} {...rest} />
+  )}
+  <p class="error" id={`e-${name}`} data-error-for={name}></p>
+</div>

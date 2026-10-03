@@ -1,0 +1,31 @@
+---
+// LocalBusiness structured data built ONLY from confirmed facts. No rating,
+// review or price range is ever emitted. Without a confirmed trading name the
+// block is omitted (a production build cannot happen without one).
+import { business, vehicle } from '../content/business';
+import { known, type Lang } from '../content/types';
+import { absolute } from '../lib/site';
+import { routes } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const name = known(business.name);
+const data = name
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      name,
+      description: `${business.activity.value[lang]} · ${business.city.value} · ${vehicle.model.value}`,
+      url: absolute(routes.home[lang]),
+      areaServed: { '@type': 'City', name: business.city.value },
+      ...(known(business.phone) ? { telephone: known(business.phone)!.e164 } : {}),
+      ...(known(business.email) ? { email: known(business.email) } : {}),
+      ...(known(business.legal.address) ? { address: known(business.legal.address) } : {}),
+      ...(known(business.languages) ? { knowsLanguage: known(business.languages)![lang] } : {}),
+    }
+  : null;
+---
+
+{data && <script type="application/ld+json" set:html={JSON.stringify(data)} />}

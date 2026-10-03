@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n';
+import { routes, quoteHref } from '../i18n/routes';
+const fr = t('fr');
+const en = t('en');
+---
+
+<Base lang="fr" route={null} title={fr.meta.notFound.title} description={fr.meta.notFound.description} noindex>
+  <section class="page-head ground-dark">
+    <div class="wrap stack">
+      <h1 class="h-xl">{fr.notFound.title}</h1>
+      <p class="lede soft">{fr.notFound.body}</p>
+      <p class="btn-row" style="margin-top:1.75rem">
+        <a class="btn btn--primary" href={quoteHref('fr')}>{fr.cta.quote}</a>
+        <a class="btn btn--ghost" href={routes.home.fr}>{fr.status.backHome}</a>
+      </p>
+      <div lang="en" style="margin-top:3.5rem">
+        <h2 class="h-md">{en.notFound.title}</h2>
+        <p class="soft" style="margin-top:0.75rem">{en.notFound.body}</p>
+        <p class="btn-row" style="margin-top:1.25rem">
+          <a class="btn btn--ghost" href={quoteHref('en')}>{en.cta.quote}</a>
+          <a class="btn btn--ghost" href={routes.home.en}>{en.status.backHome}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

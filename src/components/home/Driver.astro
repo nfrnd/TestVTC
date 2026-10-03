@@ -1,0 +1,57 @@
+---
+import { business } from '../../content/business';
+import { known, type Lang } from '../../content/types';
+import { t } from '../../i18n';
+import PreviewNote from '../PreviewNote.astro';
+import { isPreview } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const name = known(business.driver.name);
+const bio = known(business.driver.bio);
+const languages = known(business.languages);
+const hours = known(business.hours);
+const photo = known(business.driver.photo);
+---
+
+<section class="driver section ground-dark" aria-labelledby="driver-title">
+  <div class="wrap driver__grid">
+    {(photo || isPreview) && (
+      <div class="driver__photo" data-sc-in>
+        {photo ? (
+          <img src={photo.src} alt={photo.alt[lang]} width="800" height="1000" loading="lazy" decoding="async" />
+        ) : (
+          <div class="driver__placeholder"><PreviewNote lang={lang} note={d.driver.photoPending} /></div>
+        )}
+      </div>
+    )}
+    <div class="driver__text stack" data-sc-in data-sc-stagger="60">
+      <p class="eyebrow">{name ?? d.driver.nameFallback}</p>
+      <h2 id="driver-title" class="h-lg">{d.driver.title}</h2>
+      <p class="lede soft">{bio ? bio[lang] : d.driver.body}</p>
+      {!bio && <PreviewNote lang={lang} note={lang === 'fr' ? 'prénom et présentation validés par le chauffeur' : 'first name and bio approved by the driver'} />}
+      <dl class="driver__facts">
+        <div><dt>{d.driver.base}</dt><dd>{business.city.value}</dd></div>
+        <div><dt>{d.driver.languages}</dt><dd>{languages ? languages[lang] : <PreviewNote lang={lang} note="" />}</dd></div>
+        <div><dt>{d.driver.hours}</dt><dd>{hours ? hours[lang] : <PreviewNote lang={lang} note="" />}</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .driver__grid { display: grid; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  @media (min-width: 900px) { .driver__grid:has(.driver__photo) { grid-template-columns: minmax(16rem, 0.7fr) 1.3fr; } }
+  .driver__photo img, .driver__placeholder { width: 100%; aspect-ratio: 4 / 5; border-radius: calc(var(--radius) + 6px); object-fit: cover; }
+  .driver__placeholder { display: grid; place-items: center; padding: 1.5rem; border: 1px dashed rgb(244 246 244 / 0.25); background: repeating-linear-gradient(135deg, rgb(244 246 244 / 0.03) 0 12px, transparent 12px 24px); }
+  @media (max-width: 899px) { .driver__photo { max-width: 22rem; } .driver__placeholder { aspect-ratio: 3 / 2; } }
+  .driver__text { max-width: 44rem; }
+  .driver__facts { margin: 2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1.25rem 2rem; border-top: 1px solid rgb(244 246 244 / 0.12); padding-top: 1.5rem; }
+  .driver__facts dt { font-size: 0.82rem; color: var(--sc-ink-soft); letter-spacing: 0.04em; }
+  .driver__facts dd { margin: 0.2rem 0 0; font-weight: 600; }
+  /* The dl hides empty preview notes in production: an unknown value renders nothing. */
+  .driver__facts div:has(dd:empty) { display: none; }
+</style>

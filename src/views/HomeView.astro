@@ -1,0 +1,49 @@
+---
+// Scroll Craft is loaded on this page only. Its stylesheet is imported before
+// Base (and so before global.css) so the site tokens and rules win.
+import '../vendor/scrollcraft/scrollcraft.css';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/home/Hero.astro';
+import Services from '../components/home/Services.astro';
+import Tesla from '../components/home/Tesla.astro';
+import Driver from '../components/home/Driver.astro';
+import PricingPreview from '../components/home/PricingPreview.astro';
+import Faq from '../components/Faq.astro';
+import FinalCta from '../components/home/FinalCta.astro';
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+---
+
+<Base lang={lang} route="home" title={d.meta.home.title} description={d.meta.home.description} jsonLd>
+  <Hero lang={lang} />
+  <Services lang={lang} />
+  <Tesla lang={lang} />
+  <Driver lang={lang} />
+  <PricingPreview lang={lang} />
+  <Faq lang={lang} />
+  <FinalCta lang={lang} />
+</Base>
+
+<script>
+  // The engine is vendored unmodified (src/vendor/scrollcraft, MIT, Nate Herk).
+  import '../vendor/scrollcraft/scrollcraft.js';
+
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Static composition: no pinned scroll space, the second line is simply shown.
+      hero.setAttribute('data-sc-act', 'flow');
+      hero.removeAttribute('data-sc-span');
+      hero.querySelector('[data-sc-cue]')?.removeAttribute('data-sc-cue');
+    } else if (matchMedia('(max-width: 760px)').matches) {
+      hero.setAttribute('data-sc-span', '1.45');
+    }
+  }
+  (window as unknown as { ScrollCraft: { mount: (root: Element) => unknown } }).ScrollCraft.mount(document.body);
+</script>

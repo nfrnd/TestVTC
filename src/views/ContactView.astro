@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ContactForm from '../components/forms/ContactForm.astro';
+import DirectContact from '../components/DirectContact.astro';
+import PreviewNote from '../components/PreviewNote.astro';
+import { business } from '../content/business';
+import { known, type Lang } from '../content/types';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const hours = known(business.hours);
+const area = known(business.serviceArea);
+const map = known(business.googleBusinessUrl);
+const photo = known(business.driver.photo);
+const name = known(business.driver.name);
+---
+
+<Base lang={lang} route="contact" title={d.meta.contact.title} description={d.meta.contact.description} actionBar={false}>
+  <PageHead title={d.contact.title} lede={d.contact.intro} />
+  <section class="section ground-light contact-section">
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        {photo && <img class="contact-photo" src={photo.src} alt={photo.alt[lang]} width="320" height="400" loading="lazy" />}
+        {name && <p class="h-sm">{name}</p>}
+        <h2 class="h-md">{d.contact.coordinates}</h2>
+        <DirectContact lang={lang} />
+        <dl class="contact-dl">
+          <div><dt>{d.contact.area}</dt><dd>{area ? area[lang] : d.contact.areaBase} {!area && <PreviewNote lang={lang} note={business.serviceArea.known ? '' : (business.serviceArea as { note: string }).note} />}</dd></div>
+          <div><dt>{d.contact.hours}</dt><dd>{hours ? hours[lang] : <PreviewNote lang={lang} note={(business.hours as { note: string }).note} />}</dd></div>
+        </dl>
+        {map ? <a class="text-link" href={map} rel="noopener">{d.contact.map}</a> : <PreviewNote lang={lang} note={(business.googleBusinessUrl as { note: string }).note} />}
+      </div>
+      <div class="contact-form">
+        <h2 id="contact-form-title" class="h-md">{d.contact.formTitle}</h2>
+        <ContactForm lang={lang} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-section { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+  .contact-grid { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+  @media (min-width: 1000px) { .contact-grid { grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.3fr); } }
+  .contact-info { display: grid; gap: 1rem; justify-items: start; }
+  .contact-photo { width: 10rem; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
+  .contact-dl { margin: 0.5rem 0 0; display: grid; gap: 1rem; width: 100%; }
+  .contact-dl div { border-top: 1px solid rgb(17 25 29 / 0.14); padding-top: 0.9rem; }
+  .contact-dl dt { font-size: 0.85rem; color: var(--ink-dark-soft); }
+  .contact-dl dd { margin: 0.2rem 0 0; font-weight: 500; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: baseline; }
+  .contact-dl dd:empty { display: none; }
+  .contact-form { max-width: 40rem; display: grid; gap: 1.5rem; }
+</style>

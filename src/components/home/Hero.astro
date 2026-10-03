@@ -1,0 +1,158 @@
+---
+// The one peak of the page. A short pinned scene (Scroll Craft `pin`) whose
+// planes move at different rates (`data-sc-parallax`) while the car rolls a
+// few centimetres forward on the road. The copy never moves and the primary
+// action is usable on the very first frame, before any script runs.
+import backDesktop from '../../assets/art/back-desktop.svg?url';
+import backMobile from '../../assets/art/back-mobile.svg?url';
+import midDesktop from '../../assets/art/mid-desktop.svg?url';
+import midMobile from '../../assets/art/mid-mobile.svg?url';
+import road from '../../assets/art/road.svg?url';
+import fronds from '../../assets/art/fronds.svg?url';
+import carSvg from '../../assets/art/car-dusk.svg?raw';
+import type { Lang } from '../../content/types';
+import { t } from '../../i18n';
+import { quoteHref } from '../../i18n/routes';
+import { phone, whatsapp } from '../../lib/site';
+import PreviewNote from '../PreviewNote.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const tel = phone();
+const wa = whatsapp();
+---
+
+<section class="hero" data-sc-act="pin" data-sc-span="1.6" data-hero aria-labelledby="hero-title">
+  <div class="hero__stage" data-sc-stage>
+    <div class="hero__plane hero__plane--back" data-sc-parallax="-0.5" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 760px)" srcset={backMobile} width="900" height="1600" />
+        <img src={backDesktop} width="1920" height="1080" alt="" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
+    <div class="hero__plane hero__plane--mid" data-sc-parallax="-1" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 760px)" srcset={midMobile} width="900" height="1600" />
+        <img src={midDesktop} width="1920" height="1080" alt="" decoding="async" />
+      </picture>
+    </div>
+
+    <div class="hero__ground">
+      <img class="hero__road" src={road} width="1920" height="300" alt="" decoding="async" aria-hidden="true" />
+      <figure class="hero__car" role="img" aria-label={d.hero.artLabel}>
+        <Fragment set:html={carSvg} />
+      </figure>
+      <p class="hero__caption" aria-hidden="true">{d.hero.caption}</p>
+    </div>
+
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="hero__front" data-sc-parallax="-2.2" aria-hidden="true">
+      <img src={fronds} width="900" height="700" alt="" decoding="async" />
+    </div>
+
+    <div class="hero__copy wrap">
+      <div class="hero__text">
+        <p class="eyebrow hero__eyebrow">{d.hero.eyebrow}</p>
+        <h1 id="hero-title" class="h-xl">{d.hero.title}</h1>
+        <p class="lede hero__lede">{d.hero.lede}</p>
+        <div class="btn-row hero__actions" data-hero-actions>
+          <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>
+          {tel && <a class="btn btn--ghost" href={`tel:${tel.e164}`} aria-label={`${d.cta.callAria} ${tel.display}`}>{d.cta.call}</a>}
+          {wa && <a class="btn btn--ghost" href={`https://wa.me/${wa.e164.replace(/\D/g, '')}`} rel="noopener">{d.cta.whatsapp}</a>}
+        </div>
+        {!tel && <p class="hero__pv"><PreviewNote lang={lang} note={lang === 'fr' ? 'bouton « Appeler » affiché dès que le numéro est confirmé' : '“Call” button shown once the number is confirmed'} /></p>}
+      </div>
+    </div>
+
+    <p class="hero__beat" data-sc-cue="0.42 1 0.18 0.06">{d.hero.beat}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    --car-w: min(52vw, 95svh);
+    --travel: -14%;
+    --wheel-turn: -115deg; /* = travel / tyre radius: the wheels roll, they do not slide */
+    background: #11191d;
+  }
+  .hero__stage {
+    height: 100vh;
+    height: 100svh;
+    min-height: 34rem;
+    overflow: clip;
+    isolation: isolate;
+  }
+  .hero__plane { position: absolute; inset: -5% 0 -5% 0; }
+  .hero__plane :is(picture, img) { width: 100%; height: 100%; }
+  .hero__plane img { object-fit: cover; object-position: 62% 100%; }
+  .hero__plane--back { z-index: 0; }
+  .hero__plane--mid { z-index: 1; }
+
+  .hero__ground { position: absolute; left: 0; right: 0; bottom: 0; height: 25%; z-index: 2; }
+  .hero__road { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 0; }
+  .hero__car {
+    position: absolute; margin: 0;
+    width: var(--car-w); right: 3%; bottom: 46%;
+    translate: 0 10.34%; /* the SVG keeps 60/580 below the tyres for the shadow */
+    transform-origin: 50% 89.66%;
+  }
+  .hero__car :global(svg) { width: 100%; height: auto; overflow: visible; }
+  .hero__car :global(.wheel) { transform-box: view-box; }
+  .hero__caption {
+    position: absolute; right: var(--sc-gutter); bottom: 0.9rem;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: #becbc9;
+  }
+
+  .hero__scrim {
+    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgb(17 25 29 / 0.88) 0%, rgb(17 25 29 / 0.62) 30%, rgb(17 25 29 / 0.16) 52%, transparent 64%),
+      linear-gradient(180deg, rgb(17 25 29 / 0.55) 0%, transparent 22%);
+  }
+  .hero__front { position: absolute; z-index: 4; top: -16%; right: -2%; width: min(40vw, 640px); pointer-events: none; }
+  .hero__front img { width: 100%; height: auto; }
+
+  .hero__copy {
+    position: absolute; z-index: 5; inset: var(--header-h) 0 36% 0;
+    display: flex; align-items: center;
+    margin-inline: auto; /* .wrap: centred between left/right 0 */
+  }
+  .hero__text { max-width: 40rem; display: grid; gap: 1.1rem; }
+  .hero__text h1 { max-width: 12ch; }
+  .hero__lede { color: #dfe7e5; max-width: 34ch; }
+  .hero__actions { margin-top: 0.6rem; }
+  .hero__pv { margin-top: -0.2rem; }
+
+  .hero__beat {
+    position: absolute; z-index: 5; right: var(--sc-gutter); top: calc(var(--header-h) + 9svh);
+    max-width: 21rem; font-size: 1.02rem; line-height: 1.5; color: #f4f6f4;
+    padding-left: 1rem; border-left: 1px solid rgb(168 213 204 / 0.6);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__car { transform: translateX(calc(var(--sc-p, 0) * var(--travel))) scale(calc(1 + var(--sc-p, 0) * 0.035)); }
+    .hero__car :global(.wheel) { transform: rotate(calc(var(--sc-p, 0) * var(--wheel-turn))); }
+  }
+
+  /* Phones: recomposed, not shrunk. Copy on top, the whole car across the road. */
+  @media (max-width: 760px) {
+    .hero { --car-w: 94vw; --travel: -9%; --wheel-turn: -74deg; }
+    .hero__stage { min-height: 36rem; }
+    .hero__plane img { object-position: 50% 100%; }
+    .hero__ground { height: 24%; }
+    .hero__car { right: auto; left: 6vw; bottom: 40%; }
+    .hero__scrim { background: linear-gradient(180deg, rgb(17 25 29 / 0.82) 0%, rgb(17 25 29 / 0.5) 42%, transparent 62%); }
+    .hero__front { width: 58vw; top: -9%; right: -6%; opacity: 0.9; }
+    .hero__copy { inset: calc(var(--header-h) + 0.5rem) 0 auto 0; display: block; }
+    .hero__text { gap: 0.85rem; }
+    .hero__text h1 { font-size: clamp(2.3rem, 1.2rem + 6vw, 3rem); max-width: 11ch; }
+    .hero__beat { display: none; }
+  }
+  @media (max-width: 760px) and (max-height: 700px) {
+    .hero__lede { font-size: 1.02rem; }
+  }
+</style>

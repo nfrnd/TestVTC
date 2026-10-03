@@ -1,0 +1,40 @@
+---
+import { business } from '../content/business';
+import { known, type Lang } from '../content/types';
+import { t } from '../i18n';
+import { routes, quoteHref } from '../i18n/routes';
+import { brandName, isPreview, phone } from '../lib/site';
+import RouteMark from './RouteMark.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const tel = phone();
+const email = known(business.email);
+---
+
+<footer class="site-footer ground-dark">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div class="stack">
+        <p class="brand" style="padding:0"><RouteMark /><span class="brand__name">{brandName(lang)}</span></p>
+        <p class="soft">{business.activity.value[lang]} · {business.city.value} · {lang === 'fr' ? 'Tesla Model 3 noire' : 'Black Tesla Model 3'}</p>
+      </div>
+      <ul>
+        <li><a href={quoteHref(lang)}>{d.cta.quote}</a></li>
+        <li><a href={routes.rates[lang]}>{d.nav.rates}</a></li>
+        <li><a href={routes.contact[lang]}>{d.footer.contact}</a></li>
+        {tel && <li><a href={`tel:${tel.e164}`}>{tel.display}</a></li>}
+        {email && <li><a href={`mailto:${email}`}>{email}</a></li>}
+      </ul>
+      <ul>
+        <li><a href={routes.legal[lang]}>{d.footer.legal}</a></li>
+        <li><a href={routes.privacy[lang]}>{d.footer.privacy}</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__small">{d.footer.illustration}</p>
+    {isPreview && <p class="site-footer__small"><span class="pv">{d.preview.banner}</span></p>}
+  </div>
+</footer>

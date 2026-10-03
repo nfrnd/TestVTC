@@ -1,0 +1,34 @@
+---
+// Direct channels, shown only when confirmed (phone, email, WhatsApp).
+import { business } from '../content/business';
+import { known, type Lang } from '../content/types';
+import { t } from '../i18n';
+import PreviewNote from './PreviewNote.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const tel = known(business.phone);
+const email = known(business.email);
+const wa = known(business.whatsapp);
+const any = tel || email || wa;
+---
+
+{any ? (
+  <ul class="direct-list">
+    {tel && <li><span>{d.contact.phone}</span><a href={`tel:${tel.e164}`}>{tel.display}</a></li>}
+    {email && <li><span>{d.contact.email}</span><a href={`mailto:${email}`}>{email}</a></li>}
+    {wa && <li><span>WhatsApp</span><a href={`https://wa.me/${wa.e164.replace(/\D/g, '')}`} rel="noopener">{wa.e164}</a></li>}
+  </ul>
+) : (
+  <PreviewNote lang={lang} block note={d.quote.directPending} />
+)}
+
+<style>
+  .direct-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
+  .direct-list li { display: grid; gap: 0.1rem; }
+  .direct-list span { font-size: 0.82rem; color: var(--sc-ink-soft); }
+  .direct-list a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 1.1rem; color: var(--focus); }
+</style>

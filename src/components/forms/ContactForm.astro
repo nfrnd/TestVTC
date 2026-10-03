@@ -1,0 +1,61 @@
+---
+import type { Lang } from '../../content/types';
+import { t } from '../../i18n';
+import { routes } from '../../i18n/routes';
+import { LIMITS } from '../../lib/validation';
+import Field from './Field.astro';
+import FormStatus from './FormStatus.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const q = d.quote;
+const clientConfig = { lang, kind: 'contact', errors: d.errors, status: d.status, labels: { sending: q.sending } };
+---
+
+<form class="cform" action="/api/demandes" method="post" data-form="contact" data-config={JSON.stringify(clientConfig)} aria-labelledby="contact-form-title">
+  <input type="hidden" name="kind" value="contact" />
+  <input type="hidden" name="lang" value={lang} />
+  <input type="hidden" name="requestId" value="" />
+  <div class="hp" aria-hidden="true">
+    <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+  <Field name="name" label={q.name} required autocomplete="name" maxlength={LIMITS.name[1]} minlength={LIMITS.name[0]} />
+  <fieldset class="field choices-field">
+    <legend class="label">{q.contactMethod}</legend>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="contactMethod" value="email" checked /> {q.byEmail}</label>
+      <label class="choice"><input type="radio" name="contactMethod" value="phone" /> {q.byPhone}</label>
+    </div>
+    <p class="error" data-error-for="contactMethod"></p>
+  </fieldset>
+  <div class="field-row">
+    <Field name="email" label={q.email} type="email" autocomplete="email" inputmode="email" maxlength={LIMITS.email[1]} />
+    <Field name="phone" label={q.phone} type="tel" autocomplete="tel" inputmode="tel" maxlength={LIMITS.phone[1]} hint={q.phoneHint} />
+  </div>
+  <Field name="message" label={d.contact.message} textarea required maxlength={LIMITS.message[1]} minlength={LIMITS.message[0]} />
+  <p class="privacy-note">{q.privacy} <a href={routes.privacy[lang]}>{q.privacyLink}</a></p>
+  <div class="cform__nav">
+    <button class="btn btn--primary" type="submit" data-submit>{d.contact.submit}</button>
+  </div>
+  <FormStatus lang={lang} />
+</form>
+
+<script>
+  import { enhanceForms } from '../../scripts/forms';
+  enhanceForms();
+</script>
+
+<style>
+  .cform { display: grid; }
+  .choices-field { border: 0; padding: 0; margin: 1.25rem 0 0; }
+  .choices-field + .field-row { margin-top: 1.25rem; }
+  .field-row + :global(.field) { margin-top: 1.25rem; }
+  .privacy-note { margin-top: 1.5rem; font-size: 0.92rem; color: var(--ink-dark-soft); }
+  .privacy-note a { color: var(--accent-deep); font-weight: 600; }
+  .cform__nav { margin-top: 1.5rem; }
+  :global(.cform.is-done) > :not([data-status]) { display: none; }
+  .cform :global([data-status]) { margin-top: 1.25rem; }
+</style>

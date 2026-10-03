@@ -1,0 +1,141 @@
+---
+// Two-step quote form. Without JavaScript both steps are shown and the form
+// posts to /api/demandes (POST, never GET), with native browser validation.
+// With JavaScript: steps, recap, field-level errors, single submission.
+import { passengerLimit, services } from '../../content/business';
+import type { Lang } from '../../content/types';
+import { t } from '../../i18n';
+import { routes } from '../../i18n/routes';
+import { LIMITS } from '../../lib/validation';
+import Field from './Field.astro';
+import FormStatus from './FormStatus.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const q = d.quote;
+const max = passengerLimit();
+const clientConfig = {
+  lang,
+  kind: 'devis',
+  serviceIds: services.map((s) => s.id),
+  serviceTitles: Object.fromEntries(services.map((s) => [s.id, s.title[lang]])),
+  maxPassengers: max,
+  errors: d.errors,
+  status: d.status,
+  labels: { sending: q.sending, recapPassengers: q.recapPassengers, preselected: q.preselected, timeHint: q.timeHint },
+};
+---
+
+<form class="qform" action="/api/demandes" method="post" data-form="devis" data-config={JSON.stringify(clientConfig)} aria-labelledby="form-title">
+  <input type="hidden" name="kind" value="devis" />
+  <input type="hidden" name="lang" value={lang} />
+  <input type="hidden" name="requestId" value="" />
+  <div class="hp" aria-hidden="true">
+    <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <p class="qform__progress" data-progress hidden>
+    <span data-progress-text>{q.stepLabel} 1 {q.of} 2</span>
+    <span class="qform__bar" aria-hidden="true"><span data-progress-bar></span></span>
+  </p>
+
+  <fieldset class="qform__step" data-step="1">
+    <legend class="h-md">{q.step1}</legend>
+    <p class="qform__preselected" data-preselected hidden></p>
+    <Field name="departure" label={q.departure} hint={q.departureHint} required maxlength={LIMITS.place[1]} minlength={LIMITS.place[0]} autocomplete="off" />
+    <Field name="arrival" label={q.arrival} required maxlength={LIMITS.place[1]} minlength={LIMITS.place[0]} autocomplete="off" />
+    <div class="field-row">
+      <Field name="date" label={q.date} type="date" required />
+      <Field name="time" label={q.time} type="time" required hint={q.timeHint} />
+    </div>
+    <div class="field-row">
+      <Field name="passengers" label={q.passengers} type="number" required min={1} max={max} value="1" inputmode="numeric" />
+      <div class="field">
+        <label class="label" for="f-service">{q.service} <span class="opt">({q.optional})</span></label>
+        <select class="input" id="f-service" name="service" aria-describedby="e-service">
+          <option value="">{q.serviceNone}</option>
+          {services.map((s) => <option value={s.id}>{s.title[lang]}</option>)}
+        </select>
+        <p class="error" id="e-service" data-error-for="service"></p>
+      </div>
+    </div>
+    <div class="qform__nav" data-step-nav hidden>
+      <button class="btn btn--primary" type="button" data-next>{q.next}</button>
+    </div>
+  </fieldset>
+
+  <fieldset class="qform__step" data-step="2">
+    <legend class="h-md">{q.step2}</legend>
+    <div class="recap" data-recap hidden>
+      <div>
+        <p class="recap__title">{q.recapTitle}</p>
+        <p class="recap__body" data-recap-body></p>
+      </div>
+      <button class="btn btn--ghost recap__edit" type="button" data-back>{q.back}</button>
+    </div>
+    <Field name="name" label={q.name} required autocomplete="name" maxlength={LIMITS.name[1]} minlength={LIMITS.name[0]} />
+    <fieldset class="field choices-field">
+      <legend class="label">{q.contactMethod}</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="contactMethod" value="email" checked /> {q.byEmail}</label>
+        <label class="choice"><input type="radio" name="contactMethod" value="phone" /> {q.byPhone}</label>
+      </div>
+      <p class="error" data-error-for="contactMethod"></p>
+    </fieldset>
+    <div class="field-row">
+      <Field name="email" label={q.email} type="email" autocomplete="email" inputmode="email" maxlength={LIMITS.email[1]} />
+      <Field name="phone" label={q.phone} type="tel" autocomplete="tel" inputmode="tel" maxlength={LIMITS.phone[1]} hint={q.phoneHint} />
+    </div>
+
+    <details class="extras" data-extras>
+      <summary>{q.extras}</summary>
+      <div class="extras__body">
+        <Field name="luggage" label={q.luggage} hint={q.luggageHint} maxlength={LIMITS.luggage[1]} optional={q.optional} />
+        <Field name="travelRef" label={q.travelRef} maxlength={LIMITS.travelRef[1]} optional={q.optional} autocomplete="off" />
+        <Field name="returnTrip" label={q.returnTrip} hint={q.returnHint} maxlength={LIMITS.returnTrip[1]} optional={q.optional} />
+        <Field name="details" label={q.details} textarea maxlength={LIMITS.details[1]} optional={q.optional} />
+      </div>
+    </details>
+
+    <p class="privacy-note">{q.privacy} <a href={routes.privacy[lang]}>{q.privacyLink}</a></p>
+    <div class="qform__nav">
+      <button class="btn btn--primary" type="submit" data-submit>{q.submit}</button>
+    </div>
+  </fieldset>
+
+  <FormStatus lang={lang} />
+</form>
+
+<script>
+  import { enhanceForms } from '../../scripts/forms';
+  enhanceForms();
+</script>
+
+<style>
+  .qform { display: grid; gap: 2rem; }
+  .qform__step { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .qform__step > legend { padding: 0; margin-bottom: 1.5rem; }
+  .qform__progress { display: grid; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; color: var(--ink-dark-soft); }
+  .qform__bar { height: 4px; border-radius: 4px; background: rgb(17 25 29 / 0.1); overflow: hidden; }
+  .qform__bar span { display: block; height: 100%; width: 50%; background: var(--accent-deep); border-radius: inherit; transition: width 300ms var(--ease); }
+  .qform__nav { margin-top: 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .qform__preselected { margin-bottom: 1.25rem; font-weight: 500; }
+  .choices-field { border: 0; padding: 0; margin: 1.25rem 0 0; }
+  .choices-field + .field-row { margin-top: 1.25rem; }
+  .recap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; padding: 1rem 1.15rem; margin-bottom: 1.5rem; border-radius: var(--radius); background: #fff; border: 1px solid rgb(17 25 29 / 0.1); }
+  .recap__title { font-weight: 600; font-size: 0.9rem; color: var(--ink-dark-soft); }
+  .recap__body { font-weight: 500; }
+  .recap__edit { --b-fg: var(--accent-deep); --b-bd: rgb(29 81 72 / 0.4); min-height: 2.75rem; }
+  .extras { margin-top: 1.75rem; border-top: 1px solid rgb(17 25 29 / 0.12); border-bottom: 1px solid rgb(17 25 29 / 0.12); }
+  .extras summary { cursor: pointer; min-height: 3.25rem; display: flex; align-items: center; font-weight: 600; }
+  .extras__body { padding-bottom: 1.5rem; }
+  .privacy-note { margin-top: 1.5rem; font-size: 0.92rem; color: var(--ink-dark-soft); }
+  .privacy-note a { color: var(--accent-deep); font-weight: 600; }
+  /* Enhanced mode: one step at a time. */
+  :global(.qform.is-enhanced[data-current='1']) [data-step='2'],
+  :global(.qform.is-enhanced[data-current='2']) [data-step='1'] { display: none; }
+  :global(.qform.is-done) > :not([data-status]) { display: none; }
+</style>

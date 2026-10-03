@@ -1,0 +1,67 @@
+---
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+import { routes, otherLang, quoteHref, type RouteKey } from '../i18n/routes';
+import { brandName } from '../lib/site';
+import RouteMark from './RouteMark.astro';
+
+interface Props {
+  lang: Lang;
+  route: RouteKey | null;
+}
+const { lang, route } = Astro.props;
+const d = t(lang);
+const other = otherLang(lang);
+const switchHref = route ? routes[route][other] : routes.home[other];
+const links = [
+  { href: `${routes.home[lang]}#trajets`, label: d.nav.services, current: false },
+  { href: routes.rates[lang], label: d.nav.rates, current: route === 'rates' },
+  { href: routes.contact[lang], label: d.nav.contact, current: route === 'contact' },
+];
+const showCta = route !== 'quote';
+---
+
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="brand glass" href={routes.home[lang]} aria-label={`${brandName(lang)}, ${lang === 'fr' ? 'accueil' : 'home'}`}>
+      <RouteMark />
+      <span class="brand__name">{brandName(lang)}</span>
+    </a>
+
+    <nav class="nav nav--desktop glass" aria-label={d.nav.label}>
+      {links.map((l) => <a href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a>)}
+      <a class="lang" href={switchHref} hreflang={other} lang={other} title={d.nav.switchTo}>
+        <span aria-hidden="true">{other.toUpperCase()}</span><span class="visually-hidden">{d.nav.switchTo}</span>
+      </a>
+      {showCta && <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>}
+    </nav>
+
+    <details class="menu glass" data-menu>
+      <summary aria-label={d.nav.menu}><span class="menu__icon" aria-hidden="true"></span>{d.nav.menu}</summary>
+      <nav class="menu__panel glass" aria-label={d.nav.label}>
+        {links.map((l) => <a href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a>)}
+        <a href={switchHref} hreflang={other} lang={other}>{d.nav.switchTo}</a>
+        {showCta && <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>}
+      </nav>
+    </details>
+  </div>
+</header>
+
+<script>
+  // Progressive enhancement of the <details> menu: Escape and outside clicks close it,
+  // and choosing a link closes it too (in-page anchors otherwise leave it open).
+  const menu = document.querySelector<HTMLDetailsElement>('[data-menu]');
+  if (menu) {
+    const close = () => menu.open && (menu.open = false);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.open) {
+        close();
+        menu.querySelector('summary')?.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (menu.open && !menu.contains(e.target as Node)) close();
+    });
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+  }
+</script>

@@ -1,0 +1,18 @@
+---
+// Legal pages: shows a confirmed value, or a visible "[À compléter : …]" marker.
+// A production build cannot complete while the critical ones are unknown.
+import type { Field, Lang, L10n } from '../content/types';
+
+interface Props {
+  field: Field<string> | Field<L10n>;
+  lang: Lang;
+}
+const { field, lang } = Astro.props;
+const value = field.known ? (typeof field.value === 'string' ? field.value : (field.value as L10n)[lang]) : null;
+---
+
+{value ?? <mark class="blank">[{lang === 'fr' ? 'À compléter' : 'To complete'} : {(field as { note: string }).note}]</mark>}
+
+<style>
+  .blank { background: #fff4d6; color: #4d3a00; padding: 0 0.25em; border-radius: 4px; }
+</style>

@@ -1,0 +1,79 @@
+---
+// Mentions légales (LCEN art. 6 III, Code de la consommation L.612-1 pour le
+// médiateur, registre VTC). Template to be checked by the business owner.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Blank from '../components/Blank.astro';
+import { business } from '../content/business';
+import { confirmed, type Lang } from '../content/types';
+import { t } from '../i18n';
+import { routes } from '../i18n/routes';
+import { siteUrl } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const L = business.legal;
+const fr = lang === 'fr';
+---
+
+<Base lang={lang} route="legal" title={d.meta.legal.title} description={d.meta.legal.description}>
+  <PageHead title={d.meta.legal.title} />
+  <section class="section ground-light">
+    <div class="wrap prose">
+      <h2>{fr ? 'Éditeur du site' : 'Website publisher'}</h2>
+      <ul>
+        <li>{fr ? 'Nom ou raison sociale' : 'Name or company name'} : <Blank lang={lang} field={L.legalName} /></li>
+        <li>{fr ? 'Nom commercial' : 'Trading name'} : <Blank lang={lang} field={business.name} /></li>
+        <li>{fr ? 'Statut juridique' : 'Legal form'} : <Blank lang={lang} field={L.legalForm} /></li>
+        <li>SIRET : <Blank lang={lang} field={L.siret} /></li>
+        <li>{fr ? 'Inscription au registre des exploitants de VTC' : 'Registration in the French VTC operators register'} : <Blank lang={lang} field={L.vtcRegistry} /></li>
+        <li>{fr ? 'TVA' : 'VAT'} : <Blank lang={lang} field={L.vat} /></li>
+        <li>{fr ? 'Adresse' : 'Address'} : <Blank lang={lang} field={L.address} /></li>
+        <li>{fr ? 'Téléphone' : 'Phone'} : {business.phone.known ? business.phone.value.display : <Blank lang={lang} field={business.phone as never} />}</li>
+        <li>Email : <Blank lang={lang} field={business.email} /></li>
+        <li>{fr ? 'Directeur ou directrice de la publication' : 'Publication director'} : <Blank lang={lang} field={L.publicationDirector} /></li>
+        <li>{fr ? 'Assurance responsabilité civile professionnelle' : 'Professional liability insurance'} : <Blank lang={lang} field={L.insurance} /></li>
+      </ul>
+
+      <h2>{fr ? 'Hébergement' : 'Hosting'}</h2>
+      <p><Blank lang={lang} field={L.host} /></p>
+
+      <h2>{fr ? 'Médiation de la consommation' : 'Consumer mediation'}</h2>
+      <p>
+        {fr
+          ? 'Conformément aux articles L.612-1 et suivants du Code de la consommation, en cas de litige non résolu avec le professionnel, le client consommateur peut recourir gratuitement au médiateur suivant :'
+          : 'In accordance with articles L.612-1 et seq. of the French Consumer Code, a consumer customer may refer an unresolved dispute free of charge to the following mediator:'}{' '}
+        <Blank lang={lang} field={L.mediator} />
+      </p>
+
+      <h2>{fr ? 'Propriété intellectuelle et visuels' : 'Intellectual property and visuals'}</h2>
+      <p>
+        {fr
+          ? 'Les illustrations présentes sur ce site sont des créations originales provisoires ; elles ne sont pas des photographies du véhicule ou du chauffeur. Tesla et Model 3 sont des marques de leur titulaire, citées uniquement pour désigner le véhicule utilisé ; ce site n’est ni affilié à Tesla ni approuvé par Tesla.'
+          : 'The illustrations on this website are temporary original artwork; they are not photographs of the car or the driver. Tesla and Model 3 are trademarks of their owner, mentioned only to identify the car used; this website is not affiliated with or endorsed by Tesla.'}
+      </p>
+      <p>
+        {fr ? 'Polices de caractères : Bricolage Grotesque et Geist, sous licence SIL Open Font License 1.1.' : 'Typefaces: Bricolage Grotesque and Geist, under the SIL Open Font License 1.1.'}
+      </p>
+
+      <h2>{fr ? 'Données personnelles' : 'Personal data'}</h2>
+      <p>
+        <a href={routes.privacy[lang]}>{fr ? 'Voir la politique de confidentialité.' : 'See the privacy policy.'}</a>
+      </p>
+      <p class="soft small">{fr ? 'Site' : 'Website'} : {siteUrl}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 48rem; }
+  .prose h2 { font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.75rem); margin: 2.75rem 0 0.9rem; letter-spacing: -0.02em; }
+  .prose h2:first-child { margin-top: 0; }
+  .prose p + p { margin-top: 0.9rem; }
+  .prose ul { padding-left: 1.1rem; display: grid; gap: 0.4rem; margin: 0; }
+  .prose a { color: var(--accent-deep); font-weight: 600; }
+  .small { font-size: 0.9rem; margin-top: 2rem !important; }
+</style>

@@ -1,0 +1,28 @@
+---
+// Exact price wording: "Forfait", "Prix indicatif" or "À partir de" according
+// to the validated data; "Sur devis" while the price is unknown.
+import type { Field, Lang, Price } from '../content/types';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  price: Field<Price>;
+}
+const { lang, price } = Astro.props;
+const d = t(lang).pricing;
+const fmt = (n: number) => new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+const kindLabel = price.known ? { forfait: d.flat, indicatif: d.indicative, 'a-partir-de': d.from }[price.value.kind] : null;
+---
+
+{price.known ? (
+  <span class="price"><span class="price__kind">{kindLabel}</span> <span class="price__amount nums">{fmt(price.value.amount)}</span> <span class="price__tax">{d.ttc}</span></span>
+) : (
+  <span class="price price--quote">{d.onQuote}</span>
+)}
+
+<style>
+  .price { display: inline-flex; align-items: baseline; gap: 0.35rem; flex-wrap: wrap; font-weight: 600; }
+  .price__kind, .price__tax { font-size: 0.85rem; font-weight: 500; color: var(--sc-ink-soft); }
+  .price__amount { font-family: var(--sc-font-display); font-size: 1.35rem; }
+  .price--quote { font-family: var(--sc-font-display); font-size: 1.15rem; }
+</style>

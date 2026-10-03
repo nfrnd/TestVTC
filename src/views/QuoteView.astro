@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import QuoteForm from '../components/forms/QuoteForm.astro';
+import DirectContact from '../components/DirectContact.astro';
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+---
+
+<Base lang={lang} route="quote" title={d.meta.quote.title} description={d.meta.quote.description} actionBar={false}>
+  <PageHead title={d.quote.title} lede={d.quote.intro} />
+  <section class="section ground-light quote-section">
+    <div class="wrap quote-grid">
+      <div class="quote-main">
+        <h2 id="form-title" class="visually-hidden">{d.quote.title}</h2>
+        <QuoteForm lang={lang} />
+      </div>
+      <aside class="quote-aside" aria-label={lang === 'fr' ? 'Déroulé et contact direct' : 'How it works and direct contact'}>
+        <ol class="steps">
+          {d.quote.steps.map((s) => (
+            <li><p class="steps__t">{s.t}</p><p class="steps__d">{s.d}</p></li>
+          ))}
+        </ol>
+        <div class="direct">
+          <h2 class="h-sm">{d.quote.directTitle}</h2>
+          <p class="soft">{d.quote.directBody}</p>
+          <DirectContact lang={lang} />
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .quote-section { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+  .quote-grid { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+  @media (min-width: 1000px) { .quote-grid { grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.8fr); } .quote-aside { position: sticky; top: calc(var(--header-h) + 1.5rem); } }
+  .quote-main { max-width: 44rem; }
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; gap: 1.25rem; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 2.25rem 1fr; column-gap: 0.75rem; }
+  .steps li::before { content: counter(s); grid-row: span 2; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.9rem; border: 1.5px solid var(--accent-deep); color: var(--accent-deep); }
+  .steps__t { font-weight: 600; }
+  .steps__d { color: var(--ink-dark-soft); font-size: 0.95rem; }
+  .direct { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgb(17 25 29 / 0.14); display: grid; gap: 0.75rem; }
+</style>

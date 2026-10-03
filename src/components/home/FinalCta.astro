@@ -1,0 +1,34 @@
+---
+import RouteMark from '../RouteMark.astro';
+import type { Lang } from '../../content/types';
+import { t } from '../../i18n';
+import { quoteHref } from '../../i18n/routes';
+import { phone } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const tel = phone();
+---
+
+<section class="final section ground-surface" aria-labelledby="final-title">
+  <div class="wrap final__inner" data-sc-in data-sc-stagger="70">
+    <RouteMark class="final__mark" />
+    <h2 id="final-title" class="h-xl">{d.final.title}</h2>
+    <p class="lede soft">{d.final.body}</p>
+    <div class="btn-row">
+      <a class="btn btn--primary" href={quoteHref(lang)}>{d.cta.quote}</a>
+      {tel && <a class="btn btn--ghost" href={`tel:${tel.e164}`} aria-label={`${d.cta.callAria} ${tel.display}`}>{d.cta.call}</a>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .final { overflow: hidden; }
+  .final__inner { display: grid; gap: 1.5rem; justify-items: start; }
+  .final__inner :global(.final__mark) { width: 4.5rem; height: auto; color: var(--sc-ink); }
+  .final h2 { max-width: 14ch; }
+  .final .btn-row { margin-top: 0.5rem; }
+</style>

@@ -1,0 +1,32 @@
+---
+// Landing pages for submissions made WITHOUT JavaScript (303 redirect from the
+// endpoint). "simulated" is only reachable when the test transport is active.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import type { Lang } from '../content/types';
+import { t } from '../i18n';
+import { routes, type RouteKey } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  kind: 'quote' | 'contact';
+  outcome: 'sent' | 'simulated';
+}
+const { lang, kind, outcome } = Astro.props;
+const d = t(lang);
+const route: RouteKey = kind === 'quote' ? (outcome === 'sent' ? 'quoteSent' : 'quoteSimulated') : outcome === 'sent' ? 'contactSent' : 'contactSimulated';
+const message = outcome === 'simulated' ? d.status.simulated : kind === 'quote' ? d.status.quoteSent : d.status.contactSent;
+const meta = outcome === 'sent' ? d.meta.sent : d.meta.simulated;
+---
+
+<Base lang={lang} route={route} title={meta.title} description={meta.description} noindex>
+  <PageHead title={meta.title}>
+    <div class:list={['notice', outcome === 'sent' ? 'notice--ok' : 'notice--test']} style="margin-top:2rem;max-width:44rem" role="status">
+      <p class="h-sm">{message}</p>
+      {kind === 'quote' && <p>{d.status.notConfirmed}</p>}
+    </div>
+    <p class="btn-row" style="margin-top:2rem">
+      <a class="btn btn--primary" href={routes.home[lang]}>{d.status.backHome}</a>
+    </p>
+  </PageHead>
+</Base>
