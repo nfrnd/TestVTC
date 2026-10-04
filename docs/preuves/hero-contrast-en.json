@@ -1,0 +1,1591 @@
+[
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 8.64
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 4.8
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 6.62
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 8.45
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.62
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 8.4
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 8.52
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 6.19
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.55
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 8.75
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 4.79
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 6.64
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 8.76
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.47
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 8.3
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 8.52
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 6.19
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.55
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 8.52
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 4.95
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 6.71
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 8.56
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.81
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 8.43
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 8.49
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 6.29
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1440x900",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.55
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 7.99
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 4.97
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 6.13
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 9.63
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.79
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 9.27
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 7.2
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 5.81
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.48
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 7.98
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 5.14
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 6.2
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 9.5
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.9
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 8.83
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 7.18
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 6
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 15.74
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 7.92
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 5.35
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 6.23
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 9.26
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.92
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 8.39
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 7.08
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 6.54
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1920x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 15.78
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 9.59
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 5.53
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 9.06
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 9.79
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 8.38
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 7.15
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 9.14
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 6.15
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.85
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 9.56
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 5.58
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 9.13
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 9.81
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 8.38
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 7.14
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 9.14
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 6.18
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.82
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 9.47
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 5.54
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 9.41
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 9.61
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 8.79
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 7.03
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 9.25
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 6.25
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "2560x1080",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.81
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 7.83
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 12.67
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 5.38
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 7.89
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.88
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 7.88
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 8.71
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 6.44
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.59
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 7.82
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 12.44
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 5.51
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 7.88
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.78
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 7.91
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 8.15
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 6.11
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.48
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 7.93
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 11.99
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 5.76
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 7.75
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 7.91
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 7.98
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 8.26
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 6.09
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1100x720",
+    "mode": "layered",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 15.46
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 11.06
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 11.06
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 7.47
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "1024x768",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 11.06
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 7.42
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 11.06
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 7.42
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 11.06
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 7.42
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "768x1024",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 14.16
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 7.55
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 6.76
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 8.14
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 14.16
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 7.55
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 6.76
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 8.14
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__eyebrow",
+    "worstContrast": 14.16
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 7.55
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 6.76
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 8.14
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "390x844",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__eyebrow",
+    "worstContrast": 13.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__title",
+    "worstContrast": 6.36
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__signature",
+    "worstContrast": 5.39
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__caption",
+    "worstContrast": 7.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__eyebrow",
+    "worstContrast": 13.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__title",
+    "worstContrast": 6.36
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__signature",
+    "worstContrast": 5.39
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__caption",
+    "worstContrast": 7.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 0.5,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__title",
+    "worstContrast": 6.36
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__lede",
+    "worstContrast": 14.14
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #2",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__facts li #3",
+    "worstContrast": 10.73
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__signature",
+    "worstContrast": 5.39
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__caption",
+    "worstContrast": 7.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--primary",
+    "worstContrast": 9.86
+  },
+  {
+    "viewport": "360x640",
+    "mode": "stacked",
+    "progress": 1,
+    "element": ".hero__actions .btn--ghost",
+    "worstContrast": 16.38
+  }
+]

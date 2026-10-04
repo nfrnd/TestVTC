@@ -1,170 +1,249 @@
 {
-  "date": "2026-10-03T20:30:32.485Z",
+  "date": "2026-10-04T00:56:03.225Z",
   "base": "http://127.0.0.1:4399",
   "browser": "Chromium (headless, playwright-core)",
-  "total": 24,
+  "total": 30,
   "failed": 0,
   "results": [
     {
-      "name": "hero: activity, city, car and primary action usable on first paint",
+      "name": "hero: activity, city, vehicle and primary action usable on first paint",
       "ok": true,
-      "ms": 244,
+      "ms": 180,
       "detail": null
     },
     {
-      "name": "hero: wheels roll in proportion to travel (no sliding)",
+      "name": "hero 1100x720: one composition loaded, car whole at start and end of the movement",
       "ok": true,
-      "ms": 1072,
-      "detail": {
-        "start": {
-          "car": "matrix(1, 0, 0, 1, 0, 0)",
-          "wheel": "matrix(1, 0, 0, 1, 0, 0)"
+      "ms": 1331,
+      "detail": [
+        {
+          "l": 273.7678678229665,
+          "r": 1064.9216507177034,
+          "b": 650.3734557651435,
+          "vw": 1100
         },
-        "mid": {
-          "car": "matrix(1.0175, 0, 0, 1.0175, -52.4158, 0)",
-          "wheel": "matrix(0.5373, -0.843391, 0.843391, 0.5373, 0, 0)"
+        {
+          "l": 231.8762820303155,
+          "r": 1094.2339416211873,
+          "b": 651.3645081150165,
+          "vw": 1100
         }
-      }
+      ]
     },
     {
-      "name": "services: choosing a journey updates summary and quote link (mouse + keyboard)",
+      "name": "hero 1440x900: one composition loaded, car whole at start and end of the movement",
       "ok": true,
-      "ms": 302,
+      "ms": 1379,
+      "detail": [
+        {
+          "l": 407.2098347787081,
+          "r": 1396.1520633971293,
+          "b": 812.9664419500532,
+          "vw": 1440
+        },
+        {
+          "l": 354.84541357305056,
+          "r": 1432.7924880616404,
+          "b": 814.2052598683665,
+          "vw": 1440
+        }
+      ]
+    },
+    {
+      "name": "hero 1920x1080: one composition loaded, car whole at start and end of the movement",
+      "ok": true,
+      "ms": 1330,
+      "detail": [
+        {
+          "l": 622.3923444976076,
+          "r": 1809.7607655502393,
+          "b": 975.5035201912859,
+          "vw": 1920
+        },
+        {
+          "l": 560.3951927075545,
+          "r": 1853.1414438640102,
+          "b": 976.9702765923885,
+          "vw": 1920
+        }
+      ]
+    },
+    {
+      "name": "hero 2560x1080: one composition loaded, car whole at start and end of the movement",
+      "ok": true,
+      "ms": 1356,
+      "detail": [
+        {
+          "l": 1171.9253887559807,
+          "r": 2501.066836124402,
+          "b": 963.0254715727949,
+          "vw": 2560
+        },
+        {
+          "l": 1109.2045565518465,
+          "r": 2544.9535799893465,
+          "b": 964.5092725439611,
+          "vw": 2560
+        }
+      ]
+    },
+    {
+      "name": "hero 390x844: stacked, single photo (hero-mobile), car not cropped",
+      "ok": true,
+      "ms": 613,
       "detail": null
     },
     {
-      "name": "quote: ?prestation preselects only the journey type",
+      "name": "hero 360x640: stacked, single photo (hero-mobile), car not cropped",
       "ok": true,
-      "ms": 225,
+      "ms": 609,
       "detail": null
     },
     {
-      "name": "quote: step errors near fields, recap kept when going back",
+      "name": "hero 768x1024: stacked, single photo (hero-desktop), car not cropped",
       "ok": true,
-      "ms": 1712,
+      "ms": 607,
       "detail": null
     },
     {
-      "name": "quote: valid submission says \"simulated\" in test mode; double click sends once",
+      "name": "services: choosing a journey updates summary, prices and quote link (mouse + keyboard)",
       "ok": true,
-      "ms": 1700,
+      "ms": 357,
       "detail": null
     },
     {
-      "name": "quote: confirmed sending shows the exact required message (provider mocked)",
+      "name": "prices are identical on every page (content file is the only source)",
       "ok": true,
-      "ms": 1631,
+      "ms": 507,
       "detail": null
     },
     {
-      "name": "quote: server-side errors are mapped to fields and step 1 reopens",
+      "name": "quote: ?prestation & ?trajet preselect the service and places only",
       "ok": true,
-      "ms": 1591,
+      "ms": 279,
       "detail": null
     },
     {
-      "name": "quote: transport failure keeps fields and re-enables the button",
+      "name": "quote: field errors, conditional fields, recap kept when going back",
       "ok": true,
-      "ms": 1663,
+      "ms": 2071,
+      "detail": null
+    },
+    {
+      "name": "quote: fictional example + simulated result with summary; double click sends once",
+      "ok": true,
+      "ms": 3256,
+      "detail": null
+    },
+    {
+      "name": "quote: server-side errors mapped to fields, step 1 reopens",
+      "ok": true,
+      "ms": 2141,
+      "detail": null
+    },
+    {
+      "name": "quote: simulation failure keeps fields and re-enables the button",
+      "ok": true,
+      "ms": 2246,
       "detail": null
     },
     {
       "name": "quote: network failure has its own message",
       "ok": true,
-      "ms": 1669,
+      "ms": 2248,
       "detail": null
     },
     {
-      "name": "contact: short form submits (test transport)",
+      "name": "contact: simulated call, WhatsApp and email dialogs; no outbound link anywhere",
       "ok": true,
-      "ms": 682,
+      "ms": 642,
       "detail": null
     },
     {
-      "name": "no JavaScript: content, selector, FAQ and form posting all work",
+      "name": "no JavaScript: content, selector, dialogs, FAQ and a quote posted to a summary page",
       "ok": true,
-      "ms": 30220,
+      "ms": 30324,
       "detail": null
     },
     {
-      "name": "reduced motion: hero not pinned, nothing moves, content complete",
+      "name": "reduced motion: hero not pinned, layers static, content complete",
       "ok": true,
-      "ms": 635,
+      "ms": 622,
       "detail": null
     },
     {
       "name": "hero media unavailable: text and action still there, no script error",
       "ok": true,
-      "ms": 135,
+      "ms": 162,
       "detail": null
     },
     {
       "name": "mobile: menu opens and closes with Escape; language switch goes to equivalent page",
       "ok": true,
-      "ms": 308,
+      "ms": 344,
       "detail": null
     },
     {
-      "name": "mobile action bar: hidden over the hero, shown after it, never covering content",
+      "name": "mobile action bar: Appeler (simulated) + Devis, hidden over the hero, never covering content",
       "ok": true,
-      "ms": 1199,
+      "ms": 1534,
       "detail": null
     },
     {
       "name": "layout 360px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5694,
+      "ms": 5742,
       "detail": null
     },
     {
       "name": "layout 390px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5692,
+      "ms": 5850,
       "detail": null
     },
     {
       "name": "layout 768px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5699,
+      "ms": 5748,
       "detail": null
     },
     {
       "name": "layout 1440px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5701,
+      "ms": 5745,
       "detail": null
     },
     {
       "name": "keyboard: skip link then visible focus ring on first controls",
       "ok": true,
-      "ms": 149,
+      "ms": 213,
       "detail": [
         "A:solid/true",
         "A:solid/false",
         "A:solid/false",
         "A:solid/false",
         "A:solid/false",
-        "INPUT:none/true",
-        "INPUT:none/true",
-        "INPUT:none/true"
+        "A:solid/false",
+        "A:solid/false",
+        "SELECT:none/true"
       ]
     },
     {
-      "name": "SEO: titles, canonical, hreflang, robots (preview noindex), sitemap pairs translations",
+      "name": "SEO: titles, canonical, hreflang, robots (demo noindex, no LocalBusiness), sitemap pairs translations",
       "ok": true,
-      "ms": 670,
+      "ms": 624,
       "detail": null
     },
     {
       "name": "no third-party requests and no cookies/storage on any page",
       "ok": true,
-      "ms": 5761,
+      "ms": 5731,
       "detail": null
     },
     {
       "name": "404 page served with status 404",
       "ok": true,
-      "ms": 83,
+      "ms": 94,
       "detail": null
     }
   ]

@@ -16,7 +16,7 @@ doivent pas être présentées comme le véhicule ou le chauffeur réels d'une e
 | `hero-background.webp`, `-960` | Hero, plaque de fond **sans voiture** (calque arrière) | `new_ai_edit` | 1672×941, 960×540 | identique au kit |
 | `hero-car-alpha.webp`, `-960` | Hero, voiture **détourée** (calque avant, alpha réel) | `new_ai_edit` | 1672×941, 960×540 | identique au kit |
 | `hero-desktop.webp`, `-960` | Hero composé, tablettes et fenêtres étroites | `new_ai_generation` | 1672×941, 960×540 | identique au kit |
-| `hero-mobile.webp`, `-720` | Hero portrait, téléphones (recadré 4:3 par le bas en CSS) | `new_ai_generation` | 1122×1402, 720×900 | identique au kit |
+| `hero-mobile.webp`, `-720` | Hero portrait, téléphones (photo entière 4:5, titre dans son ciel) | `new_ai_generation` | 1122×1402, 720×900 | identique au kit |
 | `vehicle-profile.webp` | Section Tesla, profil | `reused_ai_azurea_v1` | 1536×1024 | identique au kit |
 | `vehicle-profile-960.webp` | Même image, petite largeur | **régénérée** (voir ci-dessous) | 960×640 | différente (attendu) |
 | `interior.webp`, `-960` | Section Tesla, habitacle | `reused_ai_azurea_v1` | 1536×1024, 960×640 | identique au kit |

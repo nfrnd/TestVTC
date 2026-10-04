@@ -78,4 +78,12 @@ const showCta = route !== 'quote';
     });
     menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
   }
+  // Blurred band behind the header once the page has scrolled (see global.css).
+  let queued = false;
+  const mark = () => {
+    queued = false;
+    document.documentElement.classList.toggle('is-scrolled', scrollY > 24);
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(mark); } }, { passive: true });
+  mark();
 </script>

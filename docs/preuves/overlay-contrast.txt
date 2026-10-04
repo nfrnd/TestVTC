@@ -1,0 +1,13 @@
+┌─────────┬────────────────────────────────┬─────────────────┬───────────────┐
+│ (index) │ case                           │ element         │ worstContrast │
+├─────────┼────────────────────────────────┼─────────────────┼───────────────┤
+│ 0       │ 'header over services (light)' │ '.nav > a #6'   │ 7.18          │
+│ 1       │ 'header over Tesla (light)'    │ '.nav > a'      │ 7.09          │
+│ 2       │ 'header over driver (dark)'    │ '.nav > a'      │ 8.92          │
+│ 3       │ 'header over rates page'       │ '.nav > a'      │ 6.98          │
+│ 4       │ 'header 390 over services'     │ '.menu summary' │ 12.17         │
+│ 5       │ 'header 390 over Tesla'        │ '.menu summary' │ 10.81         │
+│ 6       │ 'services panel 1440'          │ '.board__note'  │ 6.31          │
+│ 7       │ 'services panel 390'           │ '.board__note'  │ 6.31          │
+└─────────┴────────────────────────────────┴─────────────────┴───────────────┘
+all >= 4.5:1

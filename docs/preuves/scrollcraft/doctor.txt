@@ -1,0 +1,16 @@
+
+scrollcraft preflight
+
+ [[32m ok [0m] node                   v22.22.0
+ [[32m ok [0m] ffmpeg (full build)    ffmpeg  (564 filters)
+ [[32m ok [0m]   └ libwebp encoder    present
+ [[32m ok [0m] playwright-core        resolves from cwd
+ [[32m ok [0m] Chrome                 /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+ [[33mwarn[0m] KIE_AI_API_KEY         not set
+        [2mOnly needed to GENERATE imagery. Building from your own photos and footage needs no key and no spend. Copy .env.example to .env to set one.[0m
+ [[32m ok [0m] workspace              /home/user/TestVTC/scrollcraft
+      via project root (.git)
+ [[32m ok [0m]   └ registry           present
+
+[33mReady, with 1 optional item(s) missing (see above).[0m
+

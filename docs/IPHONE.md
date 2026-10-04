@@ -14,11 +14,14 @@ n'ont été utilisés : ce contrôle reste à faire. Durée : environ 10 minutes
 ## Parcourir
 
 1. **Accueil, premier écran** : le bandeau « Démonstration — entreprise et tarifs fictifs »,
-   le titre « Votre chauffeur privé à Cannes. », le bouton « Demander un devis » et, sous le
-   texte, la photo de la Tesla **entière** (aucune roue coupée). Toucher le bouton : la page
-   Devis s'ouvre.
-2. **Défilement** : sur téléphone, le hero n'est pas épinglé (photo unique, flux naturel) ;
-   le défilement n'est jamais bloqué, rien ne saute pendant le chargement des photos.
+   la photo de la Tesla **entière** (aucune roue coupée) sous l'en-tête, le titre « Votre
+   chauffeur privé à Cannes. » lisible dans le ciel, au-dessus du toit de la voiture, et le
+   bouton « Demander un devis » juste sous la photo, visible sans faire défiler. Vérifier que
+   l'en-tête ne chevauche pas l'encoche ou l'île dynamique. Toucher le bouton : la page Devis s'ouvre.
+2. **Défilement** : sur téléphone, le hero n'est pas épinglé ; le défilement n'est jamais
+   bloqué, rien ne saute pendant le chargement de la photo. Une fois la page défilée, un léger
+   flou apparaît derrière l'en-tête : le texte ne doit pas se lire entre « AZURÉA PRIVÉ » et
+   « Menu ». Vérifier la fluidité du défilement avec ce flou (mode économie d'énergie compris).
    Sur iPad en paysage, vérifier aussi le hero en calques : la voiture grandit doucement
    devant la baie, ses roues restent posées au sol, le texte ne bouge pas.
 3. **Barre d'action en bas** (« Appeler » + « Demander un devis ») : invisible sur le hero,

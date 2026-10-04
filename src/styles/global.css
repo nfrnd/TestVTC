@@ -170,6 +170,20 @@ h1, h2, h3 { margin: 0; font-family: var(--sc-font-display); font-weight: 600; l
   padding: 0.75rem var(--sc-gutter);
   pointer-events: none;
 }
+/* Once the page has scrolled, a soft blurred band sits behind the two pills so
+   content never reads through the gap between them. Hidden on the first screen
+   (the hero photo stays sharp), off when motion is reduced only for the fade. */
+.site-header::before {
+  content: ''; position: absolute; inset: 0 0 -1.25rem; z-index: -1; pointer-events: none;
+  background: rgb(17 25 29 / 0.18);
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+  opacity: 0; transition: opacity 200ms var(--ease);
+}
+/* The blur is only computed once needed: a backdrop filter costs compositing
+   time on every scroll frame, even at opacity 0. */
+html.is-scrolled .site-header::before { opacity: 1; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+@media (prefers-reduced-motion: reduce) { .site-header::before { transition: none; } }
 .site-header__bar {
   max-width: var(--sc-maxw); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   pointer-events: auto;

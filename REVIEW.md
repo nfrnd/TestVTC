@@ -1,249 +1,280 @@
-# REVIEW : dossier de transmission pour la revue indépendante
+# REVIEW : dossier de transmission, itération 2 (démonstration AZURÉA PRIVÉ)
 
 Projet piloté par **Noa**. Développement : **Claude Code**. Revue indépendante prévue :
-**ChatGPT**, à partir des éléments transmis par Noa. Les affirmations de ce document sont
-celles du développeur. Elles ne valent **pas** validation indépendante, et chaque point
-indique sa preuve, que le relecteur peut rejouer.
+**ChatGPT**, à partir des éléments transmis par Noa. **Cette revue n'a pas encore eu lieu.**
+Les affirmations de ce document sont celles du développeur : elles ne valent **pas**
+validation indépendante. Chaque point cite sa preuve, que le relecteur peut rejouer.
 
-Branche : `claude/exciting-darwin-nvsxps` · date : 3 octobre 2026 · Astro 7.3.5, Node 22.
+Branche : `claude/exciting-darwin-nvsxps` · 4 octobre 2026 · Astro 7.3.5, Node 22,
+Chromium 141 headless (Playwright). Itération 1 (site réel, données inconnues) : historique Git.
+
+## 0. Périmètre de cette itération
+
+Demande de Noa : une **démonstration fictive complète** à partir du kit
+`azurea-prive-claude-demo-v2` (copié dans `demo-kit/`). Les informations du scénario AZURÉA
+PRIVÉ (Adrien Morel, Tesla Model 3 noire, prestations, tarifs, coordonnées) sont
+**explicitement autorisées comme fictives**. En complément, en cours d'itération : utiliser la
+skill Scroll Craft chargée, et soigner le **mobile au même niveau que le desktop**.
+
+**Statut : aperçu complet de démonstration, pas un site publiable.** Aucune donnée d'entreprise
+réelle ; le build de production est refusé en démo (voulu).
 
 ## 1. Statut par livrable
 
-Légende : **D** développé · **T** testé localement · **F** vérifié avec le fournisseur externe · **R** restant à valider
+Légende : **D** développé · **T** testé localement · **F** vérifié auprès d'un fournisseur externe · **R** restant à valider
 
 | Livrable | D | T | F | R |
 |---|---|---|---|---|
-| Pages FR/EN : accueil, tarifs, devis, contact, mentions, confidentialité, 404, pages de résultat | ✔ | ✔ | n/a | contenus métier |
-| Hero en calques (Scroll Craft `pin` + `parallax`, roues liées au déplacement) | ✔ | ✔ | n/a | iPhone réel, photos réelles |
-| Sélecteur de trajets (signature, CSS `:has()`, sans JS) | ✔ | ✔ | n/a | liste des prestations |
-| Formulaire devis 2 étapes + contact, validation client et serveur | ✔ | ✔ | n/a | iPhone réel |
-| Route `/api/demandes`, protections, transport test/fail | ✔ | ✔ | n/a | |
-| Transport Resend (envoi réel) | ✔ | ✔ simulé (fetch mocké) | **✘ non fait** | compte, domaine, clé, boîte test |
-| Réception effective d'un email | | | **✘ non fait** | boîte test autorisée |
-| SEO (titres, canonical, hreflang, sitemap, robots, JSON-LD) | ✔ | ✔ en aperçu | n/a | vrai domaine, nom commercial |
-| Garde-fou production | ✔ | ✔ (refus constaté) | n/a | |
-| Déploiement HTTPS | documenté | build Node et Netlify OK | **✘ non fait** | choix de Noa, coûts revérifiés |
-| WebKit / Safari / iPhone | | **✘** (Chromium seul disponible) | | procédure `docs/IPHONE.md` |
+| Mode `BUSINESS_MODE` demo/live (contenus séparés, choix au build) | ✔ | ✔ | n/a | revue |
+| Build démo optimisé sans justificatifs (`npm run build`, `NODE_ENV=production`) | ✔ | ✔ | n/a | |
+| Garde-fou live conservé ; jeu fictif refusé par le contrôle live | ✔ | ✔ (tests + build refusé) | n/a | |
+| Démo `noindex`, sans LocalBusiness ; `SITE_ENV=production` refusé en démo | ✔ | ✔ | n/a | |
+| Pages FR/EN remplies avec le kit (accueil, tarifs, devis, contact, à propos, confidentialité) | ✔ | ✔ | n/a | relecture des textes EN marqués `EN: Claude` |
+| Photos IA intégrées (hero en calques desktop, hero mobile, Tesla, chauffeur) | ✔ | ✔ | n/a | iPhone réel |
+| Contacts (appel, WhatsApp, e-mail) en simulation, aucun lien sortant | ✔ | ✔ (8 pages, 0 lien) | n/a | |
+| Devis 2 étapes + exemple fictif + résultat simulé (JS et sans JS) | ✔ | ✔ | n/a | iPhone réel |
+| Serveur : simulation forcée même avec une clé, aucun stockage ni journal de contenu | ✔ | ✔ (fetch instrumenté : 0 appel) | n/a | |
+| Contrastes remesurés sur les photos | ✔ | ✔ (≥ 4,79:1 partout) | n/a | écrans réels |
+| Performances remesurées (Lighthouse) | ✔ | ✔ | n/a | données terrain |
+| Audit npm documenté (JSON brut, `npm ls`, versions) | ✔ | ✔ | n/a | décision sur l'adaptateur Netlify |
+| WebKit / Safari / iPhone | | **✘** (Chromium seul) | | procédure `docs/IPHONE.md` |
+| Envoi réel d'e-mail (mode live) | ✔ (itération 1) | simulé | **✘ non fait** | hors périmètre démo |
 
-**Le site n'est pas prêt à publier** : coordonnées, prestations, prix, informations légales et
-transport d'email non vérifiés (`docs/preuves/content-report.txt` : 50 éléments manquants,
-dont 18 bloquants).
+## 2. Ouvrir le site
 
-## 2. Scroll Craft : utilisation réelle
+Une adresse `127.0.0.1` du conteneur de développement n'est **pas** accessible à Noa. Procédure
+exacte (README, section « Ouvrir la démonstration ») :
 
-- Disponibilité : dépôt `nateherkai/scroll-craft` cloné, puis plugin installé par la voie
-  officielle : `claude plugin marketplace add nateherkai/scroll-craft` et
-  `claude plugin install nateherk-design@nateherk`. Résultat : version 0.3.1, activé, commit `75d81f7`.
-- Chemin installé : `~/.claude/plugins/cache/nateherk/nateherk-design/0.3.1/skills/scroll-craft/`.
-- **Limite constatée** : l'outil Skill de la session en cours a répondu
-  `Unknown skill: nateherk-design:scroll-craft`, car les plugins se chargent au démarrage d'une
-  session. Le `SKILL.md` et les références (`hero-depth`, `verify`, `taste`, `devices`,
-  `approved-collection`, `uniqueness`, `feel`, `worlds`, `template.html`) ont donc été lus
-  directement depuis le chemin installé et suivis à la main.
-- Diagnostic `doctor.mjs` (chemin installé), sortie 0 : node, ffmpeg complet (564 filtres)
-  et encodeur libwebp OK. Avertissements optionnels : `playwright-core` non installé
-  (installé ensuite dans le projet), Chrome introuvable (Chromium de Playwright fourni via
-  `SCROLLCRAFT_CHROME`), `KIE_AI_API_KEY` absent (génération non utilisée, budget nul),
-  registre non créé (créé ensuite par `workspace.mjs --ensure`).
-- Moteur non modifié : copie identique dans `src/vendor/scrollcraft/`.
-  SHA-256 `scrollcraft.js` = `4a419b3ede51f64790af7b56c0195ea01c98a84df8e0e768ebf343956b922f39`,
-  `scrollcraft.css` = `e19eb3aa73b0944626ca56e6e427c76f44753481e04d60f4bac20e8cf1d7758a`,
-  identiques aux fichiers installés. Il est chargé uniquement sur l'accueil (`src/views/HomeView.astro`).
-  Les comportements propres au projet utilisent `--sc-p` en CSS et du JS local à la page.
-- Brief Scroll Craft : [`scrollcraft/builds/vtc-cannes/BRIEF.md`](scrollcraft/builds/vtc-cannes/BRIEF.md)
-  (auto-rédigé sous délégation explicite, faits et hypothèses séparés, courbe de ressenti,
-  pic, partition des devices).
-- Protocole de vérification `shoot.mjs` exécuté en 1440×900, 390×844, 360×640 et en
-  animations réduites (§ 5).
-- **Écart assumé** : `worlds.md` recommande un monde photographique. Sans photo autorisée
-  accessible (banques d'images bloquées, budget nul), le visuel est une illustration originale
-  étiquetée, construite selon le contrat de calques de `hero-depth.md`, pour que des photos
-  détourées la remplacent (`docs/ASSETS.md`).
+```bash
+git clone --branch claude/exciting-darwin-nvsxps https://github.com/nfrnd/TestVTC.git
+cd TestVTC
+npm ci
+npm run build
+npm start          # puis http://localhost:4321
+```
 
-## 3. Architecture retenue
+Prérequis : Node.js ≥ 22.12. Aucune publication publique, aucun abonnement n'a été fait.
+Une archive zip du code (sans `node_modules`, `.env`, secrets ni fichiers personnels) est
+fournie séparément ; mêmes commandes après décompression.
 
-- **Astro 7 + TypeScript, `output: 'static'`** : 23 routes prérendues et une seule route à la
-  demande, `src/pages/api/demandes.ts` (`prerender = false`), conforme à la doc Astro
-  « On-demand rendering ». Docs.astro.build étant bloqué, la page a été lue dans
-  `withastro/docs` sur GitHub.
-- **Adaptateur `@astrojs/node` (standalone)** par défaut. Un seul processus rend fiables la
-  limitation de débit et l'anti-doublon en mémoire. `DEPLOY_TARGET=netlify` est vérifié au
-  build ; ses limites sont décrites dans `docs/DEPLOIEMENT.md`.
-- **Séparation** : composants visuels (`src/components`, `src/views`), données métier
-  (`src/content/business.ts`), traductions (`src/i18n`), schéma de validation partagé
-  (`src/lib/validation.ts`), transport d'email (`src/lib/mail`), logique serveur testable sans
-  Astro (`src/lib/server/handle.ts`).
-- **Données inconnues explicites** : type `Field<T>` = `confirmed(v) | unknown(note)`.
-  Rendu : rien en production, étiquette « À confirmer » en aperçu. Le garde-fou
-  `src/content/readiness-integration.ts` fait échouer `SITE_ENV=production` sur 18 éléments.
-- **Amélioration progressive** : sans JS, tout le contenu, le sélecteur (radios + `:has()`), la
-  FAQ (`<details>`), le menu (`<details>`) et les formulaires (POST vers l'endpoint, 303 vers
-  une page de résultat) fonctionnent.
-- **Une seule bibliothèque d'animation** (Scroll Craft) ; tout le reste est en CSS.
-- Aucun CMS, aucune base de données, aucun service tiers dans le navigateur.
+## 3. Séparation démo / live
 
-### Fichiers importants
+- `BUSINESS_MODE` (défaut `demo`) est figé au build par `astro.config.ts` (`vite.define`).
+  `src/content/index.ts` choisit `demoContent` (`src/content/demo.ts`, `fictional: true`) ou
+  `liveContent` (`src/content/business.ts`) ; les textes d'interface propres à la démo sont
+  des surcharges (`src/i18n/demo.ts`) fusionnées aux dictionnaires communs.
+- **Seul** `src/components/ContactAction.astro` crée des liens de contact. En démo, il produit
+  une ancre `#sim-*` qui ouvre une fenêtre native `<dialog>` (`SimDialogs.astro`) ; sans JS,
+  la même fenêtre s'affiche par `:target`. En live, il produit `tel:`, `mailto:`, `wa.me`
+  uniquement pour une information confirmée.
+- Garde-fous de build (`src/content/readiness-integration.ts`) :
+  - démo + `SITE_ENV=production` → **refus** (`docs/preuves/build-demo-production.txt`, exit 1) ;
+  - live + production → **refus** tant que 18 éléments critiques manquent, ou si le contenu
+    est fictif, ou si l'URL est locale ou en `.example` (`docs/preuves/build-live-production.txt`, exit 1).
+- Build live d'aperçu (`docs/preuves/live-build-checks.txt`) : 0 page contenant AZURÉA,
+  Adrien, le numéro ou le domaine fictifs ; 0 bandeau démo ; 0 lien `tel:`/`mailto:`/`wa.me`
+  (numéro non confirmé) ; 0 fenêtre de simulation ; `noindex` ; étiquettes « À confirmer ».
+- **Limite connue** : le bundle **serveur** du build live contient encore les objets fictifs
+  comme code mort (jamais rendus ni servis). Les éliminer à la compilation demande de revoir
+  l'API `t(lang, mode)` utilisée par les tests ; non fait dans cette itération.
 
-| Fichier | Rôle |
-|---|---|
-| `src/content/business.ts` | toutes les données métier (inconnues explicites) |
-| `src/components/home/Hero.astro` | scène du hero, calques, chorégraphie `--sc-p`, version mobile |
-| `src/components/home/Services.astro` | interaction signature |
-| `src/components/forms/QuoteForm.astro`, `src/scripts/forms.ts` | formulaire devis et amélioration JS |
-| `src/lib/validation.ts` | schéma partagé client et serveur |
-| `src/lib/server/handle.ts`, `guards.ts` | endpoint : origine, débit, schéma strict, champ piège, doublons, transport |
-| `src/lib/mail/compose.ts`, `transport.ts` | email exploitable et échappé ; Resend / test / fail |
-| `astro.config.ts` | adaptateur, schéma d'environnement typé, garde-fou |
-| `scripts/art/*.mjs` | générateur reproductible des illustrations |
-| `scripts/e2e.mjs`, `scripts/verify/*.mjs` | vérifications navigateur, contraste, captures |
+## 4. Contacts, devis et serveur en démo
 
-## 4. Direction visuelle et parcours
+- Devis : deux étapes conservées, groupes conditionnels (retour, vol/train, mise à disposition
+  avec durée ≥ 3 h, canal de réponse WhatsApp → champ téléphone), bouton « Remplir un exemple
+  fictif » (date = aujourd'hui à Paris + 7 jours, 10:30), bouton « Simuler ma demande de devis ».
+- Résultat : récapitulatif construit **par le serveur** (`src/lib/summary.ts`), référence
+  `DEMO-XXXXXXXX`, repère tarifaire si le trajet figure au tableau (sinon « devis
+  personnalisé »), ligne de majoration de nuit si l'heure le justifie, et le message exact
+  « Simulation réussie. Aucun message n'a été envoyé et aucun trajet n'est réservé. »
+- Le serveur **force la simulation** en démo : configuré comme un vrai expéditeur
+  (`EMAIL_TRANSPORT=resend`, clé factice, `MAIL_TO`, `MAIL_FROM`) avec `fetch` instrumenté,
+  il répond `simulated` et **0 appel sortant** (`docs/preuves/demo-force-simulation.txt`).
+- Journal : métadonnées seulement, par exemple
+  `{"evt":"demande","mode":"demo","kind":"devis","outcome":"simulated","http":200,"ms":14}`.
+  Ni trajet, ni nom, ni coordonnées (test unitaire). Aucun stockage durable.
+- Sans JS : le formulaire poste vers `/api/demandes` et reçoit une page HTML de récapitulatif.
+  Limite : pour corriger, il faut revenir en arrière dans le navigateur.
+- **Écart assumé avec le doc 02 du kit** (« aucune requête réseau ») : le doc 01 demande une
+  simulation imposée par le serveur et un parcours sans JS, qui exigent un aller-retour POST.
+  J'ai suivi le doc 01. Le contenu n'est ni envoyé plus loin, ni stocké, ni journalisé.
+- Aperçu local : `127.0.0.1` et `localhost` sont acceptés comme la même origine tant que
+  l'URL du site est locale ; jamais avec un domaine public (test unitaire). Sans ce correctif,
+  un visiteur qui ouvrait `127.0.0.1:4321` voyait le devis échouer (403), défaut trouvé en
+  faisant les captures.
 
-- Hero sombre ardoise : une Tesla Model 3 noire de profil, posée sur la Croisette au
-  crépuscule, devant l'Esterel et la colline du Suquet avec sa tour. Quatre plans à des
-  vitesses différentes (fond −0,5, intermédiaire −1, chaussée et voiture fixes, palmes
-  −2,2). La voiture avance de 14 % de sa largeur (9 % sur mobile) ; les roues tournent de
-  −115° (−74°), soit le rapport distance / rayon de pneu, donc elles roulent sans glisser.
-  Le texte et les boutons ne bougent jamais et sont utilisables avant tout script.
-  L'épinglage est court (1,6 écran ; 1,45 sur mobile).
-- Accent vert d'eau `#A8D5CC` réservé aux actions sur fond sombre, et sa variante profonde
-  `#1D5148` sur fond clair (même teinte). Contrastes calculés : texte courant ≥ 6,9:1,
-  boutons ≥ 8,3:1.
-- Typographie : Bricolage Grotesque (titres), Geist (texte), soit deux familles OFL.
-- Libellé unique « Demander un devis » partout ; « Appeler » seulement si le numéro est confirmé.
-- Le devis est présenté comme une **demande** : message de réussite exact, plus « Votre
-  trajet n'est pas encore réservé… ». Le mode test est annoncé comme tel.
+## 5. Visuel et Scroll Craft
 
-## 5. Commandes et résultats
+- Skill `nateherk-design:scroll-craft` 0.3.1 **chargée dans la session** à la demande de Noa ;
+  références lues : `hero-depth.md`, `approved-collection.md`, `verify.md`. Moteur non modifié
+  (SHA-256 `scrollcraft.js` = `4a419b3e…2f39`, `scrollcraft.css` = `e19eb3aa…758a`, identiques
+  à l'installation). Brief mis à jour : `scrollcraft/builds/vtc-cannes/BRIEF.md` (courbe de
+  ressenti, pic, contrôle du ressenti à froid, écarts) ; ligne de révision au registre.
+- **Hero desktop** (écrans ≥ 1100 px et ratio ≥ 3/2) : plaque sans voiture + voiture détourée
+  du kit, même cadre. Mouvement sobre : la voiture grandit trois fois plus que le fond (×1,09
+  contre ×1,03) autour du **point de contact du pneu avant**, donc elle ne flotte pas et ses
+  roues ne « tournent » pas. Épinglage court (1,4 écran), texte immobile.
+  - Correction issue de la planche Scroll Craft : avec ×1,055 contre ×1,03, les six positions
+    étaient indiscernables (pas de profondeur perçue).
+  - Écrans ultra-larges (≥ 2:1) : la voiture passait sous le texte ; le cadre est désormais
+    calé sur la hauteur, ancré à droite, avec un fondu vers le fond sombre.
+  - 1100 à 1299 px : titre sur deux lignes pour rester dans la zone sombre du voile.
+- **Hero téléphone** (≤ 760 px) : option 2 du kit. Photo portrait **entière** (4:5, jamais
+  recadrée sur les côtés) sous l'en-tête ; le ciel se fond dans le fond sombre en haut, et le
+  titre est posé dans ce dégradé, au-dessus du toit, derrière un voile local. Le bouton
+  « Demander un devis » vient juste sous la photo et reste dans le premier écran jusqu'à
+  360×640 (testé). Une seule image téléchargée.
+  - **Écart assumé** avec `hero-depth.md` : pas de calques en mouvement sur téléphone, faute
+    de paire fond/voiture cadrée en portrait dans le kit.
+- Tablettes (761 à 1099 px, ou ratio < 3/2) : texte puis photo paysage complète, sans mouvement.
+- En-tête : une fois la page défilée, un léger flou derrière les deux pastilles empêche de
+  lire le contenu entre elles (mobile et desktop) ; flou calculé seulement après défilement.
+- Mentions IA près de chaque image et dans le pied de page ; bandeau discret fixe
+  « Démonstration — entreprise et tarifs fictifs ».
+- Règle de la skill « pas de tiret cadratin visible » : **non appliquée** aux textes imposés mot
+  pour mot par le kit (bandeau, titres d'onglet, objet du mail exemple, titre du résultat).
 
-Toutes les commandes ont été exécutées sur le build de production local
-(`http://127.0.0.1:4321`, serveur Node), Chromium 141 headless (Playwright 1194).
+## 6. Commandes et résultats (build final)
 
 | Vérification | Commande | Résultat | Preuve |
 |---|---|---|---|
-| Tests unitaires | `npm test` | **29/29** | `docs/preuves/unit-tests.txt` |
+| Build démo | `npm run build:demo` | OK, exit 0 | `docs/preuves/build-demo.txt` |
+| Tests unitaires | `npm test` | **43/43** | `docs/preuves/unit-tests.txt` |
 | TypeScript / Astro | `npm run check` | **0 erreur, 0 avertissement** | `docs/preuves/astro-check.txt` |
-| Navigateur, bout en bout | `npm run test:e2e` | **24/24** | `docs/preuves/e2e-results.json`, `e2e-output.txt` |
-| Scroll Craft `shoot.mjs` | voir README | aucun défilement mort (desktop, 390, 360, réduit) ; cues ≥ 4,5:1 sur leur pire image | `docs/preuves/scrollcraft/` (planches + rapports) |
-| Contraste du hero sur l'image composée | `npm run verify:contrast` | minimum **6,73:1** (texte d'introduction, 1024×768, fin de transition) | `docs/preuves/hero-contrast.json` |
-| Lighthouse mobile (simulation) | Lighthouse 13.5 | voir tableau ci-dessous | `docs/preuves/lighthouse/` |
-| Garde-fou production | `npm run build:production` | **refus**, 18 éléments listés (voulu) | `docs/preuves/production-guard.txt` |
-| Build Netlify | `npm run build:netlify` | OK (fonction SSR générée) | sortie de console, non archivée |
-| Endpoint en conditions réelles (curl) | voir § 6 | conforme | ce document |
+| Navigateur, bout en bout | `npm run test:e2e` | **30/30** (deux exécutions consécutives) | `docs/preuves/e2e-output.txt`, `e2e-results.json` |
+| Contraste du hero sur les photos, FR et EN | `npm run verify:contrast` | **min 4,79:1** sur 447 mesures (8 tailles, 3 positions) ; téléphones ≥ 5,39:1 | `docs/preuves/hero-contrast*.json` |
+| Contraste en-tête et panneau des services | idem | **min 6,31:1** (56 mesures) | `docs/preuves/overlay-contrast.json` |
+| axe-core (WCAG 2.2 A/AA) sur 14 états interactifs | `npm run verify:axe` | **0 violation** | `docs/preuves/axe-states.json` |
+| Scroll Craft `shoot.mjs` | voir README | aucun défilement mort : desktop (9,4 écrans), 390 (11,7), 360 (15,8), mouvement réduit (9,0) | `docs/preuves/scrollcraft/` |
+| Lighthouse 13.5 | voir § 7 | tableau ci-dessous | `docs/preuves/lighthouse/` |
+| Simulation forcée | `bash scripts/verify/demo-simulation-proof.sh` | `simulated`, 0 appel sortant | `docs/preuves/demo-force-simulation.txt` |
+| Garde-fous production | voir § 3 | 2 refus (exit 1) | `docs/preuves/build-*-production.txt` |
+| Images du kit | SHA-256 recalculés | 13 identiques, 1 régénérée (défaut du kit) | `docs/preuves/assets-sha256.txt` |
 
-Couverture des 24 tests de bout en bout : premier écran (activité, ville, véhicule,
-bouton), roues liées au défilement, sélecteur à la souris et au clavier, présélection
-`?prestation` limitée au type de trajet, erreurs près des champs avec focus sur la
-première, récapitulatif conservé au retour, double clic qui n'envoie qu'une requête,
-message exact de transmission (fournisseur simulé), erreurs serveur rattachées aux champs,
-échec du transport (champs conservés, même identifiant au nouvel essai), coupure réseau,
-formulaire Contact en anglais, mode **sans JS** (contenu, sélecteur, FAQ, POST sans
-données dans l'URL), animations réduites (pas d'épinglage, rien ne bouge), SVG bloqués,
-menu mobile et touche Échap, sélecteur de langue, barre d'action mobile (masquée sur le
-hero, espace réservé, absente sur le devis), aucun débordement horizontal et zones
-tactiles ≥ 44 px à **360, 390, 768 et 1440 px** sur 10 pages, lien d'évitement et focus
-visible, SEO (un H1, titres uniques, canonical, hreflang, noindex d'aperçu, sitemap),
-aucun tiers ni cookie ni stockage, 404.
+Méthode de contraste : le texte est rendu transparent (fonds, voiles et boutons conservés),
+la page est capturée, et chaque ligne de texte réelle (rectangles `Range`, texte pour lecteurs
+d'écran exclu) est comparée au **pixel le plus défavorable** situé dessous. Mesure prudente :
+les ombres portées du texte ne sont pas comptées. Le harnais Scroll Craft ne note que les
+éléments `data-sc-cue`, absents ici, d'où ces scripts.
 
-Lighthouse mobile (Moto G Power émulé, débit lent simulé, CPU ×4, serveur local sans
-compression) :
+Les 30 scénarios e2e couvrent notamment :
+- **Hero** : à 1100, 1440, 1920 et 2560 px, une seule composition chargée et la voiture entière
+  au début et à la fin ; à 390 et 360 px, photo 4:5 non recadrée, titre au-dessus du toit et
+  bouton dans le premier écran ; à 768 px, photo paysage.
+- **Prix** identiques sur `/`, `/tarifs/`, `/en/`, `/en/rates/` et dans la FAQ.
+- **Devis** : présélection `?prestation`, erreurs exactes près des champs, avec focus et
+  contraste ≥ 4,5:1 vérifiés ; exemple fictif (date Paris + 7 jours), résultat simulé avec
+  95 €, double clic → une seule requête ; erreurs serveur rattachées aux champs ; échec utile
+  (saisie conservée, même identifiant) ; coupure réseau.
+- **Contact** : fenêtres de simulation, 0 lien sortant sur 8 pages, contact simulé.
+- **Sans JS** : sélecteur, FAQ, fenêtre d'appel, devis posté puis page de récapitulatif sans
+  débordement à 360 px.
+- **Autres** : mouvement réduit, photos bloquées, menu mobile et Échap, barre d'action mobile,
+  aucun débordement et cibles ≥ 44 px à 360, 390, 768 et 1440 px, focus clavier, SEO
+  (noindex, pas de JSON-LD en démo), aucun tiers, cookie ou stockage, page 404.
 
-| Page | Perf. | Access. | Bonnes pr. | SEO | LCP | CLS | TBT | Poids total |
-|---|---|---|---|---|---|---|---|---|
-| / | 98 | 100 | 100 | 66 | 2,3 s | 0,008 | 0 ms | 226 Kio |
-| /devis/ | 99 | 100 | 100 | 66 | 1,7 s | 0,044 | 0 ms | 115 Kio |
-| /tarifs/ | 100 | 100 | 100 | 66 | 1,5 s | 0 | 0 ms | 99 Kio |
-| /contact/ | 99 | 100 | 100 | 66 | 1,8 s | 0 | 0 ms | 107 Kio |
-| /en/ | 98 | 100 | 100 | 66 | 2,3 s | 0,008 | 0 ms | 225 Kio |
+## 7. Performances (Lighthouse 13.5, serveur local sans compression)
 
-- SEO 66 : seul l'audit `is-crawlable` échoue, à cause du `noindex` **volontaire** de
-  l'aperçu. Un build de production ne peut pas encore être produit (garde-fou).
-- Premier écran mobile : 226 Kio transférés, très en dessous du budget de 1 Mo.
-- L'**INP n'est pas mesurable** avec Lighthouse ; il faudra le suivre avec des données réelles
-  (CrUX ou RUM) après le lancement. Le TBT de 0 ms n'en est qu'un indicateur de laboratoire.
+| Profil | Page | Perf. | Access. | Bonnes pr. | SEO | LCP | CLS | TBT | Poids total |
+|---|---|---|---|---|---|---|---|---|---|
+| mobile | / | 96 | 100 | 100 | 69 | 2,7 s | 0 | 0 ms | 292 Kio |
+| mobile | /devis/ | 100 | 100 | 100 | 66 | 1,7 s | 0,031 | 0 ms | 139 Kio |
+| mobile | /tarifs/ | 100 | 100 | 100 | 66 | 1,7 s | 0 | 0 ms | 112 Kio |
+| mobile | /contact/ | 99 | 100 | 100 | 69 | 2,0 s | 0 | 0 ms | 172 Kio |
+| mobile | /en/ | 96 | 100 | 100 | 69 | 2,7 s | 0 | 0 ms | 291 Kio |
+| desktop | / | 100 | 100 | 100 | 69 | 0,7 s | 0 | 0 ms | 309 Kio |
+| desktop | /devis/ | 100 | 100 | 100 | 66 | 0,4 s | 0,007 | 0 ms | 139 Kio |
+| desktop | /tarifs/ | 100 | 100 | 100 | 66 | 0,4 s | 0 | 0 ms | 112 Kio |
+| desktop | /contact/ | 100 | 100 | 100 | 69 | 0,4 s | 0,003 | 0 ms | 172 Kio |
+| desktop | /en/ | 100 | 100 | 100 | 69 | 0,6 s | 0 | 0 ms | 308 Kio |
 
-## 6. Endpoint : essais réels (curl sur le build)
+- SEO : seul `is-crawlable` échoue, à cause du `noindex` **exigé** pour la démo.
+- Accueil mobile après photos : 292 Kio (contre 226 Kio avec les SVG de l'itération 1),
+  LCP simulé 2,7 s (2,3 s auparavant). L'image LCP est la photo du hero, préchargée en
+  priorité haute ; une seule composition est téléchargée par écran.
+- L'INP n'est pas mesurable en laboratoire ; à suivre avec des données réelles plus tard.
 
-| Cas | Réponse |
+## 8. Captures (`docs/captures/`, toutes regardées)
+
+| Demandé | Fichier |
 |---|---|
-| Demande valide (transport test) | 200 `{"status":"simulated"}`, message « Mode test… » |
-| Même `requestId` renvoyé | 200, aucun second envoi (journal : `duplicate-simulated`) |
-| `Origin` étranger | 403 |
-| Données invalides | 422 + erreurs par champ |
-| Clé inattendue (`to`) | 400 : le destinataire ne peut pas être choisi |
-| Champ piège rempli | 400, rien n'est envoyé |
-| POST HTML sans JS valide | 303 vers `/en/contact/simulated/` |
-| POST HTML sans JS invalide | page HTML avec libellés et erreurs, contact direct si configuré |
-| `EMAIL_TRANSPORT=fail` | 502, message d'échec |
-| `EMAIL_TRANSPORT=resend` sans clé | 503 « non configuré » ; journal : raison technique sans données personnelles |
-| GET | 405 |
+| Accueil desktop | `01-accueil-desktop-1440.jpg` |
+| Accueil mobile | `02-accueil-mobile-390.jpg` |
+| Section chauffeur | `03-section-chauffeur-1440.jpg` |
+| Tarifs | `04-tarifs-1440.jpg`, `page-en-rates-390.jpg` |
+| Devis rempli (exemple) | `05a-devis-exemple-rempli-etape1-1440.jpg`, `05b-…-etape2-1440.jpg` |
+| Résultat simulé | `06-devis-resultat-simule-1440.jpg`, `sans-js-devis-resultat-390.jpg` |
+| Échec utile | `07-devis-echec-utile-1440.jpg`, `08-devis-erreurs-champs-390.jpg` |
+| Simulation de contact | `09-contact-simulation-appel-390.jpg`, `10-…-whatsapp-1440.jpg`, `11-…-email-1440.jpg` |
+| Hero début / milieu / fin | `hero-1100x720-*`, `hero-1440x900-*`, `hero-2560x1080-*` |
+| Quatre largeurs | `largeur-360.jpg`, `largeur-390.jpg`, `largeur-768.jpg`, `largeur-1440.jpg` |
+| Sans JS | `sans-js-accueil-390.jpg`, `sans-js-simulation-appel-390.jpg`, `sans-js-devis-resultat-390.jpg` |
+| Mouvement réduit | `mouvement-reduit-accueil-1440.jpg`, `page-accueil-1440-mouvement-reduit.jpg` |
+| Pages complètes et divers | `page-accueil-390.jpg`, `page-contact-390.jpg`, `page-en-home-1440.jpg`, `page-a-propos-demo-1440.jpg`, `menu-mobile-ouvert-390.jpg`, `barre-action-mobile-390.jpg` |
 
-Journal type : `{"evt":"demande","kind":"devis","outcome":"simulated","provider":"test","http":200,"ms":7}`.
+Note : les captures pleine page montrent les éléments fixes (bandeau, en-tête, barre
+d'action) à leur position au moment de la capture, et des sections animées à l'entrée
+peuvent y apparaître vides. La revue visuelle a donc aussi été faite écran par écran
+(`scripts/verify/walk.mjs`).
 
-## 7. Captures (dans `docs/captures/`)
+**Défauts trouvés et corrigés pendant cette itération** (captures et mesures) :
+- erreurs de champ rose pâle sur fond clair (≈ 1,3:1) : jeton de couleur par fond ;
+- devis refusé (403) depuis `127.0.0.1` ;
+- récapitulatif sans JS qui débordait de 28 px à 390 px ;
+- profondeur du hero imperceptible ;
+- voiture sous le texte sur écran ultra-large ;
+- contrastes limites du hero (bouton secondaire, introduction, signature mobile, repères EN) ;
+- titres d'onglet qui répétaient la marque ;
+- « : » rejeté en début de ligne (espaces insécables en français) ;
+- nom répété sur la carte du chauffeur (page Contact) ;
+- pied de page mobile trop long (liens sur deux colonnes) ;
+- contenu lisible entre les pastilles de l'en-tête.
 
-- Hero ordinateur : `hero-desktop-1-debut.jpg`, `-2-milieu.jpg`, `-3-fin.jpg`
-- Hero mobile : `hero-mobile-1-debut.jpg`, `-2-milieu.jpg`, `-3-fin.jpg`
-- Premier écran : `accueil-360.jpg`, `accueil-390.jpg`, `accueil-768.jpg`, `accueil-1440.jpg`
-- Pages complètes : `page-accueil-1440.jpg`, `page-accueil-390.jpg`, `page-tarifs-1440.jpg`,
-  `page-contact-390.jpg`, `page-en-quote-1440.jpg`, `mentions-legales-1440.jpg`
-- États : `services-selection-affaires-1440.jpg`, `devis-erreurs-1440.jpg`,
-  `devis-etape2-recap-390.jpg`, `devis-echec-transport-1440.jpg`,
-  `devis-envoye-simulation-1440.jpg`, `menu-mobile-ouvert-390.jpg`,
-  `barre-action-mobile-390.jpg`, `reduced-motion-accueil-1440.jpg`, `sans-js-accueil-390.jpg`
-- Planches Scroll Craft : `docs/preuves/scrollcraft/sheet-*.jpg`
+## 9. Audit npm (rien n'a été forcé)
 
-Chaque capture a été regardée. Défauts trouvés puis corrigés pendant le développement :
-- titre invisible dans la carte sombre du sélecteur (jetons de couleur hérités du fond clair) ;
-- bouton de mauvaise teinte dans un fond imbriqué ;
-- encadré d'erreur vide visible (`[hidden]` écrasé par `display: grid`) ;
-- champs date et heure désalignés ;
-- champ email étiré en hauteur ;
-- étiquette « Aperçu » fixe qui masquait du contenu ;
-- palmes décalées au chargement par le parallaxe ;
-- nez de la voiture coupé sur mobile en fin de transition ;
-- marque sur deux lignes à 390 px ;
-- lien « Voir les tarifs » de 26 px (zone tactile insuffisante).
+`npm audit` : **17 alertes « high »**, 0 critique (`docs/preuves/npm-audit.json`, brut).
+`npm audit fix` sans `--force` ne change rien (`npm-audit-fix-dry-run.txt`). La seule
+« correction » proposée rétrograderait astro en **2.10.9** et `@astrojs/netlify` en **2.6.0**
+(cinq versions majeures en arrière) : non appliquée. Chaînes exactes : `docs/preuves/npm-ls.txt` ;
+versions verrouillées : `docs/preuves/npm-locked-versions.md`.
 
-## 8. Problèmes ouverts et limites connues
+| Origine | Paquets signalés | Portée |
+|---|---|---|
+| `@astrojs/netlify` 8.2.6 (adaptateur **optionnel**, `DEPLOY_TARGET=netlify`) | `@netlify/dev`, `functions-dev`, `zip-it-and-ship-it`, `images`, `vite-plugin`, `ipx` 3.1.1, `listhen`, `node-forge` 1.4.0, `extract-zip` 2.0.1, `fast-glob`, `micromatch`, `braces` 3.0.3, `sharp` **0.34.5** (copie sous `ipx`) | Outillage Netlify, pas utilisé par le build Node ni à l'exécution de la démo |
+| `astro` 7.3.5 | `http-cache-semantics` 4.2.0 (plage `*` : aucune version corrigée publiée) | Dépendance d'Astro ; aucune image distante n'est utilisée |
+| `@astrojs/node` 11.1.6 | signalé via `astro` | idem |
 
-1. **Envoi réel non vérifié** : aucun compte Resend, aucune clé, aucun domaine vérifié.
-   L'acceptation par le fournisseur et la réception en boîte restent à prouver.
-   L'en-tête `Idempotency-Key` transmis à Resend correspond à la fonction documentée de
-   Resend telle que connue, mais il n'a pas été vérifié contre leur API pendant la session.
-2. **Pas de test WebKit ni sur iPhone réel** : seul Chromium était disponible. Procédure : `docs/IPHONE.md`.
-3. **Offres d'hébergement et d'email non revérifiées** (sites bloqués) : `docs/DEPLOIEMENT.md`.
-4. **Visuels provisoires** : illustrations originales, à remplacer par de vraies photos.
-5. `npm audit` : 3 alertes « high » sur `http-cache-semantics` (dépendance transitive
-   d'Astro 7.3.5 et de l'adaptateur Node). La seule correction proposée par npm
-   (`--force`, rétrogradation vers Astro 2) est inacceptable. À surveiller : une mise à jour
-   d'Astro qui corrige la dépendance.
-6. Limitation de débit et anti-doublon **en mémoire** : fiables avec un seul processus Node,
-   seulement indicatifs en serverless (documenté dans le code et dans `docs/DEPLOIEMENT.md`).
-7. Derrière un proxy TLS, la vérification d'origine d'Astro peut exiger `security.allowedDomains` (documenté).
-8. Pas de Content-Security-Policy : de petits scripts et styles en ligne existent
-   (classe `js`, JSON-LD, règles du sélecteur). Une CSP avec empreintes reste à faire si
-   souhaitée. Les autres en-têtes sont prêts (`public/_headers`, exemple Caddy).
-9. Le serveur Node ne compresse pas les réponses : la compression doit venir du proxy ou de
-   la plateforme.
-10. Sans JS, une erreur de validation renvoie une page d'erreur séparée. La conservation des
-    saisies dépend alors du bouton Retour du navigateur ; la validation native HTML en
-    évite la plupart.
-11. La rotation des roues suppose une illustration : elle devra être retirée avec une photo
-    réelle (expliqué dans `docs/ASSETS.md`).
-12. Le harnais Scroll Craft ne note que les éléments `data-sc-cue`. Le texte stable du hero
-    a donc été mesuré par `scripts/verify/hero-contrast.mjs`.
+La copie de `sharp` utilisée par Astro est en 0.35.5, hors de la plage vulnérable (≤ 0.35.4-rc.0).
+**Corrigé dans cette itération : rien côté dépendances.** Les correctifs listés au § 8 concernent
+le code du site. Décision possible pour Noa : retirer l'adaptateur Netlify si ce déploiement
+n'est pas retenu (supprimerait 15 des 17 alertes), ou attendre une version corrigée.
 
-## 9. Informations manquantes
+## 10. Problèmes ouverts et limites
 
-Liste complète et regroupée : [`docs/QUESTIONS.md`](docs/QUESTIONS.md). Liste générée :
-`docs/preuves/content-report.txt` (`npm run content:report`).
+1. **Pas de test WebKit ni sur iPhone réel** (Chromium seul) : `docs/IPHONE.md`, à jour pour la démo.
+2. Revue indépendante (ChatGPT) **non faite**.
+3. Défaut du kit : `assets/web/vehicle-profile-960.webp` vide (0 octet) dans le zip. Régénéré
+   depuis `vehicle-profile.webp` (960×640, 51 882 octets) ; voir `docs/ASSETS.md`.
+4. Textes anglais sans source dans le kit, écrits par Claude : marqués `// EN: Claude` dans
+   `src/i18n/demo.ts`.
+5. Bundle serveur live contenant le jeu fictif comme code mort (§ 3).
+6. Écart doc 02 / doc 01 sur les requêtes réseau (§ 4) et pas de calques mobiles (§ 5).
+7. Champs date et heure : leur format dépend de la langue du navigateur (en-US dans les captures
+   headless ; jj/mm/aaaa sur un appareil en français).
+8. Limitation de débit et anti-doublon en mémoire (un seul processus Node) ; 5 demandes par
+   10 minutes par IP par défaut, y compris en démo.
+9. Pas de Content-Security-Policy (scripts en ligne existants) ; le serveur Node ne compresse pas.
+10. Le site réel (mode live) reste bloqué par 53 informations à fournir, dont 18 critiques
+    (`docs/preuves/content-report.txt`, `docs/QUESTIONS.md`) : sans effet sur la démo.
 
-## 10. Pistes pour le relecteur
+## 11. Pistes pour le relecteur
 
 - Rejouer : `npm ci && npm test && npm run check && npm run build && npm run test:e2e`.
-- Regarder en priorité : la justesse des textes (aucune promesse non confirmée), le
-  traitement des données inconnues (`src/content/business.ts`), les réponses de
-  l'endpoint (`src/lib/server/handle.ts`) et la lisibilité du hero sur des écrans réels.
-- Si une recommandation semble contredire un choix documenté ici, comparer avec la
-  preuve citée. Noa arbitre tout changement de périmètre, de dépense ou de publication.
+- Regarder en priorité :
+  - la séparation démo/live : `src/content/index.ts`, `ContactAction.astro`,
+    `readiness-integration.ts`, `src/lib/server/handle.ts` ;
+  - l'absence de toute sortie réelle en démo ;
+  - la fidélité des textes au kit ;
+  - le rendu mobile du hero (`src/components/home/Hero.astro`, section « PHONES ») ;
+  - la lisibilité sur écrans réels.
+- Noa arbitre tout changement de périmètre, de dépense ou de publication.

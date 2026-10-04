@@ -37,7 +37,7 @@ const fict = lang === 'fr' ? 'Coordonnée fictive' : 'Fictional detail';
         {photo && photoRef && (
           <figure class="contact-person">
             <img src={photo.src} srcset={photo.srcset} sizes="7rem" width={photo.width} height={photo.height} alt={photoRef.alt[lang]} loading="lazy" decoding="async" />
-            <figcaption><strong>{name}</strong><span>{d.driver.signature || business.activity.value[lang]}</span></figcaption>
+            <figcaption><strong>{name}</strong><span>{business.activity.value[lang]} · {business.city.value}</span></figcaption>
           </figure>
         )}
         {isDemo ? (

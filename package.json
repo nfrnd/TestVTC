@@ -20,7 +20,7 @@
     "check": "astro check",
     "test": "vitest run",
     "test:e2e": "node scripts/e2e.mjs",
-    "verify:contrast": "node scripts/verify/hero-contrast.mjs && node scripts/verify/overlay-contrast.mjs",
+    "verify:contrast": "node scripts/verify/hero-contrast.mjs && node scripts/verify/hero-contrast.mjs http://127.0.0.1:4321 /en/ && node scripts/verify/overlay-contrast.mjs",
     "verify:hero": "node scripts/verify/hero-states.mjs",
     "verify:captures": "node scripts/verify/captures.mjs",
     "verify:axe": "node scripts/verify/axe-states.mjs",

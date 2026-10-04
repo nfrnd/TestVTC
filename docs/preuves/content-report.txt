@@ -1,4 +1,5 @@
 [BLOQUANT] business.name : Nom commercial
+[à compléter] business.slogan : Signature / slogan (facultatif)
 [BLOQUANT] business.phone : Numéro de téléphone professionnel
 [BLOQUANT] business.email : Adresse email publique
 [à compléter] business.whatsapp : Utilisation de WhatsApp (oui/non) et numéro
@@ -23,7 +24,9 @@
 [BLOQUANT] business.legal.retention : Durée de conservation des demandes, validée par le responsable
 [à compléter] vehicle.generation : Génération / année de la Model 3
 [à compléter] vehicle.maxPassengers : Nombre maximum de passagers transportés
+[à compléter] vehicle.passengersNote : Précision sur les passagers (recommandé / sur demande)
 [à compléter] vehicle.luggage : Capacité bagages (nombre de valises)
+[à compléter] vehicle.comfort : Équipements réellement disponibles à bord
 [à compléter] vehicle.photos : Photos réelles du véhicule (extérieur, intérieur)
 [BLOQUANT] services.transfert : Prestation « Aéroport ou gare » à confirmer (ou à retirer)
 [à compléter] services.transfert.price : Prix du transfert
@@ -46,7 +49,7 @@
 [à compléter] pricingConditions.horaires : Majorations éventuelles
 [à compléter] pricingConditions.paiement : Moyens de paiement acceptés
 [à compléter] pricingConditions.annulation : Conditions d’annulation
-[à compléter] faq.siege-enfant : Réponse FAQ « Un siège enfant est-il disponible ? » à documenter
-[à compléter] faq.langues : Réponse FAQ « Quelles langues parle le chauffeur ? » à documenter
+[à compléter] faq.siege-enfant : Réponse FAQ « Un siège enfant est-il disponible ? » à documenter
+[à compléter] faq.langues : Réponse FAQ « Quelles langues parle le chauffeur ? » à documenter
 
-50 éléments, dont 18 bloquants pour la production.
+53 éléments, dont 18 bloquants pour la production.

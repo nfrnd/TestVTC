@@ -1,6 +1,6 @@
 {
   "doc": {
-    "height": 5911,
+    "height": 8060,
     "vh": 900,
     "acts": [
       "flow",
@@ -26,7 +26,9 @@
         0
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
@@ -35,7 +37,7 @@
     {
       "i": 1,
       "y": 173,
-      "pct": 3,
+      "pct": 2,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -49,7 +51,9 @@
         -173
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
@@ -58,7 +62,7 @@
     {
       "i": 2,
       "y": 518,
-      "pct": 10,
+      "pct": 7,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -72,7 +76,9 @@
         -518
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
@@ -81,7 +87,7 @@
     {
       "i": 3,
       "y": 864,
-      "pct": 17,
+      "pct": 12,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -95,7 +101,9 @@
         -864
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
@@ -103,7 +111,32 @@
     },
     {
       "i": 4,
-      "y": 1186,
+      "y": 1251,
+      "pct": 17,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "-",
+      "stages": [
+        -1251
+      ],
+      "segs": [],
+      "custom": [
+        "1.000"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#11191d"
+    },
+    {
+      "i": 5,
+      "y": 1711,
       "pct": 24,
       "settled": true,
       "contrast": [],
@@ -113,20 +146,22 @@
       "wipes": [
         "none"
       ],
-      "act": "-",
+      "act": "flow",
       "stages": [
-        -1186
+        -1711
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
       "bg": "#11191d"
     },
     {
-      "i": 5,
-      "y": 1524,
+      "i": 6,
+      "y": 2171,
       "pct": 30,
       "settled": true,
       "contrast": [],
@@ -136,20 +171,22 @@
       "wipes": [
         "none"
       ],
-      "act": "-",
+      "act": "flow",
       "stages": [
-        -1524
+        -2171
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
       "bg": "#11191d"
     },
     {
-      "i": 6,
-      "y": 1862,
+      "i": 7,
+      "y": 2632,
       "pct": 37,
       "settled": true,
       "contrast": [],
@@ -161,19 +198,21 @@
       ],
       "act": "flow",
       "stages": [
-        -1862
+        -2632
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
       "bg": "#11191d"
     },
     {
-      "i": 7,
-      "y": 2200,
-      "pct": 44,
+      "i": 8,
+      "y": 3092,
+      "pct": 43,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -184,33 +223,12 @@
       ],
       "act": "flow",
       "stages": [
-        -2200
+        -3092
       ],
       "segs": [],
-      "custom": [],
-      "customHold": false,
-      "seg": null,
-      "segp": null,
-      "bg": "#11191d"
-    },
-    {
-      "i": 8,
-      "y": 2539,
-      "pct": 51,
-      "settled": true,
-      "contrast": [],
-      "cues": [],
-      "clips": [],
-      "rails": [],
-      "wipes": [
-        "none"
+      "custom": [
+        "1.000"
       ],
-      "act": "-",
-      "stages": [
-        -2539
-      ],
-      "segs": [],
-      "custom": [],
       "customHold": false,
       "seg": null,
       "segp": null,
@@ -218,8 +236,8 @@
     },
     {
       "i": 9,
-      "y": 2877,
-      "pct": 57,
+      "y": 3553,
+      "pct": 50,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -230,10 +248,12 @@
       ],
       "act": "-",
       "stages": [
-        -2877
+        -3553
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,
@@ -241,7 +261,7 @@
     },
     {
       "i": 10,
-      "y": 5011,
+      "y": 7160,
       "pct": 100,
       "settled": true,
       "contrast": [],
@@ -253,10 +273,12 @@
       ],
       "act": "-",
       "stages": [
-        -5011
+        -7160
       ],
       "segs": [],
-      "custom": [],
+      "custom": [
+        "1.000"
+      ],
       "customHold": false,
       "seg": null,
       "segp": null,

@@ -2,7 +2,7 @@
 # Usage (after npm run build): bash scripts/verify/demo-simulation-proof.sh [logDir]
 # Demo server configured exactly like a live sender would be; fetch is instrumented.
 S=${1:-lab}; mkdir -p "$S"
-env PORT=4412 HOST=127.0.0.1 EMAIL_TRANSPORT=resend RESEND_API_KEY=re_0000000000000000000000000000 MAIL_TO=destinataire@example.com "MAIL_FROM=Site <site@example.com>" \
+env PORT=4412 HOST=127.0.0.1 EMAIL_TRANSPORT=resend RESEND_API_KEY=FAKE-KEY-NOT-A-REAL-SECRET MAIL_TO=destinataire@example.com "MAIL_FROM=Site <site@example.com>" \
   node --import scripts/verify/spy-fetch.mjs dist/server/entry.mjs > $S/spy.log 2>&1 &
 PID=$!
 sleep 1.5

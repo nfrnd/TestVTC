@@ -1,0 +1,174 @@
+[
+  {
+    "state": "accueil",
+    "url": "/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 21
+      }
+    ],
+    "passes": 33
+  },
+  {
+    "state": "accueil-390",
+    "url": "/",
+    "width": 390,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 9
+      }
+    ],
+    "passes": 28
+  },
+  {
+    "state": "tarifs",
+    "url": "/tarifs/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [],
+    "passes": 24
+  },
+  {
+    "state": "devis-erreurs",
+    "url": "/devis/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 7
+      }
+    ],
+    "passes": 29
+  },
+  {
+    "state": "devis-etape2",
+    "url": "/devis/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 7
+      }
+    ],
+    "passes": 29
+  },
+  {
+    "state": "devis-resultat",
+    "url": "/devis/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 7
+      }
+    ],
+    "passes": 24
+  },
+  {
+    "state": "devis-echec",
+    "url": "/devis/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 7
+      }
+    ],
+    "passes": 29
+  },
+  {
+    "state": "contact-erreurs",
+    "url": "/contact/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 8
+      }
+    ],
+    "passes": 30
+  },
+  {
+    "state": "dialog-appel",
+    "url": "/contact/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 1
+      }
+    ],
+    "passes": 14
+  },
+  {
+    "state": "dialog-whatsapp",
+    "url": "/contact/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 2
+      }
+    ],
+    "passes": 14
+  },
+  {
+    "state": "dialog-email",
+    "url": "/contact/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 2
+      }
+    ],
+    "passes": 14
+  },
+  {
+    "state": "menu-mobile",
+    "url": "/",
+    "width": 390,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 15
+      }
+    ],
+    "passes": 29
+  },
+  {
+    "state": "a-propos",
+    "url": "/mentions-legales/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [],
+    "passes": 20
+  },
+  {
+    "state": "en-quote-errors",
+    "url": "/en/quote/",
+    "width": 1440,
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 7
+      }
+    ],
+    "passes": 29
+  }
+]

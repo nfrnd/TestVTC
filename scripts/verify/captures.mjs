@@ -115,7 +115,9 @@ await shot('sans-js-accueil-390', '/', { width: 390, height: 844, full: true, ct
 await shot('sans-js-simulation-appel-390', '/contact/', { width: 390, height: 844, ctx: { javaScriptEnabled: false }, before: async (p) => { await p.locator('[data-sim="call"]').first().click(); await p.waitForTimeout(300); } });
 {
   // No-JS quote: real POST to /api/demandes, the server answers with an HTML summary page.
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
+  // Reduced motion only to switch off smooth scrolling, which keeps the form moving
+  // while Playwright fills it; the captured result page is unaffected.
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false, reducedMotion: 'reduce' });
   const p = await context.newPage();
   await p.goto(`${BASE}/devis/`);
   const d = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10);

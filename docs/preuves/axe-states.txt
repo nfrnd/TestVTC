@@ -1,0 +1,14 @@
+ok   accueil            violations=0 passes=33 incomplete=color-contrast:21
+ok   accueil-390        violations=0 passes=28 incomplete=color-contrast:9
+ok   tarifs             violations=0 passes=24 incomplete=-
+ok   devis-erreurs      violations=0 passes=29 incomplete=color-contrast:7
+ok   devis-etape2       violations=0 passes=29 incomplete=color-contrast:7
+ok   devis-resultat     violations=0 passes=24 incomplete=color-contrast:7
+ok   devis-echec        violations=0 passes=29 incomplete=color-contrast:7
+ok   contact-erreurs    violations=0 passes=30 incomplete=color-contrast:8
+ok   dialog-appel       violations=0 passes=14 incomplete=color-contrast:1
+ok   dialog-whatsapp    violations=0 passes=14 incomplete=color-contrast:2
+ok   dialog-email       violations=0 passes=14 incomplete=color-contrast:2
+ok   menu-mobile        violations=0 passes=29 incomplete=color-contrast:15
+ok   a-propos           violations=0 passes=20 incomplete=-
+ok   en-quote-errors    violations=0 passes=29 incomplete=color-contrast:7

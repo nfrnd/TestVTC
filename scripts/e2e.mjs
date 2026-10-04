@@ -325,7 +325,9 @@ await test('mobile: menu opens and closes with Escape; language switch goes to e
   await page.goto(`${BASE}/tarifs/`);
   await page.click('.menu summary');
   assert(await page.locator('.menu__panel').isVisible(), 'menu open');
-  assert((await page.getAttribute('.menu summary', 'aria-label')) === 'Fermer le menu', 'accessible name follows state');
+  // The <details> "toggle" event is asynchronous: wait for the label rather than racing it.
+  const named = await page.waitForFunction(() => document.querySelector('.menu summary')?.getAttribute('aria-label') === 'Fermer le menu', null, { timeout: 2000 }).then(() => true, () => false);
+  assert(named, 'accessible name follows state');
   await page.keyboard.press('Escape');
   assert(!(await page.locator('.menu').evaluate((d) => d.open)), 'closed');
   await page.click('.menu summary');

@@ -1,0 +1,49 @@
+
+> vtc-cannes@0.1.0 build:demo
+> BUSINESS_MODE=demo SITE_ENV=preview astro build
+
+00:44:17 [@astrojs/node] Enabling sessions with filesystem storage
+00:44:17 [types] Generated 64ms
+00:44:17 [vtc-readiness] Mode métier : DÉMONSTRATION (AZURÉA PRIVÉ, fictif). noindex, contacts et demandes simulés.
+00:44:17 [build] output: "static"
+00:44:17 [build] mode: "server"
+00:44:17 [build] directory: /home/user/TestVTC/dist/
+00:44:17 [build] adapter: @astrojs/node
+00:44:17 [build] Collecting build info...
+00:44:17 [build] ✓ Completed in 131ms.
+00:44:17 [build] Building server entrypoints...
+00:44:18 [vite] ✓ built in 973ms
+00:44:18 [vite] ✓ built in 340ms
+00:44:18 [vite] ✓ built in 101ms
+
+ prerendering static routes 
+00:44:18   ├─ /404.html (+27ms) 
+00:44:18   ├─ /confidentialite/index.html (+7ms) 
+00:44:19   ├─ /contact/simulation/index.html (+6ms) 
+00:44:19   ├─ /contact/transmis/index.html (+4ms) 
+00:44:19   ├─ /contact/index.html (+9ms) 
+00:44:19   ├─ /devis/simulation/index.html (+5ms) 
+00:44:19   ├─ /devis/transmis/index.html (+12ms) 
+00:44:19   ├─ /devis/index.html (+8ms) 
+00:44:19   ├─ /en/contact/sent/index.html (+7ms) 
+00:44:19   ├─ /en/contact/simulated/index.html (+5ms) 
+00:44:19   ├─ /en/contact/index.html (+4ms) 
+00:44:19   ├─ /en/legal-notice/index.html (+4ms) 
+00:44:19   ├─ /en/privacy/index.html (+4ms) 
+00:44:19   ├─ /en/quote/sent/index.html (+3ms) 
+00:44:19   ├─ /en/quote/simulated/index.html (+3ms) 
+00:44:19   ├─ /en/quote/index.html (+4ms) 
+00:44:19   ├─ /en/rates/index.html (+12ms) 
+00:44:19   ├─ /en/index.html (+9ms) 
+00:44:19   ├─ /mentions-legales/index.html (+3ms) 
+00:44:19   ├─ /robots.txt (+2ms) 
+00:44:19   ├─ /sitemap.xml (+2ms) 
+00:44:19   ├─ /tarifs/index.html (+4ms) 
+00:44:19   ├─ /index.html (+5ms) 
+00:44:19 ✓ Completed in 171ms.
+
+00:44:19 [build] Rearranging server assets...
+00:44:19 [build] ✓ Completed in 1.65s.
+00:44:19 [build] Server built in 1.81s
+00:44:19 [build] Complete!
+exit 0

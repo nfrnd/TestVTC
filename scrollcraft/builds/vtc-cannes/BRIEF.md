@@ -146,11 +146,17 @@ Registre vide (premier build de ce workspace) : rien à franchir. Ligne ajoutée
 - **Écrans ultra-larges (≥ 2:1)** : le cadre « cover » grossissait la voiture sous le texte.
   Le cadre est désormais calé sur la hauteur, ancré à droite, avec un fondu vers le fond
   sombre déjà utilisé par le voile de lecture.
-- **Mobile** (art-direction séparée) : texte d'abord, puis une seule photo complète
-  (portrait recadré 4:3 par le bas). **Écart assumé** avec `hero-depth.md` (« préserver la
-  profondeur sur mobile ») : le kit ne fournit pas de paire fond/voiture cadrée en portrait ;
-  avec les calques paysage, la voiture serait coupée ou minuscule à 390 px. Les calques ne
-  se chargent jamais sur téléphone (une seule image téléchargée).
+- **Mobile** (art-direction séparée, retravaillée à la demande de Noa : « la version sur
+  téléphone doit rendre tout aussi bien ») : option 2 du kit. La photo portrait complète
+  (4:5, jamais recadrée sur les côtés) est posée sous l'en-tête flottant ; son ciel se fond
+  dans le fond sombre en haut, et le titre vit dans ce dégradé, au-dessus du toit de la
+  voiture, avec un voile local derrière le texte seulement. Le bouton « Demander un devis »
+  suit la photo et reste dans le premier écran jusqu'à 360×640 (testé). **Écart assumé** avec
+  `hero-depth.md` : pas de calques en mouvement sur téléphone, car le kit ne fournit pas de
+  paire fond/voiture cadrée en portrait ; la profondeur vient du fondu ciel → nuit et de la
+  superposition titre / photo. Une seule image téléchargée sur téléphone.
+- **Tablettes et fenêtres étroites** (761 à 1099 px, ou ratio < 3/2) : texte puis photo
+  paysage complète, sans mouvement.
 - **Actes** : ajout de « Votre trajet, en trois étapes » (kit). Le tableau des tarifs est
   partagé entre l'accueil et la page Tarifs. Contacts et devis : simulations (fenêtres
   natives `<dialog>`, résultat serveur).

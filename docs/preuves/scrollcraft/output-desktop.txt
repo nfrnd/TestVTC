@@ -1,10 +1,10 @@
-page: 7.2 viewport-heights, acts: pin > flow
+page: 9.4 viewport-heights, acts: pin > flow
   00.png  settled=true  cues=0  clips=
   01.png  settled=true  cues=0  clips=
   02.png  settled=true  cues=0  clips=
-  03.png  settled=true  cues=1  clips=
-  04.png  settled=true  cues=1  clips=
-  05.png  settled=true  cues=1  clips=
+  03.png  settled=true  cues=0  clips=
+  04.png  settled=true  cues=0  clips=
+  05.png  settled=true  cues=0  clips=
   06.png  settled=true  cues=0  clips=
   07.png  settled=true  cues=0  clips=
   08.png  settled=true  cues=0  clips=
@@ -14,8 +14,6 @@ page: 7.2 viewport-heights, acts: pin > flow
   12.png  settled=true  cues=0  clips=
 
 no dead scroll detected
-
-contrast over media: all cues clear 4.5:1 at their worst frame
 contact sheet: /home/user/TestVTC/lab/scrollcraft/desktop/sheet.png
 
 shots + report.json in /home/user/TestVTC/lab/scrollcraft/desktop

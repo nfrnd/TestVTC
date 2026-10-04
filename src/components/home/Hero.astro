@@ -126,8 +126,8 @@ const deskSet = `${desk960} 960w, ${desk} 1672w`;
     }
     /* Local scrim behind the title only (top of the photo), not a full-frame overlay. */
     .hero__photo::after {
-      content: ''; position: absolute; inset: 0 0 auto; height: calc(var(--top) + 58%); pointer-events: none;
-      background: linear-gradient(180deg, rgb(10 16 19 / 0.62) 0%, rgb(10 16 19 / 0.6) 62%, transparent 100%);
+      content: ''; position: absolute; inset: 0 0 auto; height: calc(var(--top) + 64%); pointer-events: none;
+      background: linear-gradient(180deg, rgb(10 16 19 / 0.62) 0%, rgb(10 16 19 / 0.6) 66%, transparent 100%);
     }
     .hero__head {
       display: grid; gap: 0.5rem; justify-items: start; position: relative; z-index: 2;
@@ -191,11 +191,14 @@ const deskSet = `${desk960} 960w, ${desk} 1672w`;
       padding: 0 0 0 max(var(--sc-gutter), calc((100cqw - var(--sc-maxw)) / 2 + var(--sc-gutter) / 2)); gap: 0.8rem;
     }
     .hero__title { font-size: clamp(2.6rem, 1.2rem + 2.5vw, 3.7rem); max-width: none; white-space: nowrap; }
+    /* Narrower layered screens: two lines keep the title in the dark side of the scrim. */
+    @media (max-width: 1299px) { .hero__title { white-space: normal; max-width: 12ch; } }
     /* Secondary action sits on the photo: a dark fill keeps its label readable whatever is behind it. */
     .hero__actions :global(.btn--ghost) { --b-bg: rgb(10 16 19 / 0.72); }
     .hero__lede { max-width: min(27rem, 30cqw); font-size: 1.12rem; }
     .hero__actions { max-width: min(28rem, 30cqw); }
-    .hero__facts { max-width: min(28rem, 24cqw); }
+    /* Narrow enough that every fact stays in the dark part of the scrim (EN runs longer). */
+    .hero__facts { max-width: min(26rem, 20cqw); }
     .hero__caption { bottom: 1rem; }
   }
 

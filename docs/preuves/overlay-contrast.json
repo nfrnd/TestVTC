@@ -1,0 +1,282 @@
+[
+  {
+    "case": "header over services (light)",
+    "element": ".brand__name",
+    "worstContrast": 11.62
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a",
+    "worstContrast": 7.39
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a #2",
+    "worstContrast": 7.28
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a #3",
+    "worstContrast": 7.28
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a #4",
+    "worstContrast": 7.26
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a #5",
+    "worstContrast": 7.28
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a #6",
+    "worstContrast": 7.18
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".nav > a #7",
+    "worstContrast": 9.86
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".lang",
+    "worstContrast": 7.18
+  },
+  {
+    "case": "header over services (light)",
+    "element": ".demo-strip",
+    "worstContrast": 14.22
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".brand__name",
+    "worstContrast": 10.81
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a #2",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a #3",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a #4",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a #5",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a #6",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".nav > a #7",
+    "worstContrast": 9.86
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".lang",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over Tesla (light)",
+    "element": ".demo-strip",
+    "worstContrast": 14.22
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".brand__name",
+    "worstContrast": 13.8
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a #2",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a #3",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a #4",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a #5",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a #6",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".nav > a #7",
+    "worstContrast": 9.86
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".lang",
+    "worstContrast": 8.92
+  },
+  {
+    "case": "header over driver (dark)",
+    "element": ".demo-strip",
+    "worstContrast": 14.22
+  },
+  {
+    "case": "header over rates page",
+    "element": ".brand__name",
+    "worstContrast": 10.81
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a",
+    "worstContrast": 6.98
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a #2",
+    "worstContrast": 7.09
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a #3",
+    "worstContrast": 8.93
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a #4",
+    "worstContrast": 6.99
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a #5",
+    "worstContrast": 6.99
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a #6",
+    "worstContrast": 7.91
+  },
+  {
+    "case": "header over rates page",
+    "element": ".nav > a #7",
+    "worstContrast": 9.86
+  },
+  {
+    "case": "header over rates page",
+    "element": ".lang",
+    "worstContrast": 7.91
+  },
+  {
+    "case": "header over rates page",
+    "element": ".demo-strip",
+    "worstContrast": 14.22
+  },
+  {
+    "case": "header 390 over services",
+    "element": ".brand__name",
+    "worstContrast": 12.2
+  },
+  {
+    "case": "header 390 over services",
+    "element": ".menu summary",
+    "worstContrast": 12.17
+  },
+  {
+    "case": "header 390 over services",
+    "element": ".demo-strip",
+    "worstContrast": 14.22
+  },
+  {
+    "case": "header 390 over Tesla",
+    "element": ".brand__name",
+    "worstContrast": 10.83
+  },
+  {
+    "case": "header 390 over Tesla",
+    "element": ".menu summary",
+    "worstContrast": 10.81
+  },
+  {
+    "case": "header 390 over Tesla",
+    "element": ".demo-strip",
+    "worstContrast": 14.22
+  },
+  {
+    "case": "services panel 1440",
+    "element": "[data-panel=\"airport\"] > .h-md",
+    "worstContrast": 12.52
+  },
+  {
+    "case": "services panel 1440",
+    "element": "[data-panel=\"airport\"] > .panel__summary",
+    "worstContrast": 13.09
+  },
+  {
+    "case": "services panel 1440",
+    "element": "[data-panel=\"airport\"] .panel__fares li > span",
+    "worstContrast": 13.34
+  },
+  {
+    "case": "services panel 1440",
+    "element": "[data-panel=\"airport\"] .panel__fares .nums",
+    "worstContrast": 16.38
+  },
+  {
+    "case": "services panel 1440",
+    "element": ".board__note",
+    "worstContrast": 6.31
+  },
+  {
+    "case": "services panel 390",
+    "element": "[data-panel=\"airport\"] > .h-md",
+    "worstContrast": 12.33
+  },
+  {
+    "case": "services panel 390",
+    "element": "[data-panel=\"airport\"] > .panel__summary",
+    "worstContrast": 12.91
+  },
+  {
+    "case": "services panel 390",
+    "element": "[data-panel=\"airport\"] .panel__fares li > span",
+    "worstContrast": 13.34
+  },
+  {
+    "case": "services panel 390",
+    "element": "[data-panel=\"airport\"] .panel__fares .nums",
+    "worstContrast": 16.38
+  },
+  {
+    "case": "services panel 390",
+    "element": ".board__note",
+    "worstContrast": 6.31
+  }
+]

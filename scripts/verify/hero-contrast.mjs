@@ -11,6 +11,7 @@ import { PNG } from 'pngjs';
 import { writeFileSync, mkdirSync } from 'node:fs';
 const CHROME = process.env.SCROLLCRAFT_CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 const BASE = process.argv[2] || 'http://127.0.0.1:4321';
+const PATH = process.argv[3] || '/';
 const lum = (r, g, b) => { const f = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
 const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 const SEL = ['.hero__eyebrow', '.hero__title', '.hero__lede', '.hero__facts li', '.hero__signature', '.hero__caption', '.hero__actions .btn--primary', '.hero__actions .btn--ghost'];
@@ -19,7 +20,7 @@ const browser = await chromium.launch({ executablePath: CHROME });
 const out = [];
 for (const [w, h] of [[1440, 900], [1920, 1080], [2560, 1080], [1100, 720], [1024, 768], [768, 1024], [390, 844], [360, 640]]) {
   const page = await browser.newPage({ viewport: { width: w, height: h } });
-  await page.goto(BASE, { waitUntil: 'networkidle' });
+  await page.goto(BASE + PATH, { waitUntil: 'networkidle' });
   for (const p of [0, 0.5, 1]) {
     await page.evaluate((f) => { const hero = document.querySelector('[data-hero]'); scrollTo(0, Math.max(0, hero.offsetHeight - innerHeight) * f); }, p);
     await page.waitForTimeout(400);
@@ -65,7 +66,7 @@ for (const [w, h] of [[1440, 900], [1920, 1080], [2560, 1080], [1100, 720], [102
 }
 await browser.close();
 mkdirSync('lab', { recursive: true });
-writeFileSync('lab/hero-contrast.json', JSON.stringify(out, null, 2));
+writeFileSync(PATH === '/' ? 'lab/hero-contrast.json' : 'lab/hero-contrast-en.json', JSON.stringify(out, null, 2));
 const byVp = {};
 for (const r of out) { const k = `${r.viewport} ${r.mode}`; if (!byVp[k] || r.worstContrast < byVp[k].worstContrast) byVp[k] = r; }
 console.table(Object.values(byVp));
