@@ -119,3 +119,74 @@ de suite. Longueur totale : courte (≈ 7 à 9 écrans à 1440 px), sans remplis
 ## Gate des empreintes
 
 Registre vide (premier build de ce workspace) : rien à franchir. Ligne ajoutée après livraison.
+
+---
+
+## Itération 2 (2026-10-03) : démonstration fictive AZURÉA PRIVÉ
+
+> **FAIT** : nouveau périmètre fixé par Noa, kit `azurea-prive-claude-demo-v2` (copié dans
+> `demo-kit/`). Les informations du scénario sont **explicitement autorisées comme fictives** :
+> Adrien Morel, AZURÉA PRIVÉ, prestations, tarifs, coordonnées. Les photographies sont
+> générées par IA et fournies par le kit. Rien n'est inventé au-delà du kit ; les textes
+> anglais sans source dans le kit sont marqués `// EN: Claude` dans `src/i18n/demo.ts`.
+> La skill a été rechargée en cours de session à la demande de Noa (`/nateherk-design:scroll-craft`).
+
+### Ce qui change par rapport au brief initial
+
+- **Monde** : photographique (kit), ce qui lève l'écart assumé de l'itération 1 avec `worlds.md`.
+- **Hero** (`hero-depth.md`) : plaque de fond sans voiture + voiture détourée (alpha réel,
+  même cadre 1672×941, même perspective). Point de contact commun : le pneu avant
+  (68,8 %, 88,8 %). Mouvement retenu, « sobre » comme demandé : avancée de caméra où la
+  voiture grandit trois fois plus que le fond (×1,09 contre ×1,03) autour de ce pivot,
+  donc aucune roue ne flotte ni ne « tourne ». Le texte reste immobile et lisible.
+  Plus de translation ni de rotation des roues : une photo de voiture garée ne roule pas.
+- **Correction après relecture de la planche Scroll Craft** : avec ×1,055 contre ×1,03, les
+  six positions du hero étaient indiscernables. L'écart a été porté à ×1,09 et vérifié sur
+  les captures début/milieu/fin (`docs/captures/hero-*`).
+- **Écrans ultra-larges (≥ 2:1)** : le cadre « cover » grossissait la voiture sous le texte.
+  Le cadre est désormais calé sur la hauteur, ancré à droite, avec un fondu vers le fond
+  sombre déjà utilisé par le voile de lecture.
+- **Mobile** (art-direction séparée) : texte d'abord, puis une seule photo complète
+  (portrait recadré 4:3 par le bas). **Écart assumé** avec `hero-depth.md` (« préserver la
+  profondeur sur mobile ») : le kit ne fournit pas de paire fond/voiture cadrée en portrait ;
+  avec les calques paysage, la voiture serait coupée ou minuscule à 390 px. Les calques ne
+  se chargent jamais sur téléphone (une seule image téléchargée).
+- **Actes** : ajout de « Votre trajet, en trois étapes » (kit). Le tableau des tarifs est
+  partagé entre l'accueil et la page Tarifs. Contacts et devis : simulations (fenêtres
+  natives `<dialog>`, résultat serveur).
+
+### Courbe de ressenti (mise à jour, ordre réel de la page)
+
+| Acte | Émotion | Ce qui la provoque à l'écran |
+|---|---|---|
+| Hero | Calme ébloui | Baie au crépuscule, la Tesla avance vers le visiteur pendant que le texte tient (`pin` 1,4 + 2 plans à vitesses différentes) |
+| Services | Curiosité active | Choisir une prestation redessine l'itinéraire abstrait et met à jour le prix et le lien devis (signature) |
+| Tesla | Assurance | Fond clair, profil et habitacle photographiés, trois promesses numérotées (texte du kit) |
+| Chauffeur | Proximité | Passage sombre, portrait, signature « Adrien Morel » |
+| Trois étapes | Méthode | Une ligne de trois étapes, une note « seule la demande est simulée » |
+| Tarifs | Clarté | Tableau unique, prix alignés, majoration de nuit en une ligne |
+| FAQ | Soulagement | Huit réponses courtes |
+| Fin | Résolution | « Où souhaitez-vous aller ? », un bouton, l'appel simulé |
+
+Aucun couple d'actes adjacents ne partage la même émotion. Le pic reste le hero : seul
+acte épinglé, seul acte à deux plans, la plus grande variation visuelle de la page.
+
+### Contrôle du ressenti (fait à froid sur `docs/captures/page-accueil-*`, puis comparé)
+
+| Acte | Ressenti noté à froid | Prévu | Écart et suite |
+|---|---|---|---|
+| Hero | arrivée, soigné | calme ébloui | conforme après correction de l'écart de vitesse (avant : « image fixe ») |
+| Services | choix | curiosité active | conforme |
+| Tesla | confort | assurance | proche |
+| Chauffeur | confiance | proximité | proche |
+| Trois étapes | méthode | méthode | conforme |
+| Tarifs | lisibilité | clarté | conforme |
+| FAQ | réponses | soulagement | proche ; Tarifs et FAQ se suivent sur fond clair, le filet entre les deux suffit |
+| Fin | invitation | résolution | conforme ; la fin tient, elle ne se fond pas dans le pied de page |
+
+### Gate des empreintes
+
+Il s'agit d'une **révision du même build** (même site, même grammaire, même signature),
+pas d'un nouveau build : la gate « 4 dimensions sur 6 » ne s'applique pas entre une ligne et
+sa propre révision. Le hero change de device ; une ligne de révision est ajoutée au registre,
+l'ancienne reste (le registre est en ajout seul).

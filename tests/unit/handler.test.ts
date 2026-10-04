@@ -108,6 +108,13 @@ describe('demo mode: the server always simulates', () => {
 });
 
 describe('protections (both modes)', () => {
+  it('local preview: other loopback spellings accepted, never with a public site URL', async () => {
+    const local = { ...demoCfg(), siteUrl: 'http://localhost:4321' };
+    expect((await handleDemande(req(demoQuote, { origin: 'http://127.0.0.1:4321' }), 'ip', local, deps)).status).toBe(200);
+    expect((await handleDemande(req(demoQuote, { origin: 'http://127.0.0.1:4321' }), 'ip', demoCfg(), deps)).status).toBe(403);
+    expect((await handleDemande(req(demoQuote, { origin: 'http://localhost.evil.example' }), 'ip', local, deps)).status).toBe(403);
+  });
+
   it('refuses unexpected origins and missing origins', async () => {
     expect((await handleDemande(req(demoQuote, { origin: 'https://evil.example' }), 'ip', demoCfg(), deps)).status).toBe(403);
     expect((await handleDemande(req(liveQuote, { origin: null }), 'ip', liveCfg(), deps)).status).toBe(403);

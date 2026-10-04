@@ -29,6 +29,7 @@ changes only grammar and world will fail it.
 | Build | Grammar | Nav treatment | Hero device | Act-sequence shape | Close pattern | Signature move | World | Port |
 |---|---|---|---|---|---|---|---|---|
 | vtc-cannes (2026-10-03) | « Arrivée puis dossier » : une scène épinglée courte, puis chapitres en flux sur fonds tranchés clair/sombre | Deux pastilles vitrées flottantes (marque à gauche, navigation + action à droite), menu `<details>` sur mobile, barre d'action mobile | `pin` 1,6 + 4 plans `parallax` + véhicule roulant (roues liées au déplacement par `--sc-p`) | pin > flow (sélecteur) > flow+reveal > flow > flow > flow > flow ; 7,2 vh à 1440 | Invitation finale sur fond surface, phrase + bouton, rappel « rien n'est confirmé avant l'échange » | Sélecteur de trajets qui redessine un itinéraire abstrait et transmet le seul choix au devis | Illustration vectorielle crépuscule ardoise (provisoire, photos à venir) | 4321 |
+| vtc-cannes · révision démo AZURÉA PRIVÉ (2026-10-03) | Inchangée : « Arrivée puis dossier » | Inchangé (pastilles vitrées, menu `<details>`, barre d'action mobile) + bandeau « Démonstration » fixe | `pin` 1,4 + 2 plans photo (plaque sans voiture + voiture détourée), échelles ×1,03 / ×1,09 autour du point de contact du pneu ; ultra-large : cadre calé sur la hauteur avec fondu | pin > flow (sélecteur) > flow > flow > flow (3 étapes) > flow > flow > flow ; 9,4 vh à 1440 | Inchangé, appel « Appeler Adrien » simulé | Inchangée | Photographique (images IA du kit, crépuscule sur la Croisette) | 4321 |
 
 *(empty: your first build has nothing to clear, so build whatever the interview
 points at. From the second onwards, this table is the constraint.)*
@@ -44,7 +45,8 @@ as a constraint, so writing them down is the whole point.
 
 - Grammaire « Arrivée puis dossier » (vtc-cannes).
 - Signature : itinéraire abstrait redessiné par un choix de service, transmis au formulaire (vtc-cannes).
-- Hero « véhicule qui roule » : translation + rotation des roues proportionnelle (vtc-cannes).
+- Hero « véhicule qui roule » : translation + rotation des roues proportionnelle (vtc-cannes, itération 1).
+- Hero « avancée de caméra à deux plans photo » sur pivot de contact commun (vtc-cannes, révision démo).
 
 ---
 

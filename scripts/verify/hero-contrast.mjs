@@ -26,15 +26,22 @@ for (const [w, h] of [[1440, 900], [1920, 1080], [2560, 1080], [1100, 720], [102
     const boxes = await page.evaluate((sels) => sels.flatMap((q) => [...document.querySelectorAll(q)].map((e, i) => {
       // The text's own line boxes (Range rects): excludes padding, rounded
       // corners and decorative ::before bullets, which are not text.
-      const range = document.createRange();
-      range.selectNodeContents(e);
-      const rects = [...range.getClientRects()].filter((r) => r.width > 1 && r.height > 1).map((r) => [r.x, r.y, r.width, r.height]);
+      // Visible text nodes only: screen-reader-only text is clipped but still has line boxes.
+      const walker = document.createTreeWalker(e, NodeFilter.SHOW_TEXT);
+      const lines = [];
+      for (let t = walker.nextNode(); t; t = walker.nextNode()) {
+        if (!t.textContent.trim() || t.parentElement.closest('.visually-hidden')) continue;
+        const range = document.createRange();
+        range.selectNodeContents(t);
+        lines.push(...range.getClientRects());
+      }
+      const rects = lines.filter((r) => r.width > 1 && r.height > 1).map((r) => [r.x, r.y, r.width, r.height]);
       const b = e.getBoundingClientRect();
       const cs = getComputedStyle(e);
       return { q: i ? `${q} #${i + 1}` : q, rects, c: cs.color, visible: cs.display !== 'none' && cs.visibility !== 'hidden' && b.width > 0 && b.bottom > 0 && b.top < innerHeight };
     })), SEL);
     const mode = await page.evaluate(() => document.querySelector('[data-hero]').getAttribute('data-hero-mode') || (matchMedia('(min-width:1100px) and (min-aspect-ratio:3/2)').matches ? 'layered' : 'stacked'));
-    await page.addStyleTag({ content: `.hero__copy, .hero__copy *, .hero__caption, .hero__caption * { color: transparent !important; text-shadow: none !important; } .site-header, .demo-strip { visibility: hidden !important } /* ${HIDE} */` });
+    await page.addStyleTag({ content: `.hero__copy, .hero__copy *, .hero__caption, .hero__caption * { color: transparent !important; text-shadow: none !important; transition: none !important; } .site-header, .demo-strip { visibility: hidden !important } /* ${HIDE} */` });
     await page.waitForTimeout(50);
     const png = PNG.sync.read(await page.screenshot());
     await page.evaluate((m) => document.querySelectorAll('style').forEach((s) => s.textContent.includes(m) && s.remove()), HIDE);

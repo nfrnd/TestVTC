@@ -97,6 +97,20 @@ for (const [w, h, expect] of [[390, 844, 'hero-mobile'], [360, 640, 'hero-mobile
     });
     assert(r.act === 'flow', 'not pinned on small screens');
     assert(Math.abs(r.w - r.vw) < 1, 'photo full width, no side crop');
+    if (expect === 'hero-mobile') {
+      // Phones: the whole 4:5 photo (never cropped), title in its sky above the car's
+      // roof (car top at ~54 % of the photo), primary action on the first screen.
+      const m = await page.evaluate(() => {
+        const img = document.querySelector('.hero__photo img').getBoundingClientRect();
+        const head = { top: document.querySelector('.hero__eyebrow').getBoundingClientRect().top, bottom: document.querySelector('.hero__head').getBoundingClientRect().bottom };
+        const cta = document.querySelector('[data-hero-actions] .btn--primary').getBoundingClientRect();
+        return { ratio: img.width / img.height, imgTop: img.top, imgH: img.height, headBottom: head.bottom, headTop: head.top, ctaBottom: cta.bottom, vh: innerHeight };
+      });
+      assert(Math.abs(m.ratio - 1122 / 1402) < 0.01, `photo keeps its 4:5 ratio (${m.ratio.toFixed(3)})`);
+      assert(m.headTop >= m.imgTop - 1, 'title over the photo');
+      assert(m.headBottom < m.imgTop + m.imgH * 0.5, `title clear of the car (${Math.round(m.headBottom)} vs roof ${Math.round(m.imgTop + m.imgH * 0.54)})`);
+      assert(m.ctaBottom <= m.vh, `"Demander un devis" on the first screen (${Math.round(m.ctaBottom)} / ${m.vh})`);
+    }
   }, { viewport: { width: w, height: h } });
 }
 
@@ -151,6 +165,15 @@ await test('quote: field errors, conditional fields, recap kept when going back'
   await page.goto(`${BASE}/devis/`);
   await page.click('[data-next]');
   assert((await page.textContent('#e-departure')) === 'Indiquez votre lieu de départ.', 'scenario error message');
+  const errContrast = await page.evaluate(() => {
+    const rgb = (c) => c.match(/[\d.]+/g).slice(0, 3).map(Number);
+    const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+    const e = document.querySelector('#e-departure');
+    let n = e; while (n && getComputedStyle(n).backgroundColor === 'rgba(0, 0, 0, 0)') n = n.parentElement;
+    const a = lum(rgb(getComputedStyle(e).color)), b = lum(rgb(getComputedStyle(n).backgroundColor));
+    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+  });
+  assert(errContrast >= 4.5, `field error readable on its ground (${errContrast.toFixed(2)}:1)`);
   assert(await page.evaluate(() => document.activeElement?.getAttribute('name')) === 'departure', 'focus on first error');
   assert(!(await page.locator('[data-when="travelref"]').isVisible()), 'flight field hidden until relevant');
   await fillStep1(page);
@@ -244,7 +267,7 @@ await test('contact: simulated call, WhatsApp and email dialogs; no outbound lin
   }
   await page.fill('input[name=name]', 'Alex');
   await page.check('input[name=contactMethod][value=email]');
-  await page.fill('input[name=email]', 'alex@example.com');
+  await page.fill('input[name=email]', 'alexandra.martin-durand@example.com');
   await page.fill('textarea[name=message]', 'Bonjour, une question sur un trajet.');
   await page.click('[data-submit]');
   await page.waitForSelector('[data-done-box]:not([hidden])');
@@ -263,16 +286,19 @@ await test('no JavaScript: content, selector, dialogs, FAQ and a quote posted to
   await page.goto(`${BASE}/devis/`);
   await page.selectOption('select[name=service]', 'airport');
   await page.fill('input[name=departure]', 'Cannes-centre');
-  await page.fill('input[name=arrival]', 'Gare d’Antibes');
+  await page.fill('input[name=arrival]', 'Aéroport Nice Côte d’Azur');
   await page.fill('input[name=date]', future());
   await page.fill('input[name=time]', '09:00');
   await page.fill('input[name=name]', 'Alex');
   await page.check('input[name=contactMethod][value=email]');
-  await page.fill('input[name=email]', 'alex@example.com');
+  await page.fill('input[name=email]', 'alexandra.martin-durand@example.com');
   await Promise.all([page.waitForNavigation(), page.click('button[type=submit]')]);
   const html = await page.content();
   assert(page.url().endsWith('/api/demandes'), 'POST to the endpoint, no data in the URL');
-  assert(/Simulation terminée/.test(html) && /Gare d’Antibes/.test(html), 'summary page');
+  assert(/Simulation terminée/.test(html) && /Aéroport Nice Côte d’Azur/.test(html) && /95/.test(html), 'summary page with the fare reference');
+  await page.setViewportSize({ width: 360, height: 740 });
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+  assert(overflow <= 0, `summary page fits 360px (overflow ${overflow}px)`);
 }, { javaScriptEnabled: false });
 
 await test('reduced motion: hero not pinned, layers static, content complete', async (page) => {

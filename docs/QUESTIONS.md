@@ -1,5 +1,8 @@
 # Questions métier à faire valider par le chauffeur
 
+> Ces questions concernent le **site réel** (`BUSINESS_MODE=live`). Aucune ne bloque la
+> démonstration AZURÉA PRIVÉ, dont toutes les informations sont fictives et fournies par le kit.
+
 Regroupées par effet sur le site. Chaque réponse se reporte dans `src/content/business.ts`
 (voir README). `npm run content:report` affiche ce qui reste ouvert.
 

@@ -1,5 +1,27 @@
 # Données personnelles : ce que fait réellement le code
 
+## Mode démonstration (`BUSINESS_MODE=demo`, build actuel)
+
+- Les formulaires Devis et Contact sont **simulés par le serveur** : la demande est validée,
+  un récapitulatif est renvoyé au navigateur, **rien n'est envoyé ni stocké**. Le fournisseur
+  d'e-mail n'est jamais appelé, même si une clé est configurée
+  (`docs/preuves/demo-force-simulation.txt` : 0 appel sortant).
+- Le contenu de la demande ne quitte le navigateur que pour cet aller-retour (POST, jamais dans
+  l'URL). Il n'est **pas journalisé** : le journal contient seulement le mode, le type, le
+  résultat, le code HTTP et la durée (test unitaire « logs no personal data »).
+- Mémoire du processus : identifiant aléatoire de la demande (anti-doublon) et adresse IP avec
+  horodatages (limitation de débit), au plus 30 minutes, comme en mode live.
+- Sans JavaScript, le formulaire poste vers `/api/demandes` et le serveur répond par une page
+  HTML de récapitulatif. Limite : pour corriger une saisie, il faut revenir en arrière dans le
+  navigateur (les champs sont en général conservés par le navigateur, sans garantie).
+- Appeler, WhatsApp et e-mail ouvrent une fenêtre de simulation : aucun lien `tel:`, `mailto:`
+  ou `wa.me` n'existe dans les pages démo (vérifié sur 8 pages par les tests e2e).
+- La page « Confidentialité de la démonstration » reprend ces points. Les coordonnées affichées
+  (06 39 98 12 34, bonjour@azurea-prive.example) sont fictives ; le domaine `.example` est
+  réservé et ne peut recevoir aucun courrier.
+
+Le reste de ce document décrit le **mode live** (site réel).
+
 À faire valider par le responsable de l'activité (et, si besoin, un conseil). Ce document
 décrit l'implémentation, il ne constitue pas un avis juridique.
 

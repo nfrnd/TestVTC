@@ -79,14 +79,33 @@ export function allowedOrigins(siteUrl: string, extra?: string): Set<string> {
   return set;
 }
 
+const LOOPBACK = new Set(['localhost', '127.0.0.1', '[::1]']);
+const isLoopback = (origin: string) => {
+  try {
+    return LOOPBACK.has(new URL(origin).hostname);
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * A local preview (site URL on localhost) also accepts the other loopback
+ * spellings and ports: http://127.0.0.1:4321 is the same machine as
+ * http://localhost:4321. Never applies once the site URL is a public domain.
+ */
+function matches(origin: string, allowed: Set<string>): boolean {
+  if (allowed.has(origin)) return true;
+  return isLoopback(origin) && [...allowed].some(isLoopback);
+}
+
 export function originAllowed(request: Request, allowed: Set<string>): boolean {
   const origin = request.headers.get('origin');
-  if (origin) return allowed.has(origin);
+  if (origin) return matches(origin, allowed);
   // Some older browsers omit Origin on same-origin POSTs; fall back to Referer.
   const referer = request.headers.get('referer');
   if (!referer) return false;
   try {
-    return allowed.has(new URL(referer).origin);
+    return matches(new URL(referer).origin, allowed);
   } catch {
     return false;
   }

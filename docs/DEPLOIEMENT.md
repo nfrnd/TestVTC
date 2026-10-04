@@ -1,5 +1,10 @@
 # Déploiement, HTTPS, coûts
 
+> **Démonstration AZURÉA PRIVÉ** : elle n'est pas destinée à une publication publique et son
+> build de production est refusé. Pour la montrer à quelqu'un, la lancer en local (README) ou,
+> si Noa le décide, sur un aperçu privé ; elle reste `noindex` dans tous les cas.
+> Ce document concerne le **site réel** (`BUSINESS_MODE=live`).
+
 > Rien n'a été souscrit ni publié. Les offres commerciales citées n'ont **pas pu être
 > revérifiées en ligne** pendant cette session : le proxy réseau bloquait les sites des
 > hébergeurs et des fournisseurs (netlify.com, resend.com, cloudflare.com, vercel.com,
@@ -25,7 +30,8 @@ serveur, opt-out du prérendu sur la seule route qui en a besoin.
 
 ## Option A (recommandée) : serveur Node managé
 
-Build : `SITE_ENV=production SITE_URL=https://www.votre-domaine.fr npm run build`.
+Build : `BUSINESS_MODE=live SITE_ENV=production SITE_URL=https://www.votre-domaine.fr npx astro build`
+(ou `npm run build:live:production` avec `SITE_URL` défini).
 Démarrage : `npm start` (lit `PORT` et `HOST`, par exemple `HOST=0.0.0.0`).
 
 - **Avantage clé** : un seul processus, donc la limitation de débit et l'anti-doublon en

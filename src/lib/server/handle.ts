@@ -54,7 +54,7 @@ function fieldLabel(d: ReturnType<typeof t>, field: string): string {
   return typeof fromQuote === 'string' ? fromQuote : typeof fromContact === 'string' ? fromContact : field;
 }
 
-const pageStyle = 'body{margin:0;background:#11191d;color:#f4f6f4;font:17px/1.6 system-ui,sans-serif}main{max-width:44rem;margin:0 auto;padding:4rem 1.25rem}a{color:#a8d5cc}h1{font-size:1.6rem;line-height:1.2}dl{display:grid;grid-template-columns:minmax(8rem,auto) 1fr;gap:.4rem 1rem;margin:1.5rem 0}dt{color:#beccc9}dd{margin:0}.note{color:#beccc9}';
+const pageStyle = 'body{margin:0;background:#11191d;color:#f4f6f4;font:17px/1.6 system-ui,sans-serif}main{max-width:44rem;margin:0 auto;padding:4rem 1.25rem}a{color:#a8d5cc}h1{font-size:1.6rem;line-height:1.2}dl{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:.4rem 1rem;margin:1.5rem 0}dt{color:#beccc9}dd{margin:0;min-width:0;overflow-wrap:anywhere}@media(max-width:30rem){dl{grid-template-columns:minmax(0,1fr);gap:0}dd{margin-bottom:.6rem}}.note{color:#beccc9}';
 
 /** Minimal standalone page for submissions made without JavaScript. */
 function htmlPage(cfg: HandlerConfig, lang: Lang, status: number, message: string, opts: { errors?: FieldErrors; formHref: string; summary?: Summary; reference?: string; intro?: string }) {

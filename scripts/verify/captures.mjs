@@ -1,5 +1,8 @@
-// Evidence screenshots for REVIEW.md, from the built site served locally.
-//   scripts/serve-local.sh && node scripts/verify/captures.mjs [base]
+// Evidence screenshots for REVIEW.md, from the built demo site served locally.
+//   npm run build && npm start   (other terminal)
+//   node scripts/verify/captures.mjs [base]
+// Writes PNG files to docs/captures/ (converted to JPEG for the repository) and
+// regenerates public/og-image.png from the real hero.
 import { chromium } from 'playwright-core';
 import { mkdirSync } from 'node:fs';
 
@@ -9,12 +12,13 @@ const OUT = 'docs/captures';
 mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch({ executablePath: CHROME });
 
-async function shot(name, url, { width, height = 900, scrollTo = 0, full = false, ctx = {}, before } = {}) {
+async function shot(name, url, { width, height = 900, full = false, ctx = {}, before, heroProgress } = {}) {
   const context = await browser.newContext({ viewport: { width, height }, ...ctx });
   const page = await context.newPage();
   await page.goto(BASE + url, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   if (full) {
+    // Walk the page once so lazy images are loaded before the full-page capture.
     const total = await page.evaluate(() => document.documentElement.scrollHeight);
     for (let t = 0; t < total; t += Math.round(height * 0.6)) {
       await page.evaluate((v) => window.scrollTo({ top: v, behavior: 'instant' }), t);
@@ -22,86 +26,121 @@ async function shot(name, url, { width, height = 900, scrollTo = 0, full = false
     }
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   }
+  if (heroProgress !== undefined) {
+    await page.evaluate((f) => { const hero = document.querySelector('[data-hero]'); scrollTo({ top: Math.max(0, hero.offsetHeight - innerHeight) * f, behavior: 'instant' }); }, heroProgress);
+  }
   if (before) await before(page);
-  if (scrollTo) await page.evaluate((f) => window.scrollTo({ top: innerHeight * f, behavior: 'instant' }), scrollTo);
   await page.waitForTimeout(700);
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: full });
   await context.close();
   console.log(name);
 }
-
-// Hero transition: start, middle, end of the pinned travel (0.6 viewport).
-for (const [w, h, tag] of [[1440, 900, 'desktop'], [390, 844, 'mobile']]) {
-  await shot(`hero-${tag}-1-debut`, '/', { width: w, height: h });
-  await shot(`hero-${tag}-2-milieu`, '/', { width: w, height: h, scrollTo: tag === 'mobile' ? 0.22 : 0.3 });
-  await shot(`hero-${tag}-3-fin`, '/', { width: w, height: h, scrollTo: tag === 'mobile' ? 0.45 : 0.6 });
+const scrollToSel = (sel, offset = 0) => async (p) => {
+  await p.evaluate(([s, o]) => { const el = document.querySelector(s); scrollTo({ top: el.getBoundingClientRect().top + scrollY - o, behavior: 'instant' }); }, [sel, offset]);
+  await p.waitForTimeout(500);
+};
+async function fillExampleAndGoToStep2(p) {
+  await p.click('[data-example]');
+  await p.waitForTimeout(200);
+  await p.click('[data-next]');
+  await p.waitForTimeout(300);
 }
-// First screen at the four reference widths.
-for (const w of [360, 390, 768, 1440]) await shot(`accueil-${w}`, '/', { width: w, height: w < 800 ? 780 : 900 });
-// Full pages.
-await shot('page-accueil-1440', '/', { width: 1440, full: true });
-await shot('page-accueil-390', '/', { width: 390, height: 844, full: true });
-await shot('page-tarifs-1440', '/tarifs/', { width: 1440, full: true });
-await shot('page-contact-390', '/contact/', { width: 390, height: 844, full: true });
-await shot('page-en-quote-1440', '/en/quote/', { width: 1440, full: true });
-// Quote flow states.
-await shot('devis-etape2-recap-390', '/devis/?prestation=transfert', {
-  width: 390, height: 844, ctx: { isMobile: true, hasTouch: true },
+const mobile = { isMobile: true, hasTouch: true };
+
+// --- The six requested captures --------------------------------------------
+await shot('01-accueil-desktop-1440', '/', { width: 1440 });
+await shot('02-accueil-mobile-390', '/', { width: 390, height: 844, ctx: mobile });
+await shot('03-section-chauffeur-1440', '/', { width: 1440, before: scrollToSel('#chauffeur', 40) });
+await shot('04-tarifs-1440', '/tarifs/', { width: 1440, full: true });
+await shot('05a-devis-exemple-rempli-etape1-1440', '/devis/', {
+  width: 1440, height: 1500,
   before: async (p) => {
-    const d = new Date(Date.now() + 4 * 864e5).toISOString().slice(0, 10);
-    await p.fill('input[name=departure]', 'Hôtel Martinez, Cannes');
-    await p.fill('input[name=arrival]', 'Aéroport');
-    await p.fill('input[name=date]', d);
-    await p.fill('input[name=time]', '09:15');
-    await p.click('[data-next]');
-    await p.waitForTimeout(500);
+    await p.click('[data-example]');
+    await scrollToSel('form[data-form]', 120)(p);
   },
 });
-await shot('devis-erreurs-1440', '/devis/', { width: 1440, before: async (p) => { await p.fill('input[name=passengers]', ''); await p.click('[data-next]'); await p.waitForTimeout(300); } });
-await shot('devis-echec-transport-1440', '/devis/', {
-  width: 1440,
+await shot('05b-devis-exemple-rempli-etape2-1440', '/devis/', {
+  width: 1440, height: 1100,
   before: async (p) => {
-    await p.route('**/api/demandes', (r) => r.fulfill({ status: 502, contentType: 'application/json', body: '{"ok":false,"status":"failed"}' }));
-    const d = new Date(Date.now() + 4 * 864e5).toISOString().slice(0, 10);
-    await p.fill('input[name=departure]', 'Hôtel Martinez, Cannes');
-    await p.fill('input[name=arrival]', 'Gare de Cannes');
-    await p.fill('input[name=date]', d);
-    await p.fill('input[name=time]', '14:30');
-    await p.click('[data-next]');
-    await p.fill('input[name=name]', 'Camille Test');
-    await p.fill('input[name=email]', 'camille@example.com');
-    await p.click('[data-submit]');
-    await p.waitForSelector('[data-error-box]:not([hidden])');
+    await fillExampleAndGoToStep2(p);
+    await scrollToSel('form[data-form]', 120)(p);
   },
 });
-await shot('devis-envoye-simulation-1440', '/devis/', {
-  width: 1440,
+await shot('06-devis-resultat-simule-1440', '/devis/', {
+  width: 1440, height: 1100,
   before: async (p) => {
-    const d = new Date(Date.now() + 4 * 864e5).toISOString().slice(0, 10);
-    await p.fill('input[name=departure]', 'Hôtel Martinez, Cannes');
-    await p.fill('input[name=arrival]', 'Gare de Cannes');
-    await p.fill('input[name=date]', d);
-    await p.fill('input[name=time]', '14:30');
-    await p.click('[data-next]');
-    await p.fill('input[name=name]', 'Camille Test');
-    await p.fill('input[name=email]', 'camille@example.com');
+    await fillExampleAndGoToStep2(p);
     await p.click('[data-submit]');
     await p.waitForSelector('[data-done-box]:not([hidden])');
+    await scrollToSel('[data-done-box]', 160)(p);
   },
 });
-await shot('services-selection-affaires-1440', '/', { width: 1440, before: async (p) => { await p.locator('label.option', { hasText: 'Déplacements' }).click(); await p.locator('#trajets').scrollIntoViewIfNeeded(); await p.evaluate(() => scrollBy(0, 260)); await p.waitForTimeout(800); } });
-await shot('menu-mobile-ouvert-390', '/tarifs/', { width: 390, height: 844, before: async (p) => p.click('.menu summary') });
-await shot('barre-action-mobile-390', '/', { width: 390, height: 844, scrollTo: 2.4 });
-await shot('reduced-motion-accueil-1440', '/', { width: 1440, ctx: { reducedMotion: 'reduce' } });
-await shot('sans-js-accueil-390', '/', { width: 390, height: 844, full: true, ctx: { javaScriptEnabled: false } });
-await shot('mentions-legales-1440', '/mentions-legales/', { width: 1440, full: true });
 
-// Open Graph image (1200x630) from the real hero.
+// --- Failure, contact simulation --------------------------------------------
+await shot('07-devis-echec-utile-1440', '/devis/', {
+  width: 1440, height: 1100,
+  before: async (p) => {
+    await p.route('**/api/demandes', (r) => r.fulfill({ status: 502, contentType: 'application/json', body: '{"ok":false,"status":"failed"}' }));
+    await fillExampleAndGoToStep2(p);
+    await p.click('[data-submit]');
+    await p.waitForSelector('[data-error-box]:not([hidden])');
+    await scrollToSel('[data-error-box]', 300)(p);
+  },
+});
+await shot('08-devis-erreurs-champs-390', '/devis/', { width: 390, height: 844, ctx: mobile, before: async (p) => { await p.click('[data-next]'); await p.waitForTimeout(300); } });
+await shot('09-contact-simulation-appel-390', '/contact/', { width: 390, height: 844, ctx: mobile, before: async (p) => { await p.locator('[data-sim="call"]').first().click(); await p.waitForSelector('#sim-call[open]'); } });
+await shot('10-contact-simulation-whatsapp-1440', '/contact/', { width: 1440, before: async (p) => { await p.locator('[data-sim="whatsapp"]').first().click(); await p.waitForSelector('#sim-whatsapp[open]'); } });
+await shot('11-contact-simulation-email-1440', '/contact/', { width: 1440, before: async (p) => { await p.locator('[data-sim="email"]').first().click(); await p.waitForSelector('#sim-email[open]'); } });
+
+// --- Hero: start, middle, end of the movement (layered screens) ---------------
+for (const [w, h] of [[1100, 720], [1440, 900], [2560, 1080]]) {
+  for (const [tag, f] of [['1-debut', 0], ['2-milieu', 0.5], ['3-fin', 1]]) await shot(`hero-${w}x${h}-${tag}`, '/', { width: w, height: h, heroProgress: f });
+}
+// --- First screen at the four reference widths ----------------------------------
+for (const w of [360, 390, 768, 1440]) await shot(`largeur-${w}`, '/', { width: w, height: w < 800 ? 780 : 900, ctx: w < 800 ? mobile : {} });
+
+// --- Full pages ------------------------------------------------------------------
+// The home page is captured with reduced motion: a full-page screenshot of the
+// pinned hero would show its scroll room as an empty band nobody sees on screen.
+await shot('page-accueil-1440-mouvement-reduit', '/', { width: 1440, full: true, ctx: { reducedMotion: 'reduce' } });
+await shot('page-accueil-390', '/', { width: 390, height: 844, full: true, ctx: mobile });
+await shot('page-contact-390', '/contact/', { width: 390, height: 844, full: true, ctx: mobile });
+await shot('page-en-home-1440', '/en/', { width: 1440 });
+await shot('page-en-rates-390', '/en/rates/', { width: 390, height: 844, full: true, ctx: mobile });
+await shot('page-a-propos-demo-1440', '/mentions-legales/', { width: 1440, full: true });
+
+// --- Motion off, no JavaScript ---------------------------------------------------
+await shot('mouvement-reduit-accueil-1440', '/', { width: 1440, ctx: { reducedMotion: 'reduce' } });
+await shot('sans-js-accueil-390', '/', { width: 390, height: 844, full: true, ctx: { javaScriptEnabled: false } });
+await shot('sans-js-simulation-appel-390', '/contact/', { width: 390, height: 844, ctx: { javaScriptEnabled: false }, before: async (p) => { await p.locator('[data-sim="call"]').first().click(); await p.waitForTimeout(300); } });
+{
+  // No-JS quote: real POST to /api/demandes, the server answers with an HTML summary page.
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
+  const p = await context.newPage();
+  await p.goto(`${BASE}/devis/`);
+  const d = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10);
+  await p.selectOption('select[name=service]', 'airport');
+  await p.fill('input[name=departure]', 'Cannes-centre');
+  await p.fill('input[name=arrival]', 'Aéroport Nice Côte d’Azur');
+  await p.fill('input[name=date]', d);
+  await p.fill('input[name=time]', '10:30');
+  await p.fill('input[name=name]', 'Camille Martin');
+  await p.check('input[name=contactMethod][value=email]');
+  await p.fill('input[name=email]', 'camille.martin@example.com');
+  await Promise.all([p.waitForNavigation(), p.click('button[type=submit]')]);
+  await p.screenshot({ path: `${OUT}/sans-js-devis-resultat-390.png`, fullPage: true });
+  await context.close();
+  console.log('sans-js-devis-resultat-390');
+}
+await shot('menu-mobile-ouvert-390', '/tarifs/', { width: 390, height: 844, ctx: mobile, before: async (p) => p.click('.menu summary') });
+await shot('barre-action-mobile-390', '/', { width: 390, height: 844, ctx: mobile, before: scrollToSel('#tesla', 0) });
+
+// --- Open Graph image (1200x630) from the real hero --------------------------------
 {
   const context = await browser.newContext({ viewport: { width: 1200, height: 630 } });
   const page = await context.newPage();
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.addStyleTag({ content: '.site-header, .hero__pv, .hero__beat { display: none !important }' });
+  await page.addStyleTag({ content: '.site-header, .hero__pv { display: none !important }' });
   await page.waitForTimeout(500);
   await page.screenshot({ path: 'public/og-image.png' });
   await context.close();

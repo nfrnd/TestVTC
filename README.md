@@ -1,71 +1,110 @@
-# Site vitrine · Chauffeur VTC à Cannes (Tesla Model 3)
+# Site vitrine VTC · Cannes (Tesla Model 3)
 
 Site Astro + TypeScript : pages prérendues (FR à la racine, EN sous `/en/`), une seule
-route serveur `/api/demandes` pour les formulaires Devis et Contact, hero animé avec le
-moteur [Scroll Craft](https://github.com/nateherkai/scroll-craft) (MIT, non modifié).
+route serveur `/api/demandes` pour les formulaires Devis et Contact, hero en calques animé
+avec le moteur [Scroll Craft](https://github.com/nateherkai/scroll-craft) (MIT, non modifié).
 
-> **Statut : aperçu, non publiable en l'état.** Le nom commercial, les coordonnées,
-> les prestations, les prix, les informations légales et l'envoi réel des emails ne sont
-> pas confirmés. Un build de production est volontairement refusé tant que ces éléments
-> manquent (`npm run content:report` liste ce qui reste à fournir).
+Le même code produit deux sites, selon le **mode métier** choisi au build :
 
-Revue indépendante : voir [REVIEW.md](REVIEW.md). Questions métier : [docs/QUESTIONS.md](docs/QUESTIONS.md).
+| | `BUSINESS_MODE=demo` (défaut) | `BUSINESS_MODE=live` |
+|---|---|---|
+| Contenu | AZURÉA PRIVÉ, Adrien Morel, tarifs et coordonnées **fictifs** (`src/content/demo.ts`) | Données réelles du chauffeur (`src/content/business.ts`), aujourd'hui presque toutes « à confirmer » |
+| Images | Photographies générées par IA (kit de démonstration) | Aucune photo réelle fournie pour l'instant |
+| Appeler / WhatsApp / e-mail | Ouvrent une **fenêtre de simulation** : aucun lien `tel:`, `mailto:` ni `wa.me` | Vrais liens, seulement si l'information est confirmée |
+| Devis et contact | **Simulés par le serveur**, même si une clé d'envoi existe ; récapitulatif affiché, rien n'est envoyé ni stocké | Envoi par e-mail via le fournisseur configuré |
+| Indexation | Toujours `noindex`, pas de données structurées LocalBusiness | `noindex` en aperçu, indexable en production |
+| Build de production | **Refusé** (`SITE_ENV=production` interdit en démo) | Refusé tant qu'une donnée critique manque |
 
-## Démarrer
+> **Statut : démonstration fictive, pas un site publiable.** Aucune information d'entreprise
+> réelle n'est présente. Revue indépendante (ChatGPT, via Noa) : à venir. Voir [REVIEW.md](REVIEW.md).
 
-Prérequis : Node 22.12 ou plus.
+## Ouvrir la démonstration sur votre ordinateur
+
+Le site tourne dans un conteneur de développement que vous ne pouvez pas joindre :
+aucune adresse `127.0.0.1` ou `localhost` donnée par Claude ne s'ouvrira chez vous.
+Il faut le lancer sur votre machine (5 minutes, rien n'est publié, aucun compte requis).
+
+**Prérequis** : [Node.js](https://nodejs.org) version **22.12 ou plus** (`node -v` pour vérifier)
+et Git (ou l'archive zip fournie à la place du clonage).
 
 ```bash
+# 1. Récupérer le code (ou décompresser l'archive zip, puis aller dans le dossier)
+git clone --branch claude/exciting-darwin-nvsxps https://github.com/nfrnd/TestVTC.git
+cd TestVTC
+
+# 2. Installer les dépendances exactes du verrou (une seule fois)
 npm ci
-npm run dev            # http://localhost:4321, transport email "test" (rien n'est envoyé)
-npm run build          # build d'aperçu (noindex, annotations « À confirmer »)
-npm start              # sert le build : http://localhost:4321 (variables PORT et HOST)
+
+# 3. Construire la démonstration optimisée (mode demo par défaut)
+npm run build
+
+# 4. Lancer le serveur
+npm start
 ```
 
-En local, les formulaires fonctionnent en **mode test** : la demande est validée, l'email
-est composé mais **pas envoyé**, et l'interface l'annonce comme une simulation.
+Puis ouvrir **http://localhost:4321** dans le navigateur. `Ctrl+C` dans le terminal arrête le serveur.
+
+- Pages : `/` (accueil), `/tarifs/`, `/devis/`, `/contact/`, `/mentions-legales/` (« À propos de
+  cette démonstration »), `/confidentialite/`, et les mêmes en anglais sous `/en/`.
+- Sur `/devis/`, le bouton « Remplir un exemple fictif » préremplit le formulaire (date :
+  aujourd'hui + 7 jours, 10:30, heure de Paris).
+- Port déjà pris : `PORT=4400 npm start` (macOS/Linux) ou `$env:PORT=4400; npm start` (PowerShell),
+  puis http://localhost:4400.
+- Tester sur un téléphone du même Wi-Fi : `HOST=0.0.0.0 npm start`, puis
+  `http://<adresse-IP-de-l-ordinateur>:4321` sur le téléphone. Dans ce cas, ajouter l'origine :
+  `HOST=0.0.0.0 ALLOWED_ORIGINS=http://<adresse-IP>:4321 npm start`, sinon les simulations de
+  formulaire sont refusées (contrôle d'origine).
+- Mode développement (rechargement à chaud, pas optimisé) : `npm run dev`.
+
+Aucune publication publique, aucun abonnement n'a été fait : ce sera la décision de Noa.
+
+## Commandes
+
+| Commande | Effet |
+|---|---|
+| `npm run build` / `npm run build:demo` | Build optimisé de la démonstration (`NODE_ENV=production`, sans aucun justificatif d'entreprise) |
+| `npm start` | Sert le dernier build sur http://localhost:4321 |
+| `npm run dev` / `npm run dev:demo` | Serveur de développement, mode démo |
+| `npm run build:live` | Build du site réel en aperçu (`noindex`, étiquettes « À confirmer ») |
+| `npm run build:live:production` | Build du site réel publiable : **échoue** tant que des données critiques manquent (voulu) |
+| `npm run build:netlify` | Variante pour Netlify |
+| `npm test` | Tests unitaires (validation, endpoint démo et live, garde-fous) |
+| `npm run check` | TypeScript / Astro |
+| `npm run test:e2e` | Navigateur réel sur le build (30 scénarios) |
+| `npm run verify:contrast` | Contraste du texte mesuré sur les photos (hero, en-tête, panneaux) |
+| `npm run verify:captures` | Régénère les captures de `docs/captures/` |
+| `npm run content:report` | Données du mode live encore manquantes |
+
+Sous Windows (cmd/PowerShell), les commandes `*:demo`, `*:live` utilisent une affectation de
+variable à la manière Unix ; utiliser Git Bash ou WSL, ou définir la variable avant
+(`$env:BUSINESS_MODE="live"; npx astro build`). `npm run build` et `npm start` fonctionnent partout.
 
 ## Où modifier quoi
 
 | Je veux changer… | Fichier |
 |---|---|
-| Nom commercial, téléphone, email, WhatsApp, horaires, langues, zone, informations légales | `src/content/business.ts` (objet `business`) |
-| Prestations, textes de chaque prestation, prix (forfait, indicatif, « à partir de ») | `src/content/business.ts` (`services`) |
-| Conditions tarifaires (attente, péages, stationnement, nuit, paiement, annulation) | `src/content/business.ts` (`pricingConditions`) |
-| Véhicule (génération, passagers max, bagages, photos) | `src/content/business.ts` (`vehicle`) |
-| Questions fréquentes | `src/content/business.ts` (`faq`) |
-| Textes de l'interface (titres, boutons, messages, erreurs) | `src/i18n/fr.ts` et `src/i18n/en.ts` (mêmes clés) |
+| Contenus de la **démonstration** (entreprise, services, tarifs, FAQ, coordonnées fictives) | `src/content/demo.ts` |
+| Textes d'interface propres à la démonstration (titres, mentions, simulations) | `src/i18n/demo.ts` |
+| Données du **site réel** (nom, téléphone, prestations, prix, légal) | `src/content/business.ts` |
+| Textes d'interface communs | `src/i18n/fr.ts` et `src/i18n/en.ts` (mêmes clés) |
 | Adresses des pages et correspondance FR/EN | `src/i18n/routes.ts` |
-| Illustrations du hero et de la Tesla | `scripts/art/*.mjs` puis `npm run art` (voir [docs/ASSETS.md](docs/ASSETS.md)) |
+| Photos | `src/assets/azurea/` (démo) ; voir [docs/ASSETS.md](docs/ASSETS.md) |
 | Couleurs, typographie, boutons, formulaires | `src/styles/global.css` |
 
-Règle des données : chaque information est soit `confirmed(valeur)`, soit `unknown('note')`.
-Une information inconnue n'apparaît jamais en production. En aperçu, elle est signalée par une
-étiquette jaune « À confirmer ». Les valeurs marquées `critical` bloquent le build de production.
+Règle des données du site réel : chaque information est soit `confirmed(valeur)`, soit
+`unknown('note')`. Une information inconnue n'apparaît jamais en production ; en aperçu, elle
+porte une étiquette « À confirmer ». Les valeurs `critical` bloquent le build de production.
+Le jeu fictif ne peut jamais passer ce contrôle : il est marqué `fictional: true` et refusé
+par `liveReadinessProblems` (testé).
 
-Exemple, une fois le numéro validé :
+Le mode est choisi **au build** (`BUSINESS_MODE`), pas à l'exécution. Les pages d'un build live
+ne contiennent aucune donnée fictive (vérifié : `docs/preuves/live-build-checks.txt`). Limite
+connue : le bundle serveur live embarque encore les objets fictifs comme code mort (jamais
+rendus ni servis) ; voir REVIEW.md.
 
-```ts
-phone: confirmed({ e164: '+33600000000', display: '06 00 00 00 00' }),
-```
-
-Le bouton « Appeler » apparaît alors automatiquement partout (hero, barre mobile, fin de page,
-contact, pied de page). Même principe pour un prix :
-
-```ts
-price: confirmed({ amount: 85, kind: 'forfait' }),   // affiche « Forfait 85 € TTC »
-```
-
-### Photos réelles
-
-1. Déposer les fichiers optimisés dans `public/photos/` (WebP ou JPEG, 1600 px de large au plus, droits d'utilisation écrits).
-2. Chauffeur : `driver.photo: confirmed({ src: '/photos/chauffeur.webp', alt: { fr: '…', en: '…' } })`.
-3. Véhicule et hero : procédure détaillée dans [docs/ASSETS.md](docs/ASSETS.md#remplacer-les-illustrations-par-des-photos).
-
-## Envoi des emails
+## Envoi des e-mails (mode live uniquement)
 
 Fournisseur prévu : [Resend](https://resend.com) (API HTTP, clé côté serveur uniquement).
-Variables (voir [.env.example](.env.example)) :
 
 ```bash
 EMAIL_TRANSPORT=resend
@@ -74,86 +113,71 @@ MAIL_TO=adresse-validee@…     # destinataire fixé côté serveur, non modifia
 MAIL_FROM="Site VTC <demandes@votre-domaine.fr>"   # domaine vérifié chez le fournisseur
 ```
 
-- `EMAIL_TRANSPORT=test` (par défaut hors production) : rien n'est envoyé, réponse « simulée ».
-- `EMAIL_TRANSPORT=fail` : échec forcé, pour tester l'affichage d'erreur.
-- En production, sans fournisseur configuré, l'endpoint répond **503** et l'interface
-  affiche une erreur. Il n'annonce jamais une transmission qui n'a pas eu lieu.
+En mode démo, ces variables sont **ignorées** : le serveur répond toujours « simulé » et
+n'appelle jamais le fournisseur (prouvé avec une clé factice et `fetch` instrumenté :
+`docs/preuves/demo-force-simulation.txt`). En live production sans fournisseur, l'endpoint
+répond 503 : il n'annonce jamais une transmission qui n'a pas eu lieu.
 
-Trois preuves distinctes (voir REVIEW.md) : validation du formulaire (testée), acceptation par
-le fournisseur (non testée : pas de compte), réception dans une boîte autorisée (non testée).
-
-## Configurations
+## Variables
 
 | Variable | Moment | Valeurs |
 |---|---|---|
-| `SITE_ENV` | build | `preview` (défaut : noindex, robots `Disallow: /`, annotations) · `production` |
-| `SITE_URL` | build | domaine canonique, obligatoire et non local en production |
+| `BUSINESS_MODE` | build | `demo` (défaut) · `live` |
+| `SITE_ENV` | build | `preview` (défaut) · `production` (refusé en démo) |
+| `SITE_URL` | build | domaine canonique ; obligatoire et non local en live production |
 | `DEPLOY_TARGET` | build | `node` (défaut, serveur autonome) · `netlify` |
-| `EMAIL_TRANSPORT`, `RESEND_API_KEY`, `MAIL_TO`, `MAIL_FROM` | exécution | voir ci-dessus |
-| `ALLOWED_ORIGINS` | exécution | origines supplémentaires autorisées à poster (aperçus) |
+| `EMAIL_TRANSPORT`, `RESEND_API_KEY`, `MAIL_TO`, `MAIL_FROM` | exécution | live seulement, voir ci-dessus |
+| `ALLOWED_ORIGINS` | exécution | origines supplémentaires autorisées à poster |
+| `PORT`, `HOST` | exécution | 4321 et localhost par défaut |
 | `TRUST_PROXY` | exécution | `true` derrière un proxy qui fournit `X-Forwarded-For` |
 | `RATE_LIMIT_MAX`, `RATE_LIMIT_WINDOW_S` | exécution | 5 demandes / 600 s par IP par défaut |
 
-```bash
-npm run build:preview      # aperçu
-npm run build:production   # échoue tant que des données critiques manquent (voulu)
-npm run build:netlify      # variante Netlify
-```
+Modèle sans secret : [.env.example](.env.example).
 
-## Déployer et revenir en arrière
+## Déployer et revenir en arrière (site réel, plus tard)
 
-Résumé (détails, coûts et HTTPS dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md)) :
-
-- L'endpoint `/api/demandes` doit s'exécuter sur un serveur : un hébergement purement statique
-  ne peut ni garder la clé du fournisseur secrète, ni envoyer l'email.
-- Option recommandée : un service Node managé (un seul processus) avec domaine et HTTPS
-  automatiques. Option alternative : Netlify (`npm run build:netlify`).
-- Aucune souscription ni publication n'a été faite : c'est la décision de Noa.
-
-Revenir à une version précédente :
-
-```bash
-git log --oneline                 # repérer la version voulue
-git revert <commit>               # annule proprement un changement, puis redéployer
-# ou, sur la plateforme : redéployer le déploiement précédent depuis son historique
-```
-
-Chaque mise en ligne devrait être étiquetée (`git tag v1.0.0 && git push --tags`) pour
-retrouver facilement une version.
+Détails dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md). L'endpoint `/api/demandes` doit
+s'exécuter sur un serveur (Node managé recommandé, Netlify en alternative). Revenir à une
+version : `git revert <commit>` puis redéployer, ou redéployer une version précédente depuis
+l'historique de la plateforme.
 
 ## Vérifier
 
 ```bash
-npm test                 # tests unitaires (validation, endpoint, transports)
-npm run check            # TypeScript / Astro
-npm run build && npm run test:e2e        # navigateur réel sur le build (lab/e2e/results.json)
-scripts/serve-local.sh && npm run verify:contrast   # contraste du hero sur l'image composée
-npm run verify:captures  # captures dans docs/captures/ (PNG)
-npm run content:report   # informations encore manquantes
+npm test && npm run check
+npm run build && npm run test:e2e
+npm start &                    # dans un autre terminal, puis :
+npm run verify:contrast        # lab/hero-contrast.json, lab/overlay-contrast.json
+npm run verify:hero            # lab/hero-states/ : hero début, milieu, fin
+npm run verify:captures        # docs/captures/*.png
+AXE_PATH=/chemin/axe.min.js npm run verify:axe     # axe-core sur 14 états interactifs
+bash scripts/verify/demo-simulation-proof.sh       # simulation forcée, aucun appel sortant
 ```
 
-Protocole Scroll Craft (plugin installé) :
+Protocole Scroll Craft (plugin `nateherk-design`) :
 
 ```bash
 SC=~/.claude/plugins/cache/nateherk/nateherk-design/0.3.1/skills/scroll-craft
 node $SC/scripts/doctor.mjs
-scripts/serve-local.sh
-SCROLLCRAFT_CHROME=/chemin/vers/chrome node $SC/scripts/shoot.mjs --url http://127.0.0.1:4321 --out lab/scrollcraft/desktop
+SCROLLCRAFT_CHROME=/chemin/vers/chrome node $SC/scripts/shoot.mjs --url http://localhost:4321 --out lab/scrollcraft/desktop
+SCROLLCRAFT_CHROME=/chemin/vers/chrome node $SC/scripts/shoot.mjs --url http://localhost:4321 --width 390 --height 844 --out lab/scrollcraft/mobile
+SCROLLCRAFT_CHROME=/chemin/vers/chrome node $SC/scripts/shoot.mjs --url http://localhost:4321 --reduced-motion --out lab/scrollcraft/reduced
 ```
 
 ## Structure
 
 ```
 src/
-  content/        business.ts (données métier), types.ts, readiness*.ts (garde-fou production)
-  i18n/           fr.ts, en.ts, routes.ts
-  lib/            validation.ts (client + serveur), mail/ (composition, transports), server/ (endpoint, protections)
-  components/     home/ (sections de l'accueil), forms/, en-tête, pied de page, etc.
+  content/        demo.ts (fictif), business.ts (réel), index.ts (choix du mode), types.ts, readiness*.ts
+  i18n/           fr.ts, en.ts, demo.ts (surcharges de la démo), routes.ts
+  lib/            validation.ts (client + serveur), summary.ts (récapitulatif), mail/, server/ (endpoint, protections)
+  components/     home/ (sections de l'accueil), forms/, ContactAction (seul créateur de liens de contact), SimDialogs
   views/          une vue par page, partagée par FR et EN
   pages/          routes FR, en/ routes EN, api/demandes.ts (seule route serveur)
   vendor/scrollcraft/   moteur Scroll Craft copié tel quel (MIT)
-  assets/         art/ (SVG générés), fonts/ (Bricolage Grotesque, Geist, OFL)
-scripts/          art/ (générateur d'illustrations), e2e.mjs, verify/, serve-local.sh
+  assets/         azurea/ (photos IA du kit), fonts/ (OFL)
+demo-kit/         kit de démonstration fourni (textes, données, empreintes SHA-256)
+scripts/          e2e.mjs, verify/ (contrastes, captures, axe, preuve de simulation), content-report.ts
 scrollcraft/      brief Scroll Craft (BRIEF.md) et registre des empreintes
 docs/             déploiement, assets, données, iPhone, questions, captures, preuves
 ```

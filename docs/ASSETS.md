@@ -2,73 +2,73 @@
 
 Aucune image externe n'est chargée : tout est servi par le site lui-même.
 
-## Inventaire
+## Photographies de la démonstration (mode `demo`)
 
-| Asset | Fichier(s) | Provenance | Droits | Statut |
+**Toutes générées par IA**, fournies par Noa dans le kit `azurea-prive-claude-demo-v2`
+(`demo-kit/assets-manifest.json` : `"allImagesAreAIGenerated": true`). Elles représentent un
+scénario fictif : AZURÉA PRIVÉ et Adrien Morel n'existent pas. Le site l'indique près de chaque
+image (« Image générée par IA », « Portrait généré par IA, personnage fictif », « Images générées
+par IA pour la démonstration ») et dans le pied de page. Elles ne servent qu'en mode démo et ne
+doivent pas être présentées comme le véhicule ou le chauffeur réels d'une entreprise.
+
+| Fichier (`src/assets/azurea/`) | Rôle | Provenance (manifeste du kit) | Taille | Contrôle SHA-256 |
 |---|---|---|---|---|
-| Hero : ciel, Esterel, mer, Suquet, chaussée, palmes | `src/assets/art/{back,mid}-{desktop,mobile}.svg`, `road.svg`, `fronds.svg` | Illustration vectorielle **originale**, générée par code (`scripts/art/scene.mjs`) par Claude Code le 3 octobre 2026 | Création pour ce projet, sans élément tiers ; réutilisable librement par l'exploitant | **Provisoire** |
-| Tesla Model 3 de profil (crépuscule et studio) | `src/assets/art/car-dusk.svg`, `car-studio.svg` | Illustration vectorielle **originale**, tracée à partir des proportions publiques du modèle (longueur ≈ 4,7 m, empattement 2 875 mm, hauteur ≈ 1,44 m), `scripts/art/car.mjs` | Création pour ce projet. Pas de logo Tesla. La forme du véhicule n'est utilisée que pour désigner le véhicule réellement employé | **Provisoire** |
-| Logo provisoire (deux arrêts reliés) et favicon | `src/components/RouteMark.astro`, `public/favicon.svg` | Création originale | Libre | Provisoire, à remplacer si une identité existe |
-| Image de partage | `public/og-image.png` | Capture du hero (`scripts/verify/captures.mjs`) | Comme le hero | Provisoire |
-| Police Bricolage Grotesque (titres) | `src/assets/fonts/bricolage-grotesque-latin-wght.woff2` (41 Ko) | Paquet npm `@fontsource-variable/bricolage-grotesque` 5.3.0 | SIL Open Font License 1.1 (`LICENSE-bricolage-grotesque.txt`) | Définitif |
-| Police Geist (texte) | `src/assets/fonts/geist-latin-wght.woff2` (29 Ko) | `@fontsource-variable/geist` 5.3.0 | SIL OFL 1.1 (`LICENSE-geist.txt`) | Définitif |
-| Moteur Scroll Craft | `src/vendor/scrollcraft/scrollcraft.{js,css}` | nateherkai/scroll-craft 0.3.1, copie identique (SHA-256 vérifiés dans REVIEW.md) | MIT (`src/vendor/scrollcraft/LICENSE`) | Définitif |
+| `hero-background.webp`, `-960` | Hero, plaque de fond **sans voiture** (calque arrière) | `new_ai_edit` | 1672×941, 960×540 | identique au kit |
+| `hero-car-alpha.webp`, `-960` | Hero, voiture **détourée** (calque avant, alpha réel) | `new_ai_edit` | 1672×941, 960×540 | identique au kit |
+| `hero-desktop.webp`, `-960` | Hero composé, tablettes et fenêtres étroites | `new_ai_generation` | 1672×941, 960×540 | identique au kit |
+| `hero-mobile.webp`, `-720` | Hero portrait, téléphones (recadré 4:3 par le bas en CSS) | `new_ai_generation` | 1122×1402, 720×900 | identique au kit |
+| `vehicle-profile.webp` | Section Tesla, profil | `reused_ai_azurea_v1` | 1536×1024 | identique au kit |
+| `vehicle-profile-960.webp` | Même image, petite largeur | **régénérée** (voir ci-dessous) | 960×640 | différente (attendu) |
+| `interior.webp`, `-960` | Section Tesla, habitacle | `reused_ai_azurea_v1` | 1536×1024, 960×640 | identique au kit |
+| `driver.webp`, `-720` | Portrait du chauffeur fictif | `reused_ai_azurea_v1` | 1122×1402, 720×900 | identique au kit |
 
-Polices : uniquement le sous-ensemble latin (couvre les accents français, « œ », « € »),
-fichiers variables WOFF2, préchargés, avec piles de secours système dans `global.css`.
+Contrôle : `docs/preuves/assets-sha256.txt` (empreintes recalculées contre `demo-kit/SHA256.json`).
 
-## Pourquoi des illustrations et pas des photos
+**Défaut du kit** : `assets/web/vehicle-profile-960.webp` fait **0 octet** dans le zip reçu. Son
+empreinte dans `SHA256.json` est celle d'un fichier vide (`e3b0c442…b855`), alors que le
+manifeste annonce 57 012 octets. Le fichier a été régénéré par redimensionnement de
+`vehicle-profile.webp` (ImageMagick, 960×640, WebP, 51 882 octets). Aucune autre image n'a été
+modifiée ; les originaux PNG du kit ne sont pas copiés dans le dépôt (seulement les versions web).
 
-Les vraies photos de la Tesla et du chauffeur n'ont pas été fournies, et le budget de
-génération est nul. Pendant cette session, le proxy bloquait toutes les banques d'images
-(Wikimedia Commons, Unsplash, Pexels, Pixabay, Flickr, Openverse) et Hugging Face. Montrer
-la photo d'une autre Tesla aurait laissé croire qu'il s'agit du véhicule du chauffeur.
-L'illustration est donc étiquetée « Illustration » dans le hero, dans la légende de la
-section Tesla et dans le pied de page, et les mentions légales précisent qu'il ne s'agit pas
-de photographies.
+### Calques du hero
 
-**Génération du modèle** : le profil dessiné correspond à la silhouette commune à la Model 3
-2017-2023 et à la version 2024+ (« Highland »). La face avant (phares fins) se rapproche de
-la version 2024+. La même silhouette est utilisée partout. Dès que la génération réelle est
-connue (`vehicle.generation`), le détail des phares et des jantes pourra être ajusté dans
-`scripts/art/car.mjs` (ou les photos remplaceront le dessin).
+La plaque et la voiture partagent le même cadre (1672×941) et la même perspective. Elles sont
+affichées dans un même conteneur, à la même échelle de base, et grandissent autour du **point de
+contact du pneu avant** (68,8 % ; 88,8 % du cadre). La voiture ne flotte donc jamais. Zone
+occupée par la voiture dans le cadre, mesurée sur le canal alpha : x 542 à 1576, y 340 à 850.
+Ces valeurs sont utilisées par les tests (`scripts/e2e.mjs`, constante `CAR`) pour vérifier
+que la voiture reste entière au début et à la fin du mouvement, de 1100 à 2560 px de large.
 
-## Remplacer les illustrations par des photos
+Une seule composition est téléchargée selon l'écran : les deux calques sur grand écran paysage
+(`min-width: 1100px` et ratio ≥ 3/2), sinon une seule photo (vérifié par les tests e2e).
 
-Le hero est construit en plans indépendants (méthode `hero-depth.md` de Scroll Craft). Chaque
-plan peut recevoir une photo :
+## Polices, logo, moteur
 
-| Plan | Aujourd'hui | Photo à fournir | Contrainte |
+| Asset | Fichier(s) | Provenance | Droits |
 |---|---|---|---|
-| Fond | `back-*.svg` | Plaque de fond : baie de Cannes au crépuscule, **sans voiture** | 2400 × 1350 (ordinateur), 1200 × 2133 (mobile), horizon vers 60 % de la hauteur |
-| Plan intermédiaire | `mid-*.svg` (mer, Suquet) | Optionnel : peut être fusionné dans la plaque de fond | Fond transparent si conservé séparé |
-| Sujet | SVG en ligne `car-dusk.svg` | **Détourage réel** (PNG ou WebP avec transparence) de la Tesla noire de profil, roues comprises | Même cadrage de profil, face vers la gauche, ombre de contact séparée ou incluse |
-| Premier plan | `fronds.svg` | Palme ou détail réel détouré | Transparent, bord adouci |
+| Police Bricolage Grotesque (titres) | `src/assets/fonts/bricolage-grotesque-latin-wght.woff2` | `@fontsource-variable/bricolage-grotesque` 5.3.0 | SIL OFL 1.1 (`LICENSE-bricolage-grotesque.txt`) |
+| Police Geist (texte) | `src/assets/fonts/geist-latin-wght.woff2` | `@fontsource-variable/geist` 5.3.0 | SIL OFL 1.1 (`LICENSE-geist.txt`) |
+| Logo provisoire (deux arrêts reliés) et favicon | `src/components/RouteMark.astro`, `public/favicon.svg` | Création originale (itération 1) | Libre ; à remplacer si une identité existe |
+| Image de partage | `public/og-image.png` | Capture du hero démo (`scripts/verify/captures.mjs`) | Comme le hero (image IA) |
+| Moteur Scroll Craft | `src/vendor/scrollcraft/scrollcraft.{js,css}` | nateherkai/scroll-craft 0.3.1, copie identique (SHA-256 dans REVIEW.md) | MIT (`src/vendor/scrollcraft/LICENSE`) |
 
-Procédure :
+Les illustrations vectorielles provisoires de l'itération 1 (`src/assets/art/`, `scripts/art/`)
+ont été supprimées : elles ne sont plus utilisées (historique Git, commit `a3537fe`).
 
-1. Faire photographier la voiture de profil, de nuit ou au crépuscule, sur fond simple
-   (facilite le détourage), plus quelques détails (jante, toit en verre, intérieur).
-2. Détourer, vérifier les bords sur fond clair et sur fond sombre (pas de halo), exporter
-   en WebP avec transparence, 1600 px de large au plus.
-3. Dans `src/components/home/Hero.astro`, remplacer le bloc `<figure class="hero__car">`
-   par un `<img>` du détourage (garder `role`/`alt` descriptif) ; retirer alors les variables
-   de rotation des roues (`--wheel-turn`) : une photo ne fait pas tourner ses roues. Le
-   déplacement horizontal peut rester, ou être réduit.
-4. Remplacer les plaques de fond dans le même composant (balise `<picture>`).
-5. Section Tesla : remplacer `car-studio.svg` par une photo réelle dans
-   `src/components/home/Tesla.astro`, et changer la légende.
-6. Relancer `npm run build`, `npm run verify:contrast` (le contraste dépend de la photo) et
-   les captures.
+## Site réel (mode `live`) : photos à fournir
 
-Exigences pour les photos réelles : droits écrits (photographe et, pour le chauffeur, accord
-de la personne), pas de plaque d'immatriculation lisible si non souhaitée, pas d'autre
-marque ni de personne identifiable sans accord.
+Aucune photo réelle n'a été fournie. Pour le site réel, il faudra des photos **du véhicule
+réellement utilisé** et du chauffeur, avec une autorisation d'utilisation écrite. Les photos IA
+de la démonstration ne doivent pas être reprises telles quelles sur le site réel.
 
-## Régénérer les illustrations
+Procédure pour un futur hero photo réel :
 
-```bash
-npm run art      # réécrit src/assets/art/*.svg à partir de scripts/art/*.mjs
-```
-
-Les SVG sont minifiés. Poids : 2 à 17 Ko par plan, 12 Ko par voiture.
+1. Photo complète du véhicule devant un décor, en paysage (≥ 1672 px de large) et en portrait.
+2. Pour le hero en calques : une plaque du même cadrage **sans** le véhicule (prise de vue sur
+   pied, même focale) et un détourage du véhicule avec un vrai canal alpha. Sans ces deux
+   fichiers, utiliser la photo complète seule : le code bascule déjà en photo unique sur mobile.
+3. Exporter en WebP (une grande et une petite largeur), placer les fichiers dans `src/assets/`,
+   mettre à jour les imports de `src/components/home/Hero.astro`, mesurer la nouvelle zone
+   du véhicule (constante `CAR` de `scripts/e2e.mjs`) et le point de contact du pneu
+   (`transform-origin` dans `Hero.astro`).
+4. Relancer `npm run test:e2e`, `npm run verify:contrast` et `npm run verify:captures`.

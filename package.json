@@ -9,17 +9,22 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:preview": "SITE_ENV=preview astro build",
-    "build:production": "SITE_ENV=production astro build",
-    "build:netlify": "DEPLOY_TARGET=netlify astro build",
     "start": "node ./dist/server/entry.mjs",
+    "dev:demo": "BUSINESS_MODE=demo astro dev",
+    "build:demo": "BUSINESS_MODE=demo SITE_ENV=preview astro build",
+    "start:demo": "node ./dist/server/entry.mjs",
+    "dev:live": "BUSINESS_MODE=live astro dev",
+    "build:live": "BUSINESS_MODE=live SITE_ENV=preview astro build",
+    "build:live:production": "BUSINESS_MODE=live SITE_ENV=production astro build",
+    "build:netlify": "DEPLOY_TARGET=netlify astro build",
     "check": "astro check",
     "test": "vitest run",
     "test:e2e": "node scripts/e2e.mjs",
-    "verify:contrast": "node scripts/verify/hero-contrast.mjs",
+    "verify:contrast": "node scripts/verify/hero-contrast.mjs && node scripts/verify/overlay-contrast.mjs",
+    "verify:hero": "node scripts/verify/hero-states.mjs",
     "verify:captures": "node scripts/verify/captures.mjs",
-    "content:report": "tsx scripts/content-report.ts",
-    "art": "node scripts/art/build-art.mjs"
+    "verify:axe": "node scripts/verify/axe-states.mjs",
+    "content:report": "tsx scripts/content-report.ts"
   },
   "dependencies": {
     "@astrojs/netlify": "^8.2.6",
