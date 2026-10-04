@@ -30,5 +30,6 @@
   ok   SEO: titles, canonical, hreflang, robots (demo noindex, no LocalBusiness), sitemap pairs translations
   ok   no third-party requests and no cookies/storage on any page
   ok   404 page served with status 404
+  ok   phone on the Wi-Fi (other host name): quote and contact simulations accepted
 
-32/32 passed
+33/33 passed

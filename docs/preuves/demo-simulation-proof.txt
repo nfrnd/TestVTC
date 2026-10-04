@@ -1,4 +1,4 @@
-Demo simulation proof · entry=dist/server/entry.mjs · 2026-10-04T12:02:12.075Z
+Demo simulation proof · entry=dist/server/entry.mjs · 2026-10-04T18:00:04.771Z
 ok    positive control: spy detects fetch and http calls (2/2 calls detected)
 ok    server starts (http://127.0.0.1:4412)
 ok    spy active in the server
@@ -12,7 +12,7 @@ PROOF PASSED
 
 --- server log (complete) ---
 {"evt":"SPY_ACTIVE"}
-12:02:12 [@astrojs/node] Server listening on http://127.0.0.1:4412
+18:00:05 [@astrojs/node] Server listening on http://127.0.0.1:4412
 {"evt":"demande","mode":"demo","kind":"devis","outcome":"simulated","http":200,"ms":9}
-{"evt":"demande","mode":"demo","kind":"contact","outcome":"simulated","http":200,"ms":2}
+{"evt":"demande","mode":"demo","kind":"contact","outcome":"simulated","http":200,"ms":1}
 {"evt":"demande","mode":"demo","kind":"devis","outcome":"simulated","http":200,"ms":2}

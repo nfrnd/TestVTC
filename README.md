@@ -50,10 +50,13 @@ Puis ouvrir **http://localhost:4321** dans le navigateur. `Ctrl+C` dans le termi
   aujourd'hui + 7 jours, 10:30, heure de Paris).
 - Port déjà pris : `PORT=4400 npm start` (macOS/Linux) ou `$env:PORT=4400; npm start` (PowerShell),
   puis http://localhost:4400.
-- Tester sur un téléphone du même Wi-Fi : `HOST=0.0.0.0 npm start`, puis
-  `http://<adresse-IP-de-l-ordinateur>:4321` sur le téléphone. Dans ce cas, ajouter l'origine :
-  `HOST=0.0.0.0 ALLOWED_ORIGINS=http://<adresse-IP>:4321 npm start`, sinon les simulations de
-  formulaire sont refusées (contrôle d'origine).
+- Tester sur un téléphone du même Wi-Fi : `HOST=0.0.0.0 npm start` sur l'ordinateur, puis
+  `http://<adresse-IP-de-l-ordinateur>:4321` sur le téléphone (par exemple
+  `http://192.168.4.76:4321`). `localhost` ne marche pas sur le téléphone : il désigne le
+  téléphone lui-même. Les simulations de devis et de contact fonctionnent sur cette adresse :
+  en aperçu local, le serveur accepte une requête venue de lui-même par une adresse de réseau
+  privé (192.168.x, 10.x, 172.16-31.x, noms `.local`) ; un autre site reste refusé.
+  Arrêter le serveur (`Ctrl+C`) après l'essai.
 - Mode développement (rechargement à chaud, pas optimisé) : `npm run dev`.
 
 Aucune publication publique, aucun abonnement n'a été fait : ce sera la décision de Noa.

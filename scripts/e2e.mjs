@@ -29,7 +29,9 @@ const results = [];
 const ONLY = process.env.E2E_ONLY ? new RegExp(process.env.E2E_ONLY) : null;
 async function test(name, fn, ctxOpts = {}) {
   if (ONLY && !ONLY.test(name)) return;
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, ...ctxOpts });
+  const { browser: own, ...ctxRest } = ctxOpts;
+  ctxOpts = ctxRest;
+  const ctx = await (own ?? browser).newContext({ viewport: { width: 1440, height: 900 }, ...ctxOpts });
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
@@ -516,6 +518,29 @@ await test('404 page served with status 404', async (page) => {
   assert(res.status() === 404, `status ${res.status()}`);
   assert(/n’existe pas/.test(await page.textContent('h1')), '404 copy');
 });
+
+// A phone on the Wi-Fi opens the demo by the computer's address, not localhost.
+// This browser resolves demo-wifi.local to the local server, so the page's Origin
+// and Host are that other name, exactly like http://192.168.x.y:4321 on an iPhone.
+const wifiBrowser = await chromium.launch({ executablePath: CHROME, args: ['--host-resolver-rules=MAP demo-wifi.local 127.0.0.1', '--no-proxy-server'] });
+await test('phone on the Wi-Fi (other host name): quote and contact simulations accepted', async (page) => {
+  const WIFI = `http://demo-wifi.local:${PORT}`;
+  await page.goto(`${WIFI}/devis/`);
+  await page.click('[data-example]');
+  await page.click('[data-next]');
+  await page.click('[data-submit]');
+  await page.waitForSelector('[data-done-box]:not([hidden]), [data-error-box]:not([hidden])');
+  assert(await page.locator('[data-done-box]').isVisible(), `quote simulated from ${WIFI} (got: ${await page.textContent('[data-error-text]').catch(() => '?')})`);
+  await page.goto(`${WIFI}/contact/`);
+  await page.fill('form[data-form=contact] input[name=name]', 'Camille Wi-Fi');
+  await page.check('form[data-form=contact] input[name=contactMethod][value=email]');
+  await page.fill('form[data-form=contact] input[name=email]', 'camille@example.com');
+  await page.fill('form[data-form=contact] textarea[name=message]', 'Bonjour, test depuis le téléphone sur le Wi-Fi.');
+  await page.click('form[data-form=contact] [data-submit]');
+  await page.waitForSelector('form[data-form=contact] [data-done-box]:not([hidden]), form[data-form=contact] [data-error-box]:not([hidden])');
+  assert(await page.locator('form[data-form=contact] [data-done-box]').isVisible(), 'contact simulated from the Wi-Fi address');
+}, { browser: wifiBrowser, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+await wifiBrowser.close();
 
 await browser.close();
 server.kill();

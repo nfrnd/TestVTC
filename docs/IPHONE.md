@@ -6,9 +6,9 @@ n'ont été utilisés : ce contrôle reste à faire. Durée : environ 10 minutes
 ## Préparer
 
 - Le site doit être accessible depuis le téléphone : un aperçu déployé (recommandé), ou,
-  sur le même Wi-Fi, `HOST=0.0.0.0 ALLOWED_ORIGINS=http://<IP-de-l-ordinateur>:4321 npm start`
-  sur l'ordinateur puis `http://<IP-de-l-ordinateur>:4321` sur l'iPhone (sans `ALLOWED_ORIGINS`,
-  les simulations de formulaire sont refusées par le contrôle d'origine). Arrêter le serveur ensuite.
+  sur le même Wi-Fi, `HOST=0.0.0.0 npm start` sur l'ordinateur puis
+  `http://<IP-de-l-ordinateur>:4321` sur l'iPhone (par exemple `http://192.168.4.76:4321` ;
+  `localhost` ne marche pas sur le téléphone). Arrêter le serveur ensuite.
 - Noter le modèle d'iPhone et la version d'iOS.
 
 ## Parcourir

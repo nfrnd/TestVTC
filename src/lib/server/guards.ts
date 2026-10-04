@@ -89,23 +89,51 @@ const isLoopback = (origin: string) => {
 };
 
 /**
- * A local preview (site URL on localhost) also accepts the other loopback
- * spellings and ports: http://127.0.0.1:4321 is the same machine as
- * http://localhost:4321. Never applies once the site URL is a public domain.
+ * Local preview (site URL on localhost). Two extra cases are accepted, and only then:
+ *  - other loopback spellings and ports: http://127.0.0.1:4321 is the same machine
+ *    as http://localhost:4321;
+ *  - a same-origin request on the LAN: a phone on the Wi-Fi opens
+ *    http://192.168.x.y:4321, so its Origin is that address, equal to the Host the
+ *    request was sent to, and that address is a private-network one. A page from
+ *    another site has a different Origin and is still refused.
+ * Never applies once the site URL is a public domain.
  */
-function matches(origin: string, allowed: Set<string>): boolean {
+// Private-network addresses a phone on the same Wi-Fi uses (IP literals or mDNS .local
+// names). Public domain names are excluded on purpose: with DNS rebinding, a hostile
+// domain can point at a LAN address and its pages would look "same-origin".
+function isPrivateNetworkHost(hostname: string): boolean {
+  const h = hostname.toLowerCase().replace(/^\[|\]$/g, '');
+  if (h.endsWith('.local')) return true;
+  const v4 = h.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+  if (v4) {
+    const [a, b] = [Number(v4[1]), Number(v4[2])];
+    return a === 10 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 169 && b === 254) || a === 127;
+  }
+  return /^(fc|fd)[0-9a-f]{2}:/.test(h) || h.startsWith('fe80:');
+}
+
+function matches(origin: string, allowed: Set<string>, requestHost: string | null): boolean {
   if (allowed.has(origin)) return true;
-  return isLoopback(origin) && [...allowed].some(isLoopback);
+  const localPreview = [...allowed].some(isLoopback);
+  if (!localPreview) return false;
+  if (isLoopback(origin)) return true;
+  try {
+    const o = new URL(origin);
+    return (o.protocol === 'http:' || o.protocol === 'https:') && !!requestHost && o.host === requestHost.toLowerCase() && isPrivateNetworkHost(o.hostname);
+  } catch {
+    return false;
+  }
 }
 
 export function originAllowed(request: Request, allowed: Set<string>): boolean {
+  const host = request.headers.get('host');
   const origin = request.headers.get('origin');
-  if (origin) return matches(origin, allowed);
+  if (origin) return matches(origin, allowed, host);
   // Some older browsers omit Origin on same-origin POSTs; fall back to Referer.
   const referer = request.headers.get('referer');
   if (!referer) return false;
   try {
-    return matches(new URL(referer).origin, allowed);
+    return matches(new URL(referer).origin, allowed, host);
   } catch {
     return false;
   }

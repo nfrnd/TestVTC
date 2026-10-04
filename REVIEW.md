@@ -36,6 +36,18 @@ Résumé de toutes les vérifications rejouées : [`docs/preuves/RESUME.md`](doc
 | 5b | « Rien n'est transmis » était ambigu (le serveur local reçoit bien le POST). | Remplacé par « Aucun message n'est envoyé au chauffeur » / « No message is sent to the chauffeur » : bandeau du formulaire, descriptions de page, introduction du résultat, pied de page (où « Aucun message, paiement ou réservation n'est transmis » devient « Aucun message n'est envoyé au chauffeur ; aucun paiement ni aucune réservation n'est effectué »). Ces textes venaient du kit ; changement demandé explicitement par Noa. | `src/i18n/demo.ts`, `src/content/demo.ts` | corrigé |
 | — | Compléments anglais `EN: Claude` à relire. | Relus ; deux corrigés : « A conversation in person » → « Talk it through by phone. » (il s'agit d'un appel), et la phrase sur le minimum de 3 heures. | `src/i18n/demo.ts` | fait |
 
+**Après la passe de corrections — essai de Noa sur iPhone (Wi-Fi local).** `localhost` ne peut
+pas s'ouvrir sur un téléphone ; Noa a ouvert la démo par `http://192.168.4.76:4321`. La page
+s'affichait, mais le devis et le contact répondaient **403** : le contrôle d'origine n'acceptait
+en local que `localhost`/`127.0.0.1` (reproduit avec les en-têtes `Host`/`Origin` de l'iPhone).
+Correctif (`src/lib/server/guards.ts`) : en aperçu local seulement, une requête dont l'origine
+est le serveur lui-même (même hôte et port) est acceptée si cet hôte est une adresse de réseau
+privé (192.168.x, 10.x, 172.16-31.x, 169.254.x, IPv6 locales) ou un nom `.local`. Un autre
+site reste refusé ; un nom de domaine public pointé vers le réseau local (« DNS rebinding »)
+aussi ; rien ne change avec un vrai domaine. Preuves : 4 nouveaux cas unitaires (44/44) et un
+scénario e2e « phone on the Wi-Fi » (navigateur à taille d'iPhone servi sous un autre nom
+d'hôte) qui **échoue avec l'ancien contrôle et passe avec le nouveau** ; e2e **33/33**.
+
 Non repris : le jeu fictif encore présent comme code mort dans le bundle serveur **live** (la
 revue confirme qu'il n'a pas d'incidence sur la démo ; à traiter quand le site réel devient
 le périmètre).
@@ -162,11 +174,11 @@ fournie séparément ; mêmes commandes après décompression.
 | Vérification | Commande | Résultat | Preuve |
 |---|---|---|---|
 | Build démo | `npm run build:demo` | OK, exit 0 | `docs/preuves/build-demo.txt` |
-| Tests unitaires | `npm test` | **43/43** | `docs/preuves/unit-tests.txt` |
+| Tests unitaires | `npm test` | **44/44** | `docs/preuves/unit-tests.txt` |
 | TypeScript / Astro | `npm run check` | **0 erreur, 0 avertissement** | `docs/preuves/astro-check.txt` |
 | Installation propre | `npm ci` | réussie | `docs/preuves/npm-ci.txt` |
 | Audit des dépendances | `npm audit` | **0 alerte**, 453 dépendances | `docs/preuves/npm-audit.json`, `npm-ls.txt`, `lock-diff.txt` |
-| Navigateur, bout en bout | `npm run test:e2e` | **32/32** ; scénarios sans JS répétés **10/10** | `docs/preuves/e2e-output.txt`, `e2e-results.json`, `e2e-nojs-repetition.txt` |
+| Navigateur, bout en bout | `npm run test:e2e` | **33/33** (dont Wi-Fi local) ; scénarios sans JS répétés **10/10** | `docs/preuves/e2e-output.txt`, `e2e-results.json`, `e2e-nojs-repetition.txt` |
 | Contraste du hero sur les photos, FR et EN | `npm run verify:contrast` | **min 4,79:1** sur 447 mesures (8 tailles, 3 positions) ; téléphones ≥ 5,39:1 | `docs/preuves/hero-contrast*.json` |
 | Contraste en-tête et panneau des services | idem | **min 6,31:1** (56 mesures) | `docs/preuves/overlay-contrast.json` |
 | axe-core (WCAG 2.2 A/AA) sur 14 états interactifs | `npm run verify:axe` | **0 violation** ; 93 éléments « incomplete » (texte sur photo ou dégradé, qu'axe ne sait pas trancher : couverts par les mesures au pixel ci-dessus). Pas une certification d'accessibilité. | `docs/preuves/axe-states.json` |

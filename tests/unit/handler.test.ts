@@ -19,9 +19,10 @@ const demoQuote = {
 };
 const liveQuote = { ...demoQuote, service: 'transfert', departure: 'Hôtel Martinez', arrival: 'Gare de Cannes', contactMethod: 'email' };
 
-function req(body: unknown, { origin = SITE, json = true }: { origin?: string | null; json?: boolean } = {}) {
+function req(body: unknown, { origin = SITE, json = true, host }: { origin?: string | null; json?: boolean; host?: string } = {}) {
   const headers: Record<string, string> = { 'Content-Type': json ? 'application/json' : 'application/x-www-form-urlencoded' };
   if (origin) headers.Origin = origin;
+  if (host) headers.Host = host;
   return new Request(`${SITE}/api/demandes`, {
     method: 'POST',
     headers,
@@ -113,6 +114,20 @@ describe('protections (both modes)', () => {
     expect((await handleDemande(req(demoQuote, { origin: 'http://127.0.0.1:4321' }), 'ip', local, deps)).status).toBe(200);
     expect((await handleDemande(req(demoQuote, { origin: 'http://127.0.0.1:4321' }), 'ip', demoCfg(), deps)).status).toBe(403);
     expect((await handleDemande(req(demoQuote, { origin: 'http://localhost.evil.example' }), 'ip', local, deps)).status).toBe(403);
+  });
+
+  it('local preview on the Wi-Fi: a phone posting to the same host is accepted, another site is not', async () => {
+    const local = { ...demoCfg(), siteUrl: 'http://localhost:4321' };
+    const lan = 'http://192.168.4.76:4321';
+    expect((await handleDemande(req(demoQuote, { origin: lan, host: '192.168.4.76:4321' }), 'ip', local, deps)).status).toBe(200);
+    // Another site, even on the same network, is refused.
+    expect((await handleDemande(req(demoQuote, { origin: 'http://192.168.4.99:8080', host: '192.168.4.76:4321' }), 'ip', local, deps)).status).toBe(403);
+    // DNS rebinding: a public name pointed at the LAN looks same-origin; refused.
+    expect((await handleDemande(req(demoQuote, { origin: 'http://evil.example:4321', host: 'evil.example:4321' }), 'ip', local, deps)).status).toBe(403);
+    // mDNS name of the computer on the Wi-Fi is accepted.
+    expect((await handleDemande(req(demoQuote, { origin: 'http://mon-mac.local:4321', host: 'mon-mac.local:4321' }), 'ip', local, deps)).status).toBe(200);
+    // With a public site URL the same-host rule does not apply.
+    expect((await handleDemande(req(demoQuote, { origin: lan, host: '192.168.4.76:4321' }), 'ip', demoCfg(), deps)).status).toBe(403);
   });
 
   it('refuses unexpected origins and missing origins', async () => {
