@@ -1,0 +1,47 @@
+{
+  "entry": "dist/server/entry.mjs",
+  "passed": true,
+  "steps": [
+    {
+      "step": "positive control: spy detects fetch and http calls",
+      "ok": true,
+      "detail": "2/2 calls detected"
+    },
+    {
+      "step": "server starts",
+      "ok": true,
+      "detail": "http://127.0.0.1:4412"
+    },
+    {
+      "step": "spy active in the server",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "step": "quote (JSON) simulated",
+      "ok": true,
+      "detail": "HTTP 200, status=simulated, DEMO-PROOF179, fare: Cannes-centre ↔ Aéroport Nice Côte d’Azur : 95 € · Aller simple, par véhicule"
+    },
+    {
+      "step": "contact (HTML, no JS) simulated",
+      "ok": true,
+      "detail": "HTTP 200, « Message simulé »"
+    },
+    {
+      "step": "quote (HTML, no JS) simulated",
+      "ok": true,
+      "detail": "HTTP 200, « Simulation terminée », fare 95 €"
+    },
+    {
+      "step": "no outbound call",
+      "ok": true,
+      "detail": "0 fetch / http / https request from the server"
+    },
+    {
+      "step": "no submitted content in the server log",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "serverLog": "{\"evt\":\"SPY_ACTIVE\"}\n12:02:12 [@astrojs/node] Server listening on http://127.0.0.1:4412\n{\"evt\":\"demande\",\"mode\":\"demo\",\"kind\":\"devis\",\"outcome\":\"simulated\",\"http\":200,\"ms\":9}\n{\"evt\":\"demande\",\"mode\":\"demo\",\"kind\":\"contact\",\"outcome\":\"simulated\",\"http\":200,\"ms\":2}\n{\"evt\":\"demande\",\"mode\":\"demo\",\"kind\":\"devis\",\"outcome\":\"simulated\",\"http\":200,\"ms\":2}"
+}

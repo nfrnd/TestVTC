@@ -14,7 +14,7 @@ export const demoFr: DictOverride = {
       description: 'Prototype fictif de chauffeur privé à Cannes en Tesla Model 3 noire : services, tarifs et simulation de demande de devis.',
     },
     rates: { title: 'Tarifs · AZURÉA PRIVÉ — Démonstration', description: 'Tarifs fictifs d’AZURÉA PRIVÉ, chauffeur privé à Cannes : forfaits, mise à disposition et conditions de la démonstration.' },
-    quote: { title: 'Demande de devis · AZURÉA PRIVÉ — Démonstration', description: 'Simulation d’une demande de devis en deux étapes pour un trajet en Tesla Model 3 à Cannes. Rien n’est transmis.' },
+    quote: { title: 'Demande de devis · AZURÉA PRIVÉ — Démonstration', description: 'Simulation d’une demande de devis en deux étapes pour un trajet en Tesla Model 3 à Cannes. Aucun message n’est envoyé au chauffeur.' },
     contact: { title: 'Contact · AZURÉA PRIVÉ — Démonstration', description: 'Coordonnées fictives d’Adrien Morel, chauffeur de démonstration à Cannes. Les contacts sont simulés.' },
     legal: { title: 'À propos de cette démonstration', description: 'AZURÉA PRIVÉ et Adrien Morel sont fictifs : cadre de la démonstration.' },
     privacy: { title: 'Confidentialité de la démonstration', description: 'Les formulaires de la démonstration ne transmettent ni ne conservent aucune donnée.' },
@@ -78,7 +78,7 @@ export const demoFr: DictOverride = {
     ],
     title: 'Parlons de votre prochain trajet.',
     intro: 'Quelques détails pour préparer une proposition adaptée à votre programme.',
-    notice: 'Démonstration : utilisez des informations fictives. Rien n’est transmis.',
+    notice: 'Démonstration : utilisez des informations fictives. Aucun message n’est envoyé au chauffeur.',
     step1: 'Votre trajet',
     step2: 'Vos coordonnées',
     service: 'Type de prestation',
@@ -111,7 +111,7 @@ export const demoFr: DictOverride = {
     example: 'Remplir un exemple fictif',
     summary: 'Récapitulatif de démonstration',
     resultTitle: 'Simulation terminée — aucune demande envoyée.',
-    resultIntro: 'Voici le récapitulatif de votre trajet. Sur la version finale, il serait transmis au chauffeur pour préparer une réponse. Dans cette démonstration, aucune donnée n’a été envoyée et aucune course n’est réservée.',
+    resultIntro: 'Voici le récapitulatif de votre trajet. Sur la version finale, il serait transmis au chauffeur pour préparer une réponse. Dans cette démonstration, aucun message n’a été envoyé au chauffeur et aucune course n’est réservée.',
     fareReference: 'Repère tarifaire de démonstration',
     privacy: 'Aucune donnée de ce formulaire n’est transmise à un chauffeur réel.',
     privacyLink: 'Confidentialité de la démonstration',
@@ -211,7 +211,7 @@ export const demoEn: DictOverride = {
       description: 'Fictional chauffeur website prototype in Cannes with a black Tesla Model 3: services, sample fares and a simulated quote request.',
     },
     rates: { title: 'Fares · AZURÉA PRIVÉ — Demo', description: 'Fictional fares of AZURÉA PRIVÉ, private chauffeur in Cannes: fixed fares, hourly service and demo conditions.' },
-    quote: { title: 'Quote request · AZURÉA PRIVÉ — Demo', description: 'Simulation of a two-step quote request for a Tesla Model 3 journey in Cannes. Nothing is transmitted.' },
+    quote: { title: 'Quote request · AZURÉA PRIVÉ — Demo', description: 'Simulation of a two-step quote request for a Tesla Model 3 journey in Cannes. No message is sent to the chauffeur.' },
     contact: { title: 'Contact · AZURÉA PRIVÉ — Demo', description: 'Fictional contact details of Adrien Morel, demo chauffeur in Cannes. Contacts are simulated.' },
     legal: { title: 'About this demonstration', description: 'AZURÉA PRIVÉ and Adrien Morel are fictional: scope of the demonstration.' },
     privacy: { title: 'Demo privacy', description: 'The demo forms neither transmit nor keep any data.' },
@@ -275,7 +275,7 @@ export const demoEn: DictOverride = {
     ],
     title: 'Let’s plan your next journey.',
     intro: 'A few details to prepare a proposal suited to your plans.',
-    notice: 'Demo: use fictional details. Nothing is transmitted.',
+    notice: 'Demo: use fictional details. No message is sent to the chauffeur.',
     step1: 'Your journey',
     step2: 'Your contact details',
     service: 'Service type',
@@ -308,7 +308,7 @@ export const demoEn: DictOverride = {
     example: 'Fill in a fictional example',
     summary: 'Demo summary',
     resultTitle: 'Simulation complete — no request sent.', // EN: Claude
-    resultIntro: 'Here is the summary of your journey. On the final version, it would be sent to the chauffeur to prepare a reply. In this demonstration, no data has been sent and no ride is booked.', // EN: Claude
+    resultIntro: 'Here is the summary of your journey. On the final version, it would be sent to the chauffeur to prepare a reply. In this demonstration, no message has been sent to the chauffeur and no ride is booked.', // EN: Claude
     fareReference: 'Demo fare guide', // EN: Claude
     privacy: 'No information from this form is sent to a real chauffeur.',
     privacyLink: 'Demo privacy',
@@ -319,7 +319,7 @@ export const demoEn: DictOverride = {
     title: 'Direct contact to plan what comes next.',
     intro: 'A question about a journey or an itinerary? Speak directly with Adrien.',
     hours: 'Availability',
-    phoneTitle: 'A conversation in person.', // EN: Claude
+    phoneTitle: 'Talk it through by phone.', // EN: Claude
     phoneText: 'Every day, 7 am to 10 pm. Journeys can be arranged at other times by reservation and subject to availability.', // EN: Claude
     whatsappTitle: 'The details, at your own pace.', // EN: Claude
     whatsappText: 'Address, date, timing or a practical question: prepare your message with the useful details.', // EN: Claude
@@ -384,7 +384,7 @@ export const demoEn: DictOverride = {
   errors: {
     datePast: 'Choose a future date.', // EN: Claude
     email: 'Check the format of this email address.', // EN: Claude
-    durationMin: 'Hourly service starts at 3 hours in this demonstration.', // EN: Claude
+    durationMin: 'Hourly service has a 3-hour minimum in this demonstration.', // EN: Claude
   },
   fieldErrors: {
     departure: { required: 'Enter your pick-up location.' }, // EN: Claude

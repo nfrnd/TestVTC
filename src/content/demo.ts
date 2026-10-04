@@ -220,7 +220,7 @@ export const demoContent: SiteContent = {
       insurance: noLegal('Assurance'),
       host: noLegal('Hébergeur'),
       emailProvider: noLegal('Prestataire email'),
-      retention: unknown('Aucune conservation : rien n’est transmis ni stocké en démonstration'),
+      retention: unknown('Aucune conservation : en démonstration, aucun message n’est envoyé au chauffeur et rien n’est stocké'),
     },
   },
   vehicle: {
@@ -273,8 +273,8 @@ export const demoContent: SiteContent = {
   demo: {
     label: { fr: 'Démonstration — entreprise et tarifs fictifs', en: 'Demo — fictional business and prices' },
     footer: {
-      fr: 'AZURÉA PRIVÉ est une entreprise fictive créée pour une démonstration. Les visuels sont générés par IA. Aucun message, paiement ou réservation n’est transmis.',
-      en: 'AZURÉA PRIVÉ is a fictional business created for a demonstration. Images are AI-generated. No message, payment or booking is transmitted.',
+      fr: 'AZURÉA PRIVÉ est une entreprise fictive créée pour une démonstration. Les visuels sont générés par IA. Aucun message n’est envoyé au chauffeur ; aucun paiement ni aucune réservation n’est effectué.',
+      en: 'AZURÉA PRIVÉ is a fictional business created for a demonstration. Images are AI-generated. No message is sent to the chauffeur; no payment or booking is made.',
     },
     referencePrefix: 'DEMO-',
     example: {

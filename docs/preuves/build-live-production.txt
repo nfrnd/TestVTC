@@ -1,7 +1,7 @@
-00:57:13 [@astrojs/node] Enabling sessions with filesystem storage
-00:57:13 [types] Generated 61ms
-00:57:13 [vtc-readiness] Mode métier : LIVE (production). Données à confirmer : 53 (dont 18 bloquantes pour la production).
-00:57:13 [ERROR] [vtc-readiness] An unhandled error occurred while running the "astro:build:start" hook
+12:02:17 [@astrojs/node] Enabling sessions with filesystem storage
+12:02:18 [types] Generated 57ms
+12:02:18 [vtc-readiness] Mode métier : LIVE (production). Données à confirmer : 53 (dont 18 bloquantes pour la production).
+12:02:18 [ERROR] [vtc-readiness] An unhandled error occurred while running the "astro:build:start" hook
 Build de production refusé. À compléter dans src/content/business.ts ou l'environnement :
  - business.name : Nom commercial
  - business.phone : Numéro de téléphone professionnel

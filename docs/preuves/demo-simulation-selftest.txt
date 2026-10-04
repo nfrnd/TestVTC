@@ -1,0 +1,6 @@
+ok    server entry missing: proof exited non-zero · PROOF FAILED · server entry exists: dist/server/does-not-exist.mjs not found (run npm run build)
+ok    server that dies on start: proof exited non-zero · PROOF FAILED · server starts: exited with code 3: {"evt":"SPY_ACTIVE"} | fixture: simulated start-up failure
+ok    server that answers status sent: proof exited non-zero · PROOF FAILED · quote (JSON) simulated: HTTP 200, status=sent: {"ok":true,"status":"sent"}
+ok    server that says simulated but calls out: proof exited non-zero · PROOF FAILED · no outbound call: 3 call(s): {"evt":"OUTBOUND_CALL","kind":"fetch","url":"http://127.0.0.1:9/"} | {"evt":"OUTBOUND_CALL","kind":"fetch","url":"http://127.0.0.1:9/"} | {"evt":"OUTBOUND_CALL","kind":"fetch","url":"http://127.0.0.1:9/"}
+ok    port already taken by another server: proof exited non-zero · PROOF FAILED · port is free: something already answers on http://127.0.0.1:4412; stop it or set PROOF_PORT
+SELF-TEST PASSED (all five negative controls fail as expected)

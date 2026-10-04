@@ -8,22 +8,16 @@ import { readinessIntegration } from './src/content/readiness-integration';
 //                 | live (the real business, guarded before publication)
 //   SITE_ENV      preview (default, noindex + "à confirmer" annotations) | production (live only)
 //   SITE_URL      canonical origin, e.g. https://www.example.fr (required in live production)
-//   DEPLOY_TARGET node (default, standalone server) | netlify
+// One adapter: @astrojs/node, standalone server (the only server route is /api/demandes).
 const BUSINESS_MODE = process.env.BUSINESS_MODE === 'live' ? 'live' : 'demo';
 const SITE_ENV = process.env.SITE_ENV === 'production' ? 'production' : 'preview';
 const SITE_URL = process.env.SITE_URL || 'http://localhost:4321';
-const DEPLOY_TARGET = process.env.DEPLOY_TARGET === 'netlify' ? 'netlify' : 'node';
-
-const adapter =
-  DEPLOY_TARGET === 'netlify'
-    ? (await import('@astrojs/netlify')).default()
-    : node({ mode: 'standalone' });
 
 export default defineConfig({
   site: SITE_URL,
   // Pages are prerendered. Only src/pages/api/demandes.ts opts out (prerender = false).
   output: 'static',
-  adapter,
+  adapter: node({ mode: 'standalone' }),
   trailingSlash: 'ignore',
   build: { format: 'directory', inlineStylesheets: 'auto' },
   // Blocks cross-site form POSTs to on-demand routes (Astro default, stated explicitly).

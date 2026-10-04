@@ -1,11 +1,14 @@
-# Build LIVE (preview) — contrôles sur le HTML généré (2026-10-04T00:57:11Z)
-Pages contenant AZURÉA / Adrien / 06 39 98 12 34 / azurea-prive :
-  (fin de liste)
-Pages avec bandeau démo (demo-strip) : 0
-Liens tel:/mailto:/wa.me :
-  (fin de liste)
-Pages avec fenêtres de simulation (id=sim-call) : 0
+# Build LIVE (aperçu) : contrôles sur le HTML généré
+Pages contenant AZURÉA / Adrien / 06 39 98 12 34 / azurea-prive : 0
+Pages avec bandeau démo : 0
+Liens tel:/mailto:/wa.me : 0
+Pages avec fenêtre de simulation : 0
 Robots (accueil) : <meta name="robots" content="noindex, nofollow"
-Pages avec notes « À confirmer » (aperçu) : 8
-Titre accueil : <title>Chauffeur VTC à Cannes en Tesla Model 3 · Demande de devis</title>
-Limite connue : bundle serveur contenant encore les objets fictifs (code mort) : 1 fichier(s)
+robots.txt :
+  # Preview build: not meant for search engines.
+  # Every page sends <meta name="robots" content="noindex, nofollow">; crawling stays allowed
+  # so crawlers can read it. No sitemap is announced.
+  User-agent: *
+  Allow: /
+  Disallow: /api/
+Limite connue : fichiers du bundle serveur contenant encore le jeu fictif (code mort) : 1

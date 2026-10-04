@@ -28,7 +28,7 @@ conformément à la documentation Astro « On-demand rendering » (lue dans le d
 `withastro/docs`, docs.astro.build étant bloqué) : pages statiques par défaut, adaptateur
 serveur, opt-out du prérendu sur la seule route qui en a besoin.
 
-## Option A (recommandée) : serveur Node managé
+## Hébergement retenu : serveur Node managé
 
 Build : `BUSINESS_MODE=live SITE_ENV=production SITE_URL=https://www.votre-domaine.fr npx astro build`
 (ou `npm run build:live:production` avec `SITE_URL` défini).
@@ -73,18 +73,13 @@ Le serveur Node sert déjà `/_astro/*` (fichiers à nom haché : CSS, JS, polic
 qui permet de publier une correction immédiatement. Le serveur Node ne compresse pas : la
 compression doit venir du proxy ou de la plateforme (Lighthouse le signale en local).
 
-## Option B : Netlify
+## Autres hébergeurs
 
-`npm run build:netlify` (vérifié : le build génère une fonction SSR et `_redirects`).
-`public/_headers` fournit les en-têtes de sécurité et le cache des assets.
-
-- Les pages sont servies par le CDN ; `/api/demandes` tourne dans une fonction.
-- **Limite** : chaque instance de fonction a sa propre mémoire. Le compteur anti-abus et
-  l'anti-doublon deviennent indicatifs. Protection réelle à prévoir : règles de limitation
-  de débit de la plateforme (disponibilité selon l'offre, à vérifier) et en-tête
-  `Idempotency-Key` déjà transmis au fournisseur d'email.
-- Aperçus : les « deploy previews » restent en `SITE_ENV=preview` (noindex). Ajouter leur
-  URL à `ALLOWED_ORIGINS`, ou configurer un contexte dédié.
+L'adaptateur Netlify a été retiré (itération 2) : il ajoutait plus de 500 paquets et toutes
+les alertes `npm audit` restantes, pour un déploiement non retenu. Un hébergement « fonctions
+serverless » rendrait aussi la limitation de débit et l'anti-doublon en mémoire seulement
+indicatifs. S'il devenait nécessaire, il faudrait réinstaller l'adaptateur correspondant et
+revoir ces protections.
 
 Vercel n'est pas proposé : l'offre gratuite « Hobby » était réservée à un usage non
 commercial selon ses conditions connues (à revérifier si l'option intéresse Noa).
@@ -101,10 +96,10 @@ commercial selon ses conditions connues (à revérifier si l'option intéresse N
 
 ## Aperçu et production
 
-| | Aperçu | Production |
+| | Aperçu (et démonstration) | Production (live uniquement) |
 |---|---|---|
 | `SITE_ENV` | `preview` | `production` |
-| Indexation | `noindex, nofollow` sur toutes les pages, `robots.txt` → `Disallow: /` | `index, follow`, `robots.txt` + `sitemap.xml` |
+| Indexation | `noindex, nofollow` sur toutes les pages (c'est cette balise qui écarte les pages des moteurs) ; `robots.txt` laisse l'exploration ouverte pour qu'elle soit lue, sans annoncer de sitemap | `index, follow`, `robots.txt` annonçant `sitemap.xml` |
 | Données inconnues | étiquettes « À confirmer » visibles | build refusé si une donnée critique manque |
 | Transport | `test` autorisé (réponses « simulées ») | `test` refusé ; sans fournisseur : 503 |
 | JSON-LD LocalBusiness | omis tant que le nom n'est pas confirmé | émis avec les seules données confirmées |
@@ -115,7 +110,6 @@ commercial selon ses conditions connues (à revérifier si l'option intéresse N
 |---|---|---|
 | Domaine `.fr` | environ 10 à 20 € par an selon le registrar | prix de renouvellement, pas seulement la 1re année |
 | Hébergement Node toujours allumé | environ 5 à 15 € par mois pour la plus petite offre payante | usage commercial autorisé, veille, région (UE), sauvegarde |
-| Netlify | offre gratuite existante ; le mode de facturation a changé ces dernières années | quotas de fonctions, limitation de débit, usage commercial |
 | Email (Resend) | offre gratuite avec quota mensuel et quotidien limité, connue pour couvrir un faible volume | quota actuel, localisation des données, DPA |
 | Assets | 0 € à ce stade (illustrations originales) ; photos réelles : séance photo éventuelle | droits écrits du photographe et des personnes |
 | Polices | 0 € (SIL Open Font License) | aucune |

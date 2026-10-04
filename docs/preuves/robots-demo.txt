@@ -1,0 +1,6 @@
+# Fictional demonstration: not meant for search engines.
+# Every page sends <meta name="robots" content="noindex, nofollow">; crawling stays allowed
+# so crawlers can read it. No sitemap is announced.
+User-agent: *
+Allow: /
+Disallow: /api/

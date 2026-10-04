@@ -15,7 +15,9 @@
   ok   quote: simulation failure keeps fields and re-enables the button
   ok   quote: network failure has its own message
   ok   contact: simulated call, WhatsApp and email dialogs; no outbound link anywhere
-  ok   no JavaScript: content, selector, dialogs, FAQ and a quote posted to a summary page
+  ok   no JavaScript 1440px: content, selector, dialogs, FAQ and a quote posted to a summary page
+  ok   no JavaScript 390px: content, selector, dialogs, FAQ and a quote posted to a summary page
+  ok   hero recomposes on resize without reload: desktop -> phone -> desktop, mid-scroll, reduced motion
   ok   reduced motion: hero not pinned, layers static, content complete
   ok   hero media unavailable: text and action still there, no script error
   ok   mobile: menu opens and closes with Escape; language switch goes to equivalent page
@@ -29,4 +31,4 @@
   ok   no third-party requests and no cookies/storage on any page
   ok   404 page served with status 404
 
-30/30 passed
+32/32 passed

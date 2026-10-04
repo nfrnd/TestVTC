@@ -67,10 +67,11 @@ Aucune publication publique, aucun abonnement n'a été fait : ce sera la décis
 | `npm run dev` / `npm run dev:demo` | Serveur de développement, mode démo |
 | `npm run build:live` | Build du site réel en aperçu (`noindex`, étiquettes « À confirmer ») |
 | `npm run build:live:production` | Build du site réel publiable : **échoue** tant que des données critiques manquent (voulu) |
-| `npm run build:netlify` | Variante pour Netlify |
 | `npm test` | Tests unitaires (validation, endpoint démo et live, garde-fous) |
 | `npm run check` | TypeScript / Astro |
-| `npm run test:e2e` | Navigateur réel sur le build (30 scénarios) |
+| `npm run test:e2e` | Navigateur réel sur le build (32 scénarios ; `E2E_ONLY=<regex>` pour en rejouer une partie) |
+| `npm run verify:simulation` | Preuve que la démo simule sans aucun appel sortant (échoue au moindre écart) |
+| `npm run verify:simulation:selftest` | Vérifie que cette preuve échoue bien sur 5 contre-exemples |
 | `npm run verify:contrast` | Contraste du texte mesuré sur les photos (hero, en-tête, panneaux) |
 | `npm run verify:captures` | Régénère les captures de `docs/captures/` |
 | `npm run content:report` | Données du mode live encore manquantes |
@@ -115,7 +116,7 @@ MAIL_FROM="Site VTC <demandes@votre-domaine.fr>"   # domaine vérifié chez le f
 
 En mode démo, ces variables sont **ignorées** : le serveur répond toujours « simulé » et
 n'appelle jamais le fournisseur (prouvé avec une clé factice et `fetch` instrumenté :
-`docs/preuves/demo-force-simulation.txt`). En live production sans fournisseur, l'endpoint
+`docs/preuves/demo-simulation-proof.txt`). En live production sans fournisseur, l'endpoint
 répond 503 : il n'annonce jamais une transmission qui n'a pas eu lieu.
 
 ## Variables
@@ -125,7 +126,6 @@ répond 503 : il n'annonce jamais une transmission qui n'a pas eu lieu.
 | `BUSINESS_MODE` | build | `demo` (défaut) · `live` |
 | `SITE_ENV` | build | `preview` (défaut) · `production` (refusé en démo) |
 | `SITE_URL` | build | domaine canonique ; obligatoire et non local en live production |
-| `DEPLOY_TARGET` | build | `node` (défaut, serveur autonome) · `netlify` |
 | `EMAIL_TRANSPORT`, `RESEND_API_KEY`, `MAIL_TO`, `MAIL_FROM` | exécution | live seulement, voir ci-dessus |
 | `ALLOWED_ORIGINS` | exécution | origines supplémentaires autorisées à poster |
 | `PORT`, `HOST` | exécution | 4321 et localhost par défaut |
@@ -137,7 +137,7 @@ Modèle sans secret : [.env.example](.env.example).
 ## Déployer et revenir en arrière (site réel, plus tard)
 
 Détails dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md). L'endpoint `/api/demandes` doit
-s'exécuter sur un serveur (Node managé recommandé, Netlify en alternative). Revenir à une
+s'exécuter sur un serveur Node (service Node managé ou petit serveur derrière un proxy HTTPS). Revenir à une
 version : `git revert <commit>` puis redéployer, ou redéployer une version précédente depuis
 l'historique de la plateforme.
 
@@ -151,7 +151,8 @@ npm run verify:contrast        # lab/hero-contrast.json, lab/overlay-contrast.js
 npm run verify:hero            # lab/hero-states/ : hero début, milieu, fin
 npm run verify:captures        # docs/captures/*.png
 AXE_PATH=/chemin/axe.min.js npm run verify:axe     # axe-core sur 14 états interactifs
-bash scripts/verify/demo-simulation-proof.sh       # simulation forcée, aucun appel sortant
+npm run verify:simulation            # simulation forcée, aucun appel sortant (exit non nul sinon)
+npm run verify:simulation:selftest   # la preuve doit échouer sur 5 contre-exemples
 ```
 
 Protocole Scroll Craft (plugin `nateherk-design`) :

@@ -1,13 +1,8 @@
-00:44:23 [@astrojs/node] Enabling sessions with filesystem storage
-00:44:23 [types] Generated 76ms
-00:44:23 [check] Getting diagnostics for Astro files in /home/user/TestVTC...
-[96mscripts/verify/captures.mjs[0m:[93m132[0m:[93m24[0m - [93mwarning[0m[90m ts(6387): [0mThe signature '(options?: { signal?: AbortSignal | undefined; timeout?: number | undefined; url?: string | RegExp | URLPattern | ((url: URL) => boolean) | undefined; waitUntil?: "domcontentloaded" | ... 3 more ... | undefined; } | undefined): Promise<...>' of 'p.waitForNavigation' is deprecated.
-
-[7m132[0m   await Promise.all([p.waitForNavigation(), p.click('button[type=submit]')]);
-[7m   [0m [93m                       ~~~~~~~~~~~~~~~~~[0m
-
-Result (93 files): 
+12:00:20 [@astrojs/node] Enabling sessions with filesystem storage
+12:00:20 [types] Generated 55ms
+12:00:20 [check] Getting diagnostics for Astro files in /home/user/TestVTC...
+Result (96 files): 
 - 0 errors
 - 0 warnings
-- 1 hint
+- 0 hints
 

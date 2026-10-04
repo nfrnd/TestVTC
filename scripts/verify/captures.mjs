@@ -96,6 +96,18 @@ await shot('11-contact-simulation-email-1440', '/contact/', { width: 1440, befor
 for (const [w, h] of [[1100, 720], [1440, 900], [2560, 1080]]) {
   for (const [tag, f] of [['1-debut', 0], ['2-milieu', 0.5], ['3-fin', 1]]) await shot(`hero-${w}x${h}-${tag}`, '/', { width: w, height: h, heroProgress: f });
 }
+// --- Hero recomposed by a resize, without reload (fix after the independent review) ---
+for (const [from, to, name] of [[[1440, 900], [390, 844], 'hero-redimensionne-1440-vers-390'], [[390, 844], [1440, 900], 'hero-redimensionne-390-vers-1440']]) {
+  const context = await browser.newContext({ viewport: { width: from[0], height: from[1] } });
+  const page = await context.newPage();
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+  await page.setViewportSize({ width: to[0], height: to[1] });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({ path: `${OUT}/${name}.png` });
+  await context.close();
+  console.log(name);
+}
 // --- First screen at the four reference widths ----------------------------------
 for (const w of [360, 390, 768, 1440]) await shot(`largeur-${w}`, '/', { width: w, height: w < 800 ? 780 : 900, ctx: w < 800 ? mobile : {} });
 
@@ -129,7 +141,7 @@ await shot('sans-js-simulation-appel-390', '/contact/', { width: 390, height: 84
   await p.fill('input[name=name]', 'Camille Martin');
   await p.check('input[name=contactMethod][value=email]');
   await p.fill('input[name=email]', 'camille.martin@example.com');
-  await Promise.all([p.waitForNavigation(), p.click('button[type=submit]')]);
+  await Promise.all([p.waitForURL('**/api/demandes'), p.click('button[type=submit]')]);
   await p.screenshot({ path: `${OUT}/sans-js-devis-resultat-390.png`, fullPage: true });
   await context.close();
   console.log('sans-js-devis-resultat-390');

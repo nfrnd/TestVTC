@@ -1,45 +1,44 @@
-00:57:09 [@astrojs/node] Enabling sessions with filesystem storage
-00:57:09 [types] Generated 63ms
-00:57:09 [vtc-readiness] Mode métier : LIVE (preview). Données à confirmer : 53 (dont 18 bloquantes pour la production).
-00:57:09 [build] output: "static"
-00:57:09 [build] mode: "server"
-00:57:09 [build] directory: /home/user/TestVTC/lab/dist-live/
-00:57:09 [build] adapter: @astrojs/node
-00:57:09 [build] Collecting build info...
-00:57:09 [build] ✓ Completed in 143ms.
-00:57:09 [build] Building server entrypoints...
-00:57:10 [vite] ✓ built in 1.01s
-00:57:11 [vite] ✓ built in 325ms
-00:57:11 [vite] ✓ built in 91ms
+12:02:19 [@astrojs/node] Enabling sessions with filesystem storage
+12:02:19 [types] Generated 60ms
+12:02:19 [vtc-readiness] Mode métier : LIVE (preview). Données à confirmer : 53 (dont 18 bloquantes pour la production).
+12:02:19 [build] output: "static"
+12:02:19 [build] mode: "server"
+12:02:19 [build] directory: /home/user/TestVTC/lab/dist-live/
+12:02:19 [build] adapter: @astrojs/node
+12:02:19 [build] Collecting build info...
+12:02:19 [build] ✓ Completed in 131ms.
+12:02:19 [build] Building server entrypoints...
+12:02:20 [vite] ✓ built in 906ms
+12:02:21 [vite] ✓ built in 354ms
+12:02:21 [vite] ✓ built in 83ms
 
  prerendering static routes 
-00:57:11   ├─ /404.html (+21ms) 
-00:57:11   ├─ /confidentialite/index.html (+7ms) 
-00:57:11   ├─ /contact/simulation/index.html (+6ms) 
-00:57:11   ├─ /contact/transmis/index.html (+4ms) 
-00:57:11   ├─ /contact/index.html (+9ms) 
-00:57:11   ├─ /devis/simulation/index.html (+4ms) 
-00:57:11   ├─ /devis/transmis/index.html (+4ms) 
-00:57:11   ├─ /devis/index.html (+7ms) 
-00:57:11   ├─ /en/contact/sent/index.html (+5ms) 
-00:57:11   ├─ /en/contact/simulated/index.html (+3ms) 
-00:57:11   ├─ /en/contact/index.html (+3ms) 
-00:57:11   ├─ /en/legal-notice/index.html (+4ms) 
-00:57:11   ├─ /en/privacy/index.html (+3ms) 
-00:57:11   ├─ /en/quote/sent/index.html (+3ms) 
-00:57:11   ├─ /en/quote/simulated/index.html (+3ms) 
-00:57:11   ├─ /en/quote/index.html (+4ms) 
-00:57:11   ├─ /en/rates/index.html (+12ms) 
-00:57:11   ├─ /en/index.html (+8ms) 
-00:57:11   ├─ /mentions-legales/index.html (+3ms) 
-00:57:11   ├─ /robots.txt (+2ms) 
-00:57:11   ├─ /sitemap.xml (+2ms) 
-00:57:11   ├─ /tarifs/index.html (+4ms) 
-00:57:11   ├─ /index.html (+5ms) 
-00:57:11 ✓ Completed in 149ms.
+12:02:21   ├─ /404.html (+34ms) 
+12:02:21   ├─ /confidentialite/index.html (+12ms) 
+12:02:21   ├─ /contact/simulation/index.html (+7ms) 
+12:02:21   ├─ /contact/transmis/index.html (+5ms) 
+12:02:21   ├─ /contact/index.html (+10ms) 
+12:02:21   ├─ /devis/simulation/index.html (+4ms) 
+12:02:21   ├─ /devis/transmis/index.html (+3ms) 
+12:02:21   ├─ /devis/index.html (+6ms) 
+12:02:21   ├─ /en/contact/sent/index.html (+8ms) 
+12:02:21   ├─ /en/contact/simulated/index.html (+3ms) 
+12:02:21   ├─ /en/contact/index.html (+3ms) 
+12:02:21   ├─ /en/legal-notice/index.html (+4ms) 
+12:02:21   ├─ /en/privacy/index.html (+5ms) 
+12:02:21   ├─ /en/quote/sent/index.html (+9ms) 
+12:02:21   ├─ /en/quote/simulated/index.html (+3ms) 
+12:02:21   ├─ /en/quote/index.html (+4ms) 
+12:02:21   ├─ /en/rates/index.html (+5ms) 
+12:02:21   ├─ /en/index.html (+7ms) 
+12:02:21   ├─ /mentions-legales/index.html (+4ms) 
+12:02:21   ├─ /robots.txt (+3ms) 
+12:02:21   ├─ /sitemap.xml (+2ms) 
+12:02:21   ├─ /tarifs/index.html (+3ms) 
+12:02:21   ├─ /index.html (+3ms) 
+12:02:21 ✓ Completed in 173ms.
 
-00:57:11 [build] Rearranging server assets...
-00:57:11 [build] ✓ Completed in 1.64s.
-00:57:11 [build] Server built in 1.78s
-00:57:11 [build] Complete!
-exit 0
+12:02:21 [build] Rearranging server assets...
+12:02:21 [build] ✓ Completed in 1.60s.
+12:02:21 [build] Server built in 1.73s
+12:02:21 [build] Complete!

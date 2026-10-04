@@ -1,7 +1,7 @@
-00:57:14 [@astrojs/node] Enabling sessions with filesystem storage
-00:57:14 [types] Generated 65ms
-00:57:14 [vtc-readiness] Mode métier : DÉMONSTRATION (AZURÉA PRIVÉ, fictif). noindex, contacts et demandes simulés.
-00:57:14 [ERROR] [vtc-readiness] An unhandled error occurred while running the "astro:build:start" hook
+12:02:16 [@astrojs/node] Enabling sessions with filesystem storage
+12:02:16 [types] Generated 51ms
+12:02:16 [vtc-readiness] Mode métier : DÉMONSTRATION (AZURÉA PRIVÉ, fictif). noindex, contacts et demandes simulés.
+12:02:16 [ERROR] [vtc-readiness] An unhandled error occurred while running the "astro:build:start" hook
 BUSINESS_MODE=demo ne peut pas être combiné avec SITE_ENV=production : une démonstration fictive reste non indexable. Utiliser SITE_ENV=preview (défaut) ou BUSINESS_MODE=live.
   Location:
     /home/user/TestVTC/src/content/readiness-integration.ts:19:12

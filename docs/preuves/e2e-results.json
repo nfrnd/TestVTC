@@ -1,20 +1,20 @@
 {
-  "date": "2026-10-04T00:56:03.225Z",
+  "date": "2026-10-04T12:01:28.465Z",
   "base": "http://127.0.0.1:4399",
   "browser": "Chromium (headless, playwright-core)",
-  "total": 30,
+  "total": 32,
   "failed": 0,
   "results": [
     {
       "name": "hero: activity, city, vehicle and primary action usable on first paint",
       "ok": true,
-      "ms": 180,
+      "ms": 141,
       "detail": null
     },
     {
       "name": "hero 1100x720: one composition loaded, car whole at start and end of the movement",
       "ok": true,
-      "ms": 1331,
+      "ms": 1305,
       "detail": [
         {
           "l": 273.7678678229665,
@@ -33,7 +33,7 @@
     {
       "name": "hero 1440x900: one composition loaded, car whole at start and end of the movement",
       "ok": true,
-      "ms": 1379,
+      "ms": 1301,
       "detail": [
         {
           "l": 407.2098347787081,
@@ -52,7 +52,7 @@
     {
       "name": "hero 1920x1080: one composition loaded, car whole at start and end of the movement",
       "ok": true,
-      "ms": 1330,
+      "ms": 1333,
       "detail": [
         {
           "l": 622.3923444976076,
@@ -61,9 +61,9 @@
           "vw": 1920
         },
         {
-          "l": 560.3951927075545,
-          "r": 1853.1414438640102,
-          "b": 976.9702765923885,
+          "l": 559.6659142891185,
+          "r": 1853.6517252214787,
+          "b": 976.987420141887,
           "vw": 1920
         }
       ]
@@ -71,7 +71,7 @@
     {
       "name": "hero 2560x1080: one composition loaded, car whole at start and end of the movement",
       "ok": true,
-      "ms": 1356,
+      "ms": 1309,
       "detail": [
         {
           "l": 1171.9253887559807,
@@ -80,9 +80,9 @@
           "vw": 2560
         },
         {
-          "l": 1109.2045565518465,
-          "r": 2544.9535799893465,
-          "b": 964.5092725439611,
+          "l": 1102.5257089423221,
+          "r": 2549.6273485393617,
+          "b": 964.6674043207443,
           "vw": 2560
         }
       ]
@@ -90,133 +90,150 @@
     {
       "name": "hero 390x844: stacked, single photo (hero-mobile), car not cropped",
       "ok": true,
-      "ms": 613,
+      "ms": 599,
       "detail": null
     },
     {
       "name": "hero 360x640: stacked, single photo (hero-mobile), car not cropped",
       "ok": true,
-      "ms": 609,
+      "ms": 599,
       "detail": null
     },
     {
       "name": "hero 768x1024: stacked, single photo (hero-desktop), car not cropped",
       "ok": true,
-      "ms": 607,
+      "ms": 583,
       "detail": null
     },
     {
       "name": "services: choosing a journey updates summary, prices and quote link (mouse + keyboard)",
       "ok": true,
-      "ms": 357,
+      "ms": 226,
       "detail": null
     },
     {
       "name": "prices are identical on every page (content file is the only source)",
       "ok": true,
-      "ms": 507,
+      "ms": 416,
       "detail": null
     },
     {
       "name": "quote: ?prestation & ?trajet preselect the service and places only",
       "ok": true,
-      "ms": 279,
+      "ms": 198,
       "detail": null
     },
     {
       "name": "quote: field errors, conditional fields, recap kept when going back",
       "ok": true,
-      "ms": 2071,
+      "ms": 1938,
       "detail": null
     },
     {
       "name": "quote: fictional example + simulated result with summary; double click sends once",
       "ok": true,
-      "ms": 3256,
+      "ms": 2527,
       "detail": null
     },
     {
       "name": "quote: server-side errors mapped to fields, step 1 reopens",
       "ok": true,
-      "ms": 2141,
+      "ms": 2162,
       "detail": null
     },
     {
       "name": "quote: simulation failure keeps fields and re-enables the button",
       "ok": true,
-      "ms": 2246,
+      "ms": 744,
       "detail": null
     },
     {
       "name": "quote: network failure has its own message",
       "ok": true,
-      "ms": 2248,
+      "ms": 2132,
       "detail": null
     },
     {
       "name": "contact: simulated call, WhatsApp and email dialogs; no outbound link anywhere",
       "ok": true,
-      "ms": 642,
+      "ms": 953,
       "detail": null
     },
     {
-      "name": "no JavaScript: content, selector, dialogs, FAQ and a quote posted to a summary page",
+      "name": "no JavaScript 1440px: content, selector, dialogs, FAQ and a quote posted to a summary page",
       "ok": true,
-      "ms": 30324,
+      "ms": 1496,
       "detail": null
+    },
+    {
+      "name": "no JavaScript 390px: content, selector, dialogs, FAQ and a quote posted to a summary page",
+      "ok": true,
+      "ms": 1479,
+      "detail": null
+    },
+    {
+      "name": "hero recomposes on resize without reload: desktop -> phone -> desktop, mid-scroll, reduced motion",
+      "ok": true,
+      "ms": 4394,
+      "detail": {
+        "phoneDirect": 939,
+        "deskDirect": 1260,
+        "toPhone": 939,
+        "toDesk": 1260
+      }
     },
     {
       "name": "reduced motion: hero not pinned, layers static, content complete",
       "ok": true,
-      "ms": 622,
+      "ms": 625,
       "detail": null
     },
     {
       "name": "hero media unavailable: text and action still there, no script error",
       "ok": true,
-      "ms": 162,
+      "ms": 137,
       "detail": null
     },
     {
       "name": "mobile: menu opens and closes with Escape; language switch goes to equivalent page",
       "ok": true,
-      "ms": 344,
+      "ms": 255,
       "detail": null
     },
     {
       "name": "mobile action bar: Appeler (simulated) + Devis, hidden over the hero, never covering content",
       "ok": true,
-      "ms": 1534,
+      "ms": 1435,
       "detail": null
     },
     {
       "name": "layout 360px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5742,
+      "ms": 5569,
       "detail": null
     },
     {
       "name": "layout 390px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5850,
+      "ms": 5615,
       "detail": null
     },
     {
       "name": "layout 768px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5748,
+      "ms": 5616,
       "detail": null
     },
     {
       "name": "layout 1440px: no horizontal overflow, targets >= 44px",
       "ok": true,
-      "ms": 5745,
+      "ms": 5567,
       "detail": null
     },
     {
       "name": "keyboard: skip link then visible focus ring on first controls",
       "ok": true,
-      "ms": 213,
+      "ms": 155,
       "detail": [
         "A:solid/true",
         "A:solid/false",
@@ -231,19 +248,19 @@
     {
       "name": "SEO: titles, canonical, hreflang, robots (demo noindex, no LocalBusiness), sitemap pairs translations",
       "ok": true,
-      "ms": 624,
+      "ms": 477,
       "detail": null
     },
     {
       "name": "no third-party requests and no cookies/storage on any page",
       "ok": true,
-      "ms": 5731,
+      "ms": 5543,
       "detail": null
     },
     {
       "name": "404 page served with status 404",
       "ok": true,
-      "ms": 94,
+      "ms": 62,
       "detail": null
     }
   ]

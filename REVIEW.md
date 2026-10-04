@@ -1,9 +1,10 @@
 # REVIEW : dossier de transmission, itération 2 (démonstration AZURÉA PRIVÉ)
 
-Projet piloté par **Noa**. Développement : **Claude Code**. Revue indépendante prévue :
-**ChatGPT**, à partir des éléments transmis par Noa. **Cette revue n'a pas encore eu lieu.**
-Les affirmations de ce document sont celles du développeur : elles ne valent **pas**
-validation indépendante. Chaque point cite sa preuve, que le relecteur peut rejouer.
+Projet piloté par **Noa**. Développement : **Claude Code**. Revue indépendante : **ChatGPT**,
+via Noa. Une première revue indépendante a porté sur le commit `674ba1f` (4 octobre 2026) ;
+ce document décrit en plus la **passe de corrections** qui a suivi (§ 0 bis). Cette passe n'a
+pas encore été revue de façon indépendante. Les affirmations de ce document sont celles du
+développeur : elles ne valent **pas** validation indépendante. Chaque point cite sa preuve.
 
 Branche : `claude/exciting-darwin-nvsxps` · 4 octobre 2026 · Astro 7.3.5, Node 22,
 Chromium 141 headless (Playwright). Itération 1 (site réel, données inconnues) : historique Git.
@@ -19,6 +20,26 @@ skill Scroll Craft chargée, et soigner le **mobile au même niveau que le deskt
 **Statut : aperçu complet de démonstration, pas un site publiable.** Aucune donnée d'entreprise
 réelle ; le build de production est refusé en démo (voulu).
 
+## 0 bis. Corrections après la revue indépendante du commit 674ba1f
+
+Revue ChatGPT : démonstration jugée aboutie, parcours principaux et simulation serveur
+confirmés indépendamment ; quatre corrections et deux ajustements demandés, sans refonte.
+Résumé de toutes les vérifications rejouées : [`docs/preuves/RESUME.md`](docs/preuves/RESUME.md).
+
+| # | Constat de la revue | Correction | Preuve | Statut |
+|---|---|---|---|---|
+| 1 | La preuve de simulation versionnée était **invalide** : `--import scripts/...` sans `./` → `ERR_MODULE_NOT_FOUND`, serveur jamais démarré, HTTP 000, puis « 0 appel » affiché et exit 0. Je n'avais relu que la dernière ligne de sa sortie. | Script réécrit (`scripts/verify/demo-simulation-proof.mjs`, appelé par le `.sh`) : chemin `./` explicite ; port libre vérifié ; attente de disponibilité avec détection d'un arrêt prématuré ; témoin positif (l'espion détecte bien un `fetch` et un `http.get`) ; marqueur prouvant que l'espion est chargé dans le serveur ; HTTP 200 + `simulated` exigés pour devis JSON, contact HTML et devis HTML sans JS ; 0 appel sortant (`fetch`, `http`, `https`) ; aucun contenu soumis dans le journal ; nettoyage du processus ; **exit 1 à la première étape en échec**. | `docs/preuves/demo-simulation-proof.txt` (PROOF PASSED) ; auto-test `demo-simulation-selftest.txt` : la preuve **échoue** bien sur 5 contre-exemples (fichier serveur absent, serveur qui meurt au démarrage, serveur qui répond `sent`, serveur qui répond `simulated` mais appelle l'extérieur, port déjà occupé) | corrigé |
+| 2 | Dépendances : alertes `npm audit` portées par l'adaptateur Netlify optionnel et par `http-cache-semantics` 4.2.0. | `@astrojs/netlify` retiré (manifeste, verrou, import conditionnel, `DEPLOY_TARGET`, `build:netlify`, `public/_headers`, docs). `npm update http-cache-semantics` → 4.3.0. Astro 7.3.5 et `@astrojs/node` 11.1.6 inchangés. Pas de `audit fix --force`. | `npm audit` : **0 alerte** (453 dépendances) ; `lock-diff.txt` : 552 entrées retirées, **une seule version changée** (`http-cache-semantics` 4.2.0 → 4.3.0), aucun ajout ; installation propre, build et tests réussis après coup | corrigé |
+| 3 | Le choix `pin`/`flow` du hero était figé au chargement : 1440×900 → 390×844 restait `pin` (1182 px au lieu de 939) ; l'inverse restait `flow`. | `src/views/HomeView.astro` suit les requêtes média (composition et mouvement réduit) ; à chaque changement : `destroy()` de l'instance Scroll Craft, nettoyage de ce que le moteur avait posé (hauteur, `--sc-p`, classes), bascule `pin`/`flow`, remontage ; position de lecture conservée si l'on a dépassé le hero. Moteur non modifié. | Scénario e2e « hero recomposes on resize… » : téléphone direct 939 px, desktop direct 1260 px ; desktop → téléphone à mi-défilement **939 px**, `flow` ; téléphone → desktop **1260 px**, `pin` 1,4, la voiture bouge à nouveau ; une seule instance du moteur ; mouvement réduit activé puis désactivé en direct. Captures `hero-redimensionne-*.jpg` | corrigé |
+| 4 | Scénario sans JS bloqué sur Chromium 153 (« element is not stable » sur le radio e-mail). | Cause : `scroll-behavior: smooth` anime chaque défilement que Playwright fait avant une action, la cible bouge encore au moment du clic. Le test amène désormais chaque contrôle au centre par un défilement **instantané** et attend que sa position soit stable, puis fait la vraie action (clic, saisie, case cochée par clic). Aucun état n'est modifié par le DOM. Le scénario tourne aussi à 390 px ; `waitForNavigation` (déprécié) remplacé par `waitForURL`. Le POST réel, la page simulée, le prix et l'absence de débordement restent vérifiés. | `e2e-output.txt` (32/32) ; `e2e-nojs-repetition.txt` : **10/10** exécutions des deux scénarios sans JS. **Limite** : seul Chromium 141 est disponible ici ; le comportement sur Chromium 153 n'a pas été rejoué. | corrigé, à confirmer sur Chromium 153 |
+| 5a | `robots.txt` démo autorisait l'exploration et annonçait un sitemap, avec un commentaire inexact. | Une règle : seul le **live en production** est indexable. Démo et aperçu live : `robots.txt` explique le statut, laisse l'exploration ouverte (sinon la balise `noindex` ne peut pas être lue ; une URL bloquée peut tout de même être listée sans contenu) et **n'annonce pas de sitemap** ; balises `noindex, nofollow` inchangées sur chaque page. Production : sitemap annoncé. Le test e2e, qui passait par erreur (« Disallow: /api/ » contient « Disallow: / »), vérifie maintenant ces points précisément. | `docs/preuves/robots-demo.txt`, `live-build-checks.txt` ; la variante production ne peut pas être construite tant que le garde-fou bloque (vérifiée par lecture du code seulement) | corrigé |
+| 5b | « Rien n'est transmis » était ambigu (le serveur local reçoit bien le POST). | Remplacé par « Aucun message n'est envoyé au chauffeur » / « No message is sent to the chauffeur » : bandeau du formulaire, descriptions de page, introduction du résultat, pied de page (où « Aucun message, paiement ou réservation n'est transmis » devient « Aucun message n'est envoyé au chauffeur ; aucun paiement ni aucune réservation n'est effectué »). Ces textes venaient du kit ; changement demandé explicitement par Noa. | `src/i18n/demo.ts`, `src/content/demo.ts` | corrigé |
+| — | Compléments anglais `EN: Claude` à relire. | Relus ; deux corrigés : « A conversation in person » → « Talk it through by phone. » (il s'agit d'un appel), et la phrase sur le minimum de 3 heures. | `src/i18n/demo.ts` | fait |
+
+Non repris : le jeu fictif encore présent comme code mort dans le bundle serveur **live** (la
+revue confirme qu'il n'a pas d'incidence sur la démo ; à traiter quand le site réel devient
+le périmètre).
+
 ## 1. Statut par livrable
 
 Légende : **D** développé · **T** testé localement · **F** vérifié auprès d'un fournisseur externe · **R** restant à valider
@@ -33,10 +54,11 @@ Légende : **D** développé · **T** testé localement · **F** vérifié aupr�
 | Photos IA intégrées (hero en calques desktop, hero mobile, Tesla, chauffeur) | ✔ | ✔ | n/a | iPhone réel |
 | Contacts (appel, WhatsApp, e-mail) en simulation, aucun lien sortant | ✔ | ✔ (8 pages, 0 lien) | n/a | |
 | Devis 2 étapes + exemple fictif + résultat simulé (JS et sans JS) | ✔ | ✔ | n/a | iPhone réel |
-| Serveur : simulation forcée même avec une clé, aucun stockage ni journal de contenu | ✔ | ✔ (fetch instrumenté : 0 appel) | n/a | |
+| Hero recomposé au redimensionnement (sans rechargement) | ✔ | ✔ | n/a | rotation sur appareil réel |
+| Serveur : simulation forcée même avec une clé, aucun stockage ni journal de contenu | ✔ | ✔ (preuve auto-vérifiée : 0 appel ; confirmé aussi par la revue) | n/a | |
 | Contrastes remesurés sur les photos | ✔ | ✔ (≥ 4,79:1 partout) | n/a | écrans réels |
 | Performances remesurées (Lighthouse) | ✔ | ✔ | n/a | données terrain |
-| Audit npm documenté (JSON brut, `npm ls`, versions) | ✔ | ✔ | n/a | décision sur l'adaptateur Netlify |
+| Dépendances : Netlify retiré, `http-cache-semantics` 4.3.0, `npm audit` 0 alerte | ✔ | ✔ (install propre + build + tests) | n/a | |
 | WebKit / Safari / iPhone | | **✘** (Chromium seul) | | procédure `docs/IPHONE.md` |
 | Envoi réel d'e-mail (mode live) | ✔ (itération 1) | simulé | **✘ non fait** | hors périmètre démo |
 
@@ -89,7 +111,8 @@ fournie séparément ; mêmes commandes après décompression.
   « Simulation réussie. Aucun message n'a été envoyé et aucun trajet n'est réservé. »
 - Le serveur **force la simulation** en démo : configuré comme un vrai expéditeur
   (`EMAIL_TRANSPORT=resend`, clé factice, `MAIL_TO`, `MAIL_FROM`) avec `fetch` instrumenté,
-  il répond `simulated` et **0 appel sortant** (`docs/preuves/demo-force-simulation.txt`).
+  il répond `simulated` et **0 appel sortant** (`docs/preuves/demo-simulation-proof.txt` ; la
+  première version de cette preuve était invalide, voir § 0 bis).
 - Journal : métadonnées seulement, par exemple
   `{"evt":"demande","mode":"demo","kind":"devis","outcome":"simulated","http":200,"ms":14}`.
   Ni trajet, ni nom, ni coordonnées (test unitaire). Aucun stockage durable.
@@ -141,13 +164,16 @@ fournie séparément ; mêmes commandes après décompression.
 | Build démo | `npm run build:demo` | OK, exit 0 | `docs/preuves/build-demo.txt` |
 | Tests unitaires | `npm test` | **43/43** | `docs/preuves/unit-tests.txt` |
 | TypeScript / Astro | `npm run check` | **0 erreur, 0 avertissement** | `docs/preuves/astro-check.txt` |
-| Navigateur, bout en bout | `npm run test:e2e` | **30/30** (deux exécutions consécutives) | `docs/preuves/e2e-output.txt`, `e2e-results.json` |
+| Installation propre | `npm ci` | réussie | `docs/preuves/npm-ci.txt` |
+| Audit des dépendances | `npm audit` | **0 alerte**, 453 dépendances | `docs/preuves/npm-audit.json`, `npm-ls.txt`, `lock-diff.txt` |
+| Navigateur, bout en bout | `npm run test:e2e` | **32/32** ; scénarios sans JS répétés **10/10** | `docs/preuves/e2e-output.txt`, `e2e-results.json`, `e2e-nojs-repetition.txt` |
 | Contraste du hero sur les photos, FR et EN | `npm run verify:contrast` | **min 4,79:1** sur 447 mesures (8 tailles, 3 positions) ; téléphones ≥ 5,39:1 | `docs/preuves/hero-contrast*.json` |
 | Contraste en-tête et panneau des services | idem | **min 6,31:1** (56 mesures) | `docs/preuves/overlay-contrast.json` |
-| axe-core (WCAG 2.2 A/AA) sur 14 états interactifs | `npm run verify:axe` | **0 violation** | `docs/preuves/axe-states.json` |
+| axe-core (WCAG 2.2 A/AA) sur 14 états interactifs | `npm run verify:axe` | **0 violation** ; 93 éléments « incomplete » (texte sur photo ou dégradé, qu'axe ne sait pas trancher : couverts par les mesures au pixel ci-dessus). Pas une certification d'accessibilité. | `docs/preuves/axe-states.json` |
 | Scroll Craft `shoot.mjs` | voir README | aucun défilement mort : desktop (9,4 écrans), 390 (11,7), 360 (15,8), mouvement réduit (9,0) | `docs/preuves/scrollcraft/` |
 | Lighthouse 13.5 | voir § 7 | tableau ci-dessous | `docs/preuves/lighthouse/` |
-| Simulation forcée | `bash scripts/verify/demo-simulation-proof.sh` | `simulated`, 0 appel sortant | `docs/preuves/demo-force-simulation.txt` |
+| Simulation forcée | `npm run verify:simulation` | PROOF PASSED (8 étapes) | `docs/preuves/demo-simulation-proof.txt`, `.json` |
+| Auto-test de la preuve | `npm run verify:simulation:selftest` | la preuve échoue sur les 5 contre-exemples | `docs/preuves/demo-simulation-selftest.txt` |
 | Garde-fous production | voir § 3 | 2 refus (exit 1) | `docs/preuves/build-*-production.txt` |
 | Images du kit | SHA-256 recalculés | 13 identiques, 1 régénérée (défaut du kit) | `docs/preuves/assets-sha256.txt` |
 
@@ -157,7 +183,7 @@ d'écran exclu) est comparée au **pixel le plus défavorable** situé dessous. 
 les ombres portées du texte ne sont pas comptées. Le harnais Scroll Craft ne note que les
 éléments `data-sc-cue`, absents ici, d'où ces scripts.
 
-Les 30 scénarios e2e couvrent notamment :
+Les 32 scénarios e2e couvrent notamment :
 - **Hero** : à 1100, 1440, 1920 et 2560 px, une seule composition chargée et la voiture entière
   au début et à la fin ; à 390 et 360 px, photo 4:5 non recadrée, titre au-dessus du toit et
   bouton dans le premier écran ; à 768 px, photo paysage.
@@ -167,29 +193,32 @@ Les 30 scénarios e2e couvrent notamment :
   95 €, double clic → une seule requête ; erreurs serveur rattachées aux champs ; échec utile
   (saisie conservée, même identifiant) ; coupure réseau.
 - **Contact** : fenêtres de simulation, 0 lien sortant sur 8 pages, contact simulé.
-- **Sans JS** : sélecteur, FAQ, fenêtre d'appel, devis posté puis page de récapitulatif sans
-  débordement à 360 px.
+- **Sans JS** (à 1440 et 390 px) : sélecteur, FAQ, fenêtre d'appel, devis réellement posté puis
+  page de récapitulatif avec 95 €, sans débordement à 360 px.
+- **Redimensionnement** : desktop ↔ téléphone sans rechargement, à mi-défilement, et bascule du
+  mouvement réduit en direct.
 - **Autres** : mouvement réduit, photos bloquées, menu mobile et Échap, barre d'action mobile,
   aucun débordement et cibles ≥ 44 px à 360, 390, 768 et 1440 px, focus clavier, SEO
-  (noindex, pas de JSON-LD en démo), aucun tiers, cookie ou stockage, page 404.
+  (noindex, pas de JSON-LD en démo, `robots.txt` sans sitemap et sans blocage d'exploration),
+  aucun tiers, cookie ou stockage, page 404.
 
 ## 7. Performances (Lighthouse 13.5, serveur local sans compression)
 
 | Profil | Page | Perf. | Access. | Bonnes pr. | SEO | LCP | CLS | TBT | Poids total |
 |---|---|---|---|---|---|---|---|---|---|
-| mobile | / | 96 | 100 | 100 | 69 | 2,7 s | 0 | 0 ms | 292 Kio |
-| mobile | /devis/ | 100 | 100 | 100 | 66 | 1,7 s | 0,031 | 0 ms | 139 Kio |
-| mobile | /tarifs/ | 100 | 100 | 100 | 66 | 1,7 s | 0 | 0 ms | 112 Kio |
-| mobile | /contact/ | 99 | 100 | 100 | 69 | 2,0 s | 0 | 0 ms | 172 Kio |
-| mobile | /en/ | 96 | 100 | 100 | 69 | 2,7 s | 0 | 0 ms | 291 Kio |
-| desktop | / | 100 | 100 | 100 | 69 | 0,7 s | 0 | 0 ms | 309 Kio |
-| desktop | /devis/ | 100 | 100 | 100 | 66 | 0,4 s | 0,007 | 0 ms | 139 Kio |
-| desktop | /tarifs/ | 100 | 100 | 100 | 66 | 0,4 s | 0 | 0 ms | 112 Kio |
-| desktop | /contact/ | 100 | 100 | 100 | 69 | 0,4 s | 0,003 | 0 ms | 172 Kio |
-| desktop | /en/ | 100 | 100 | 100 | 69 | 0,6 s | 0 | 0 ms | 308 Kio |
+| mobile | / | 96 | 100 | 100 | 69 | 2,7 s | 0 | 0 ms | 293 Kio |
+| mobile | /devis/ | 100 | 100 | 100 | 66 | 1,7 s | 0,029 | 0 ms | 139 Kio |
+| mobile | /tarifs/ | 100 | 100 | 100 | 66 | 1,7 s | 0 | 0 ms | 112 Kio |
+| mobile | /contact/ | 99 | 100 | 100 | 69 | 1,9 s | 0 | 0 ms | 172 Kio |
+| mobile | /en/ | 96 | 100 | 100 | 69 | 2,7 s | 0 | 0 ms | 291 Kio |
+| desktop | / | 100 | 100 | 100 | 69 | 0,6 s | 0 | 0 ms | 310 Kio |
+| desktop | /devis/ | 100 | 100 | 100 | 66 | 0,4 s | 0,006 | 0 ms | 139 Kio |
+| desktop | /tarifs/ | 100 | 100 | 100 | 66 | 0,4 s | 0 | 0 ms | 112 Kio |
+| desktop | /contact/ | 100 | 100 | 100 | 69 | 0,4 s | 0 | 0 ms | 172 Kio |
+| desktop | /en/ | 100 | 100 | 100 | 69 | 0,6 s | 0 | 0 ms | 309 Kio |
 
 - SEO : seul `is-crawlable` échoue, à cause du `noindex` **exigé** pour la démo.
-- Accueil mobile après photos : 292 Kio (contre 226 Kio avec les SVG de l'itération 1),
+- Accueil mobile après photos : 293 Kio (contre 226 Kio avec les SVG de l'itération 1),
   LCP simulé 2,7 s (2,3 s auparavant). L'image LCP est la photo du hero, préchargée en
   priorité haute ; une seule composition est téléchargée par écran.
 - L'INP n'est pas mesurable en laboratoire ; à suivre avec des données réelles plus tard.
@@ -207,6 +236,7 @@ Les 30 scénarios e2e couvrent notamment :
 | Échec utile | `07-devis-echec-utile-1440.jpg`, `08-devis-erreurs-champs-390.jpg` |
 | Simulation de contact | `09-contact-simulation-appel-390.jpg`, `10-…-whatsapp-1440.jpg`, `11-…-email-1440.jpg` |
 | Hero début / milieu / fin | `hero-1100x720-*`, `hero-1440x900-*`, `hero-2560x1080-*` |
+| Hero recomposé sans rechargement (correction § 0 bis) | `hero-redimensionne-1440-vers-390.jpg`, `hero-redimensionne-390-vers-1440.jpg` |
 | Quatre largeurs | `largeur-360.jpg`, `largeur-390.jpg`, `largeur-768.jpg`, `largeur-1440.jpg` |
 | Sans JS | `sans-js-accueil-390.jpg`, `sans-js-simulation-appel-390.jpg`, `sans-js-devis-resultat-390.jpg` |
 | Mouvement réduit | `mouvement-reduit-accueil-1440.jpg`, `page-accueil-1440-mouvement-reduit.jpg` |
@@ -230,29 +260,30 @@ peuvent y apparaître vides. La revue visuelle a donc aussi été faite écran p
 - pied de page mobile trop long (liens sur deux colonnes) ;
 - contenu lisible entre les pastilles de l'en-tête.
 
-## 9. Audit npm (rien n'a été forcé)
+## 9. Dépendances et audit npm (rien n'a été forcé)
 
-`npm audit` : **17 alertes « high »**, 0 critique (`docs/preuves/npm-audit.json`, brut).
-`npm audit fix` sans `--force` ne change rien (`npm-audit-fix-dry-run.txt`). La seule
-« correction » proposée rétrograderait astro en **2.10.9** et `@astrojs/netlify` en **2.6.0**
-(cinq versions majeures en arrière) : non appliquée. Chaînes exactes : `docs/preuves/npm-ls.txt` ;
-versions verrouillées : `docs/preuves/npm-locked-versions.md`.
+Avant cette passe (commit `674ba1f`) : 17 alertes « high » dans mon environnement, 15 dans celui
+de la revue (la base d'avis évolue ; ces comptes incluent les paquets touchés par propagation),
+portées par l'adaptateur `@astrojs/netlify` optionnel et par `http-cache-semantics` 4.2.0
+(avis GHSA-ch52-4w7c-c8xp, plage ≤ 4.2.0).
 
-| Origine | Paquets signalés | Portée |
-|---|---|---|
-| `@astrojs/netlify` 8.2.6 (adaptateur **optionnel**, `DEPLOY_TARGET=netlify`) | `@netlify/dev`, `functions-dev`, `zip-it-and-ship-it`, `images`, `vite-plugin`, `ipx` 3.1.1, `listhen`, `node-forge` 1.4.0, `extract-zip` 2.0.1, `fast-glob`, `micromatch`, `braces` 3.0.3, `sharp` **0.34.5** (copie sous `ipx`) | Outillage Netlify, pas utilisé par le build Node ni à l'exécution de la démo |
-| `astro` 7.3.5 | `http-cache-semantics` 4.2.0 (plage `*` : aucune version corrigée publiée) | Dépendance d'Astro ; aucune image distante n'est utilisée |
-| `@astrojs/node` 11.1.6 | signalé via `astro` | idem |
+Après cette passe :
+- `@astrojs/netlify` retiré : non utilisé par la démo Node, il apportait plus de 500 paquets ;
+- `http-cache-semantics` passé en 4.3.0 par la résolution compatible du verrou (`npm update`) ;
+- **Astro 7.3.5 et `@astrojs/node` 11.1.6 inchangés** ; aucune rétrogradation, pas de `--force`.
 
-La copie de `sharp` utilisée par Astro est en 0.35.5, hors de la plage vulnérable (≤ 0.35.4-rc.0).
-**Corrigé dans cette itération : rien côté dépendances.** Les correctifs listés au § 8 concernent
-le code du site. Décision possible pour Noa : retirer l'adaptateur Netlify si ce déploiement
-n'est pas retenu (supprimerait 15 des 17 alertes), ou attendre une version corrigée.
+Résultat dans cet environnement (Node 22.22.0, npm 10.9.4) : **`npm audit` → 0 alerte**,
+453 dépendances recensées (`docs/preuves/npm-audit.json`, brut). Différence de verrou vérifiée
+entrée par entrée (`docs/preuves/lock-diff.txt`) : 552 entrées retirées, une seule version
+modifiée (`http-cache-semantics` 4.2.0 → 4.3.0), aucune entrée ajoutée. Chaînes :
+`docs/preuves/npm-ls.txt` (`@astrojs/netlify` absent). Validé ensuite par installation propre
+(`npm ci`), build, tests unitaires, `astro check` et e2e.
 
 ## 10. Problèmes ouverts et limites
 
-1. **Pas de test WebKit ni sur iPhone réel** (Chromium seul) : `docs/IPHONE.md`, à jour pour la démo.
-2. Revue indépendante (ChatGPT) **non faite**.
+1. **Pas de test WebKit ni sur iPhone réel** (Chromium 141 seul) : `docs/IPHONE.md`, à jour pour la démo.
+2. La passe de corrections (§ 0 bis) n'a pas encore été revue indépendamment ; le scénario sans
+   JS n'a pas été rejoué sur Chromium 153 (indisponible ici).
 3. Défaut du kit : `assets/web/vehicle-profile-960.webp` vide (0 octet) dans le zip. Régénéré
    depuis `vehicle-profile.webp` (960×640, 51 882 octets) ; voir `docs/ASSETS.md`.
 4. Textes anglais sans source dans le kit, écrits par Claude : marqués `// EN: Claude` dans
@@ -263,13 +294,16 @@ n'est pas retenu (supprimerait 15 des 17 alertes), ou attendre une version corri
    headless ; jj/mm/aaaa sur un appareil en français).
 8. Limitation de débit et anti-doublon en mémoire (un seul processus Node) ; 5 demandes par
    10 minutes par IP par défaut, y compris en démo.
-9. Pas de Content-Security-Policy (scripts en ligne existants) ; le serveur Node ne compresse pas.
+9. Pas de Content-Security-Policy (scripts en ligne existants) ; le serveur Node ne compresse pas ;
+   les en-têtes de sécurité sont à poser dans le proxy (exemple Caddy dans `docs/DEPLOIEMENT.md`).
+11. `robots.txt` de production : non constructible tant que le garde-fou live bloque ; vérifié par
+    lecture du code seulement.
 10. Le site réel (mode live) reste bloqué par 53 informations à fournir, dont 18 critiques
     (`docs/preuves/content-report.txt`, `docs/QUESTIONS.md`) : sans effet sur la démo.
 
 ## 11. Pistes pour le relecteur
 
-- Rejouer : `npm ci && npm test && npm run check && npm run build && npm run test:e2e`.
+- Rejouer : `npm ci && npm test && npm run check && npm run build && npm run test:e2e && npm run verify:simulation && npm run verify:simulation:selftest`.
 - Regarder en priorité :
   - la séparation démo/live : `src/content/index.ts`, `ContactAction.astro`,
     `readiness-integration.ts`, `src/lib/server/handle.ts` ;

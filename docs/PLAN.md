@@ -14,7 +14,7 @@ rappelle avec tarif et disponibilité → confirmation hors site. Appeler / Cont
 - Astro 7 + TypeScript, pages prérendues (FR à la racine, EN sous /en/ avec slugs traduits).
 - Une seule route à la demande : `src/pages/api/demandes.ts` (`prerender = false`).
 - Adaptateur `@astrojs/node` (standalone) : un seul processus Node, ce qui rend la limitation
-  de débit et l'anti-doublon en mémoire réellement cohérents. Alternative Netlify documentée.
+  de débit et l'anti-doublon en mémoire réellement cohérents. (L'alternative Netlify a été retirée à l'itération 2 : dépendance inutile pour un serveur Node.)
 - Données métier : `src/content/business.ts` (seul fichier à éditer pour coordonnées, services,
   tarifs, véhicule, horaires). Chaque valeur inconnue est `unknown()`, jamais une valeur fictive.
 - Traductions : `src/i18n/fr.ts`, `src/i18n/en.ts`. Routes : `src/i18n/routes.ts`.

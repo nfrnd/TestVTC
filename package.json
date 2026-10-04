@@ -16,7 +16,6 @@
     "dev:live": "BUSINESS_MODE=live astro dev",
     "build:live": "BUSINESS_MODE=live SITE_ENV=preview astro build",
     "build:live:production": "BUSINESS_MODE=live SITE_ENV=production astro build",
-    "build:netlify": "DEPLOY_TARGET=netlify astro build",
     "check": "astro check",
     "test": "vitest run",
     "test:e2e": "node scripts/e2e.mjs",
@@ -24,10 +23,11 @@
     "verify:hero": "node scripts/verify/hero-states.mjs",
     "verify:captures": "node scripts/verify/captures.mjs",
     "verify:axe": "node scripts/verify/axe-states.mjs",
-    "content:report": "tsx scripts/content-report.ts"
+    "content:report": "tsx scripts/content-report.ts",
+    "verify:simulation": "bash scripts/verify/demo-simulation-proof.sh",
+    "verify:simulation:selftest": "bash scripts/verify/demo-simulation-selftest.sh"
   },
   "dependencies": {
-    "@astrojs/netlify": "^8.2.6",
     "@astrojs/node": "^11.1.6",
     "astro": "^7.3.5"
   },

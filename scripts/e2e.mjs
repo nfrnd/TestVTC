@@ -25,7 +25,10 @@ for (let i = 0; i < 50; i++) {
 
 const browser = await chromium.launch({ executablePath: CHROME });
 const results = [];
+// E2E_ONLY=<regex> runs a subset (used to repeat a scenario when checking for flakiness).
+const ONLY = process.env.E2E_ONLY ? new RegExp(process.env.E2E_ONLY) : null;
 async function test(name, fn, ctxOpts = {}) {
+  if (ONLY && !ONLY.test(name)) return;
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, ...ctxOpts });
   const page = await ctx.newPage();
   const errors = [];
@@ -274,32 +277,106 @@ await test('contact: simulated call, WhatsApp and email dialogs; no outbound lin
   assert(/Message simulé/.test(await page.textContent('[data-done-box]')), 'simulated contact message');
 });
 
-await test('no JavaScript: content, selector, dialogs, FAQ and a quote posted to a summary page', async (page) => {
-  await page.goto(BASE);
-  assert(await page.locator('[data-panel="airport"]').isVisible(), 'default panel visible');
-  await page.locator('label.option', { hasText: 'Mise à disposition' }).click();
-  assert(await page.locator('[data-panel="hourly"]').isVisible(), 'CSS-only selector');
-  await page.locator('.qa summary').first().click();
-  assert(await page.locator('.qa').first().evaluate((d) => d.open), 'FAQ opens');
-  await page.locator('.hero a[data-sim="call"]').click();
-  assert(await page.locator('#sim-call').isVisible(), 'call simulation shown via :target');
-  await page.goto(`${BASE}/devis/`);
-  await page.selectOption('select[name=service]', 'airport');
-  await page.fill('input[name=departure]', 'Cannes-centre');
-  await page.fill('input[name=arrival]', 'Aéroport Nice Côte d’Azur');
-  await page.fill('input[name=date]', future());
-  await page.fill('input[name=time]', '09:00');
-  await page.fill('input[name=name]', 'Alex');
-  await page.check('input[name=contactMethod][value=email]');
-  await page.fill('input[name=email]', 'alexandra.martin-durand@example.com');
-  await Promise.all([page.waitForNavigation(), page.click('button[type=submit]')]);
-  const html = await page.content();
-  assert(page.url().endsWith('/api/demandes'), 'POST to the endpoint, no data in the URL');
-  assert(/Simulation terminée/.test(html) && /Aéroport Nice Côte d’Azur/.test(html) && /95/.test(html), 'summary page with the fare reference');
-  await page.setViewportSize({ width: 360, height: 740 });
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-  assert(overflow <= 0, `summary page fits 360px (overflow ${overflow}px)`);
-}, { javaScriptEnabled: false });
+// html { scroll-behavior: smooth } animates every scroll Playwright makes before an
+// action, so the target can still be moving when the click lands ("element is not
+// stable"). settle() brings the control to the centre with an INSTANT scroll and
+// waits until its box is identical twice in a row; the real user action follows.
+// Nothing is checked or filled through the DOM.
+async function settle(locator) {
+  await locator.evaluate((el) => el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' }));
+  let prev = null;
+  for (let i = 0; i < 60; i++) {
+    const box = await locator.boundingBox();
+    if (box && prev && box.x === prev.x && box.y === prev.y) return locator;
+    prev = box;
+    await new Promise((r) => setTimeout(r, 50));
+  }
+  throw new Error(`element never settled: ${locator}`);
+}
+
+for (const [w, h] of [[1440, 900], [390, 844]]) {
+  await test(`no JavaScript ${w}px: content, selector, dialogs, FAQ and a quote posted to a summary page`, async (page) => {
+    await page.goto(BASE);
+    assert(await page.locator('[data-panel="airport"]').isVisible(), 'default panel visible');
+    await (await settle(page.locator('label.option', { hasText: 'Mise à disposition' }))).click();
+    assert(await page.locator('[data-panel="hourly"]').isVisible(), 'CSS-only selector');
+    await (await settle(page.locator('.qa summary').first())).click();
+    assert(await page.locator('.qa').first().evaluate((d) => d.open), 'FAQ opens');
+    await (await settle(page.locator('.hero a[data-sim="call"]'))).click();
+    assert(await page.locator('#sim-call').isVisible(), 'call simulation shown via :target');
+    await page.goto(`${BASE}/devis/`);
+    await (await settle(page.locator('select[name=service]'))).selectOption('airport');
+    for (const [name, value] of [['departure', 'Cannes-centre'], ['arrival', 'Aéroport Nice Côte d’Azur'], ['date', future()], ['time', '09:00'], ['name', 'Alex']]) {
+      await (await settle(page.locator(`input[name=${name}]`))).fill(value);
+    }
+    await (await settle(page.locator('input[name=contactMethod][value=email]'))).check();
+    await (await settle(page.locator('input[name=email]'))).fill('alexandra.martin-durand@example.com');
+    let posted = null;
+    page.on('request', (r) => r.url().endsWith('/api/demandes') && (posted = r.method()));
+    const submit = await settle(page.locator('button[type=submit]'));
+    await Promise.all([page.waitForURL('**/api/demandes'), submit.click()]);
+    const html = await page.content();
+    assert(posted === 'POST' && page.url().endsWith('/api/demandes'), `real POST to the endpoint, no data in the URL (${posted} ${page.url()})`);
+    assert(/Simulation terminée/.test(html) && /Aéroport Nice Côte d’Azur/.test(html) && /95/.test(html), 'summary page with the fare reference');
+    await page.setViewportSize({ width: 360, height: 740 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    assert(overflow <= 0, `summary page fits 360px (overflow ${overflow}px)`);
+  }, { javaScriptEnabled: false, viewport: { width: w, height: h } });
+}
+
+const heroState = (page) => page.evaluate(() => {
+  const h = document.querySelector('[data-hero]');
+  return { act: h.getAttribute('data-sc-act'), span: h.getAttribute('data-sc-span'), h: Math.round(h.getBoundingClientRect().height), inline: h.style.height, cls: h.classList.contains('sc-act--pinned'), instances: window.ScrollCraft.instances.length, vh: innerHeight };
+});
+
+await test('hero recomposes on resize without reload: desktop -> phone -> desktop, mid-scroll, reduced motion', async (page) => {
+  // Reference heights from direct loads.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+  const phoneDirect = await heroState(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+  const deskDirect = await heroState(page);
+  assert(deskDirect.act === 'pin' && phoneDirect.act === 'flow', `direct loads: ${deskDirect.act} / ${phoneDirect.act}`);
+
+  // Desktop -> phone, while halfway through the pinned hero.
+  await page.evaluate(() => scrollTo({ top: 400, behavior: 'instant' }));
+  await page.waitForTimeout(300);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(500);
+  const toPhone = await heroState(page);
+  assert(toPhone.act === 'flow' && !toPhone.cls && !toPhone.inline, `desktop->phone: act=${toPhone.act} pinnedClass=${toPhone.cls} inline=${toPhone.inline}`);
+  assert(Math.abs(toPhone.h - phoneDirect.h) <= 2, `desktop->phone height ${toPhone.h} vs direct phone load ${phoneDirect.h}`);
+  assert(toPhone.instances === 1, `one engine instance (${toPhone.instances})`);
+
+  // Phone -> desktop, scrolled past the hero: pinning and its scroll room come back.
+  await page.evaluate(() => scrollTo({ top: 1500, behavior: 'instant' }));
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.waitForTimeout(500);
+  const toDesk = await heroState(page);
+  assert(toDesk.act === 'pin' && toDesk.span === '1.4' && toDesk.cls, `phone->desktop: act=${toDesk.act} span=${toDesk.span}`);
+  assert(Math.abs(toDesk.h - deskDirect.h) <= 2, `phone->desktop height ${toDesk.h} vs direct desktop load ${deskDirect.h}`);
+  assert(toDesk.instances === 1, `one engine instance (${toDesk.instances})`);
+  // The pinned movement works again: the car grows while scrolling through the hero.
+  await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+  await page.waitForTimeout(400);
+  const s0 = await page.evaluate(() => getComputedStyle(document.querySelector('.hero__layer--car')).transform);
+  await page.evaluate(() => scrollTo({ top: 360, behavior: 'instant' }));
+  await page.waitForTimeout(600);
+  const s1 = await page.evaluate(() => getComputedStyle(document.querySelector('.hero__layer--car')).transform);
+  assert(s0 !== s1 && s1 !== 'none', `car layer moves after remount (${s0} -> ${s1})`);
+
+  // Reduced motion switched on live: flow, no transforms; switched off: pinned again.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.waitForTimeout(400);
+  const rm = await heroState(page);
+  assert(rm.act === 'flow' && Math.abs(rm.h - rm.vh) <= 2, `reduced motion: act=${rm.act} h=${rm.h} vh=${rm.vh}`);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.waitForTimeout(400);
+  const back = await heroState(page);
+  assert(back.act === 'pin' && back.instances === 1, `motion back on: act=${back.act} instances=${back.instances}`);
+  return { phoneDirect: phoneDirect.h, deskDirect: deskDirect.h, toPhone: toPhone.h, toDesk: toDesk.h };
+});
 
 await test('reduced motion: hero not pinned, layers static, content complete', async (page) => {
   await page.goto(BASE, { waitUntil: 'networkidle' });
@@ -414,7 +491,12 @@ await test('SEO: titles, canonical, hreflang, robots (demo noindex, no LocalBusi
     assert(!m.jsonld, `${p} no LocalBusiness in demo`);
   }
   const robots = await (await fetch(`${BASE}/robots.txt`)).text();
-  assert(/Disallow: \//.test(robots), 'robots disallow in preview');
+  // Demo: not indexable through the per-page meta (checked above); robots.txt must say
+  // so, must not block crawling (or the noindex could never be read) and must not
+  // announce a sitemap.
+  assert(/Fictional demonstration/.test(robots) && /noindex/.test(robots), 'robots.txt states the demo status');
+  assert(!/^Disallow: \/\s*$/m.test(robots) && /^Allow: \/$/m.test(robots), 'demo crawling not blocked, so the noindex meta can be read');
+  assert(!/Sitemap:/i.test(robots), 'no sitemap announced for the demo');
   const sitemap = await (await fetch(`${BASE}/sitemap.xml`)).text();
   assert(sitemap.includes('/tarifs/') && sitemap.includes('/en/rates/') && sitemap.includes('hreflang="en"'), 'sitemap');
 });

@@ -36,29 +36,80 @@ const d = t(lang);
   // The engine is vendored unmodified (src/vendor/scrollcraft, MIT, Nate Herk).
   import '../vendor/scrollcraft/scrollcraft.js';
 
+  type Instance = { destroy: () => void };
+  const SC = (window as unknown as { ScrollCraft: { mount: (root: Element) => Instance } }).ScrollCraft;
+
   // Same media query as Hero.astro: only the layered composition is pinned.
-  const LAYERED = '(min-width: 1100px) and (min-aspect-ratio: 3/2)';
+  // Phones, tablets, narrow windows and reduced motion get natural flow.
+  const layeredMQ = matchMedia('(min-width: 1100px) and (min-aspect-ratio: 3/2)');
+  const reducedMQ = matchMedia('(prefers-reduced-motion: reduce)');
   const hero = document.querySelector<HTMLElement>('[data-hero]');
-  if (hero) {
-    const layered = matchMedia(LAYERED).matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!layered) {
-      // Phones, tablets, reduced motion: natural flow, no pinned scroll space.
+  const stage = hero?.querySelector<HTMLElement>('[data-sc-stage]') ?? null;
+  const PIN_SPAN = '1.4';
+
+  let instance: Instance | null = null;
+  let pinned = false;
+
+  // Put the hero in the state the engine expects for the current composition.
+  // What the engine adds to a pinned act (inline height, --sc-p, two classes) is
+  // removed first, so a pinned -> flow switch leaves no pinned scroll room behind.
+  function configure(pin: boolean) {
+    if (!hero) return;
+    pinned = pin;
+    hero.style.removeProperty('height');
+    hero.style.removeProperty('--sc-p');
+    hero.classList.remove('sc-act--pinned');
+    stage?.classList.remove('sc-stage');
+    if (pin) {
+      hero.setAttribute('data-sc-act', 'pin');
+      hero.setAttribute('data-sc-span', PIN_SPAN);
+    } else {
       hero.setAttribute('data-sc-act', 'flow');
       hero.removeAttribute('data-sc-span');
-    } else {
-      // Publish the rendered depth (car scale) so Scroll Craft's harness can tell
-      // a moving fixed stage from dead scroll (verify.md, data-sc-verify-state).
-      const stage = hero.querySelector<HTMLElement>('[data-sc-stage]');
-      let last = '';
-      let queued = false;
-      const publish = () => {
-        queued = false;
-        const p = parseFloat(getComputedStyle(hero).getPropertyValue('--sc-p')) || 0;
-        const v = (1 + Math.min(1, Math.max(0, p)) * 0.09).toFixed(3);
-        if (stage && v !== last) stage.setAttribute('data-sc-verify-state', (last = v));
-      };
-      addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => requestAnimationFrame(publish)); } }, { passive: true });
+    }
+    stage?.setAttribute('data-sc-verify-state', '1.000');
+  }
+
+  function mount() {
+    configure(layeredMQ.matches && !reducedMQ.matches);
+    instance = SC.mount(document.body);
+  }
+
+  // A composition change (window resized, phone rotated, reduced motion toggled)
+  // remounts the engine instead of keeping the choice made at load. destroy()
+  // removes the engine's listeners, frames and observers; the reading position
+  // is kept on the same content when the hero's height changes.
+  function recompose() {
+    const want = layeredMQ.matches && !reducedMQ.matches;
+    if (want === pinned) return;
+    const bottom = hero ? hero.getBoundingClientRect().bottom : 0;
+    const beyond = bottom < 0 ? -bottom : null; // px scrolled past the hero, if any
+    instance?.destroy();
+    instance = null;
+    mount();
+    if (hero && beyond !== null) {
+      const heroBottom = hero.getBoundingClientRect().bottom + scrollY;
+      scrollTo({ top: heroBottom + beyond, behavior: 'instant' });
     }
   }
-  (window as unknown as { ScrollCraft: { mount: (root: Element) => unknown } }).ScrollCraft.mount(document.body);
+
+  if (hero) {
+    mount();
+    layeredMQ.addEventListener('change', recompose);
+    reducedMQ.addEventListener('change', recompose);
+
+    // Publish the rendered depth (car scale) so Scroll Craft's harness can tell a
+    // moving pinned stage from dead scroll (verify.md, data-sc-verify-state).
+    let queued = false;
+    const publish = () => {
+      queued = false;
+      if (!pinned || !stage) return;
+      const p = parseFloat(getComputedStyle(hero).getPropertyValue('--sc-p')) || 0;
+      const v = (1 + Math.min(1, Math.max(0, p)) * 0.09).toFixed(3);
+      if (stage.getAttribute('data-sc-verify-state') !== v) stage.setAttribute('data-sc-verify-state', v);
+    };
+    addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => requestAnimationFrame(publish)); } }, { passive: true });
+  } else {
+    SC.mount(document.body);
+  }
 </script>

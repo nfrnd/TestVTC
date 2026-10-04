@@ -1,6 +1,6 @@
 {
   "doc": {
-    "height": 8420,
+    "height": 8442,
     "vh": 900,
     "acts": [
       "pin",
@@ -187,7 +187,7 @@
     {
       "i": 7,
       "y": 2071,
-      "pct": 28,
+      "pct": 27,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -311,7 +311,7 @@
     },
     {
       "i": 12,
-      "y": 7520,
+      "y": 7542,
       "pct": 100,
       "settled": true,
       "contrast": [],
@@ -323,7 +323,7 @@
       ],
       "act": "-",
       "stages": [
-        -7160
+        -7182
       ],
       "segs": [],
       "custom": [

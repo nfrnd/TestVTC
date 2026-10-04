@@ -5,7 +5,7 @@
 - Les formulaires Devis et Contact sont **simulés par le serveur** : la demande est validée,
   un récapitulatif est renvoyé au navigateur, **rien n'est envoyé ni stocké**. Le fournisseur
   d'e-mail n'est jamais appelé, même si une clé est configurée
-  (`docs/preuves/demo-force-simulation.txt` : 0 appel sortant).
+  (`docs/preuves/demo-simulation-proof.txt` : 0 appel sortant, espion vérifié par un témoin positif).
 - Le contenu de la demande ne quitte le navigateur que pour cet aller-retour (POST, jamais dans
   l'URL). Il n'est **pas journalisé** : le journal contient seulement le mode, le type, le
   résultat, le code HTTP et la durée (test unitaire « logs no personal data »).

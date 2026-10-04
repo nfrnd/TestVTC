@@ -1,12 +1,12 @@
 
  RUN  v5.0.3 /home/user/TestVTC
 
- ✓ tests/unit/validation.test.ts > quote validation > accepts a complete request and normalises whitespace 24ms
+ ✓ tests/unit/validation.test.ts > quote validation > accepts a complete request and normalises whitespace 25ms
  ✓ tests/unit/validation.test.ts > quote validation > judges "past" against Paris time, not UTC 1ms
  ✓ tests/unit/validation.test.ts > quote validation > refuses an earlier time today (Paris) and accepts a later one 1ms
  ✓ tests/unit/validation.test.ts > quote validation > requires a time unless "time to be confirmed" is checked 1ms
  ✓ tests/unit/validation.test.ts > quote validation > enforces the vehicle passenger limit from the data 1ms
- ✓ tests/unit/validation.test.ts > quote validation > requires a return after the departure for a return journey 1ms
+ ✓ tests/unit/validation.test.ts > quote validation > requires a return after the departure for a return journey 2ms
  ✓ tests/unit/validation.test.ts > quote validation > hourly service: no destination needed, minimum duration enforced 1ms
  ✓ tests/unit/validation.test.ts > quote validation > requires only the field of the chosen reply channel (WhatsApp uses the phone field) 1ms
  ✓ tests/unit/validation.test.ts > quote validation > refuses a channel the business does not offer 1ms
@@ -22,31 +22,31 @@
  ✓ tests/unit/validation.test.ts > international phone numbers > rejects +33 6 12 34 56 78 90 12 34 0ms
  ✓ tests/unit/validation.test.ts > international phone numbers > rejects 06 12 <script> 0ms
  ✓ tests/unit/validation.test.ts > contact validation > needs a message of reasonable length 0ms
- ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > never calls the email provider, even with a real-looking key configured 106ms
- ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > returns the exact simulation message, a DEMO reference and the server-built summary 4ms
- ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > shows the night rule for a 23:00 pick-up and the "custom quote" line for an unknown route 6ms
- ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > keeps the same prices as the content file (no duplicated number) 13ms
- ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > answers a no-JavaScript post with a summary page and no outbound link 6ms
+ ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > never calls the email provider, even with a real-looking key configured 99ms
+ ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > returns the exact simulation message, a DEMO reference and the server-built summary 3ms
+ ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > shows the night rule for a 23:00 pick-up and the "custom quote" line for an unknown route 4ms
+ ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > keeps the same prices as the content file (no duplicated number) 7ms
+ ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > answers a no-JavaScript post with a summary page and no outbound link 2ms
  ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > still validates on the server and logs no personal data 3ms
  ✓ tests/unit/handler.test.ts > demo mode: the server always simulates > simulates the contact form too 3ms
- ✓ tests/unit/handler.test.ts > protections (both modes) > local preview: other loopback spellings accepted, never with a public site URL 4ms
+ ✓ tests/unit/handler.test.ts > protections (both modes) > local preview: other loopback spellings accepted, never with a public site URL 2ms
  ✓ tests/unit/handler.test.ts > protections (both modes) > refuses unexpected origins and missing origins 2ms
- ✓ tests/unit/handler.test.ts > protections (both modes) > does not let a visitor choose the recipient (strict schema) 1ms
+ ✓ tests/unit/handler.test.ts > protections (both modes) > does not let a visitor choose the recipient (strict schema) 3ms
  ✓ tests/unit/handler.test.ts > protections (both modes) > refuses honeypot submissions 1ms
  ✓ tests/unit/handler.test.ts > protections (both modes) > rate-limits per client 5ms
  ✓ tests/unit/handler.test.ts > live mode > announces a simulated result with the test transport, never "sent" 2ms
- ✓ tests/unit/handler.test.ts > live mode > escapes user input in the composed email and keeps the journey readable 4ms
+ ✓ tests/unit/handler.test.ts > live mode > escapes user input in the composed email and keeps the journey readable 1ms
  ✓ tests/unit/handler.test.ts > live mode > does not send twice for a repeated request id 2ms
  ✓ tests/unit/handler.test.ts > live mode > reports a provider failure, and the same request can be retried 2ms
  ✓ tests/unit/handler.test.ts > live mode > in production, refuses to pretend: no provider configured means 503 1ms
  ✓ tests/unit/handler.test.ts > live mode > sends through Resend with an idempotency key when configured 2ms
  ✓ tests/unit/handler.test.ts > live mode > serves a no-JavaScript form post with a 303 to the result page 1ms
  ✓ tests/unit/handler.test.ts > publication guard > the fictional dataset can never pass the live guard 1ms
- ✓ tests/unit/handler.test.ts > publication guard > the live content still has blocking gaps, and an example domain is refused 1ms
- ✓ tests/unit/handler.test.ts > publication guard > demo and live contents are separate objects 1ms
+ ✓ tests/unit/handler.test.ts > publication guard > the live content still has blocking gaps, and an example domain is refused 0ms
+ ✓ tests/unit/handler.test.ts > publication guard > demo and live contents are separate objects 0ms
 
  Test Files  2 passed (2)
       Tests  43 passed (43)
-   Start at  00:44:20
-   Duration  660ms (transform 55%, tests 33%, import 10%, worker 2%)
+   Start at  12:00:18
+   Duration  542ms (transform 53%, tests 35%, import 11%, worker 1%)
 
